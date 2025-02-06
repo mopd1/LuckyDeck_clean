@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=3 uid="uid://hg36t717p0sf"]
+
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_a1qms"]
+[ext_resource type="Script" path="res://scripts/AvatarCustomizer.gd" id="1_rsw8p"]
+
+[node name="AvatarCustomizer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_a1qms")
+script = ExtResource("1_rsw8p")
+
+[node name="AvatarRoot" type="Node2D" parent="."]
+
+[node name="HeadBase" type="Sprite2D" parent="AvatarRoot"]
+position = Vector2(500, 280)
+scale = Vector2(0.4, 0.4)
+
+[node name="Face" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Hair" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Hat" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+position = Vector2(0, -350)
+scale = Vector2(0.2, 0.2)
+
+[node name="EarAccessories" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+position = Vector2(250, 0)
+scale = Vector2(0.2, 0.2)
+
+[node name="MouthAccessories" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+position = Vector2(-30, 270)
+scale = Vector2(0.2, 0.2)
+
+[node name="TorsoBase" type="Sprite2D" parent="AvatarRoot"]
+position = Vector2(500, 670)
+scale = Vector2(0.75, 0.75)
+
+[node name="Clothing" type="Sprite2D" parent="AvatarRoot/TorsoBase"]
+
+[node name="UIRoot" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="UIRoot"]
+custom_minimum_size = Vector2(920, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+current_tab = 0
+
+[node name="FaceTab" type="TabBar" parent="UIRoot/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="FaceGrid" type="GridContainer" parent="UIRoot/TabContainer/FaceTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ClothingTab" type="TabBar" parent="UIRoot/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ClothingGrid" type="GridContainer" parent="UIRoot/TabContainer/ClothingTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HairTab" type="TabBar" parent="UIRoot/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HairGrid" type="GridContainer" parent="UIRoot/TabContainer/HairTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HatTab" type="TabBar" parent="UIRoot/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="HatGrid" type="GridContainer" parent="UIRoot/TabContainer/HatTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Ear AccessoriesTab" type="TabBar" parent="UIRoot/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="Ear AccessoriesGrid" type="GridContainer" parent="UIRoot/TabContainer/Ear AccessoriesTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Mouth AccessoriesTab" type="TabBar" parent="UIRoot/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="Mouth AccessoriesGrid" type="GridContainer" parent="UIRoot/TabContainer/Mouth AccessoriesTab"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ConfirmButton" type="Button" parent="UIRoot"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_left = 1080.0
+offset_right = 1260.0
+offset_bottom = 60.0
+text = "Confirm"
+
+[node name="ClearButton" type="Button" parent="UIRoot"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 120.0
+offset_right = 1260.0
+offset_bottom = 180.0
+text = "Clear"
+
+[node name="RandomizeButton" type="Button" parent="UIRoot"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 240.0
+offset_right = 1260.0
+offset_bottom = 300.0
+text = "Randomize"

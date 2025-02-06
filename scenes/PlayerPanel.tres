@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c5y30tb5md0qt"]
+
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_t8h7e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0100"]
+bg_color = Color(0.101961, 0.0784314, 0.137255, 0)
+border_color = Color(0.980392, 0.945098, 0.603922, 1)
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[resource]
+default_font = ExtResource("1_t8h7e")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_t8h7e")
+Panel/styles/panel = SubResource("StyleBoxFlat_x0100")

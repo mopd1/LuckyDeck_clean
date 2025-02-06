@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc72s2xkijchj"]
+
+[ext_resource type="Texture2D" uid="uid://upd43b0dpbke" path="res://assets/icons/google_logo.png" id="1_b7qv1"]
+[ext_resource type="Script" path="res://scripts/GoogleSignInButton.gd" id="2_77u7h"]
+
+[node name="GoogleSignInButton" type="TextureButton"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 200.0
+offset_bottom = 50.0
+texture_normal = ExtResource("1_b7qv1")
+ignore_texture_size = true
+script = ExtResource("2_77u7h")

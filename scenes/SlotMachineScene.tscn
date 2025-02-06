@@ -1,0 +1,243 @@
+[gd_scene load_steps=10 format=3 uid="uid://cys06leqkq4ai"]
+
+[ext_resource type="Script" path="res://scripts/SlotMachineScene.gd" id="1_g4db1"]
+[ext_resource type="PackedScene" uid="uid://dq6jhxidufo1g" path="res://scenes/JokerMeter.tscn" id="1_jp2t6"]
+[ext_resource type="PackedScene" uid="uid://bm0k0cgsb3e26" path="res://scenes/ReelComponent.tscn" id="2_60qxp"]
+[ext_resource type="Theme" uid="uid://dreys20ea1gmc" path="res://TertiaryTheme.tres" id="2_s0ven"]
+[ext_resource type="PackedScene" uid="uid://c5e0sxu0h0hbx" path="res://scenes/ControlPanel.tscn" id="3_6m3sd"]
+[ext_resource type="Theme" uid="uid://c5y30tb5md0qt" path="res://scenes/PlayerPanel.tres" id="3_jikpt"]
+[ext_resource type="Theme" uid="uid://dk1wnv3orabg3" path="res://SpinBoxTheme.tres" id="5_4cxkf"]
+[ext_resource type="PackedScene" uid="uid://crv73r55nobu4" path="res://scenes/AIReels.tscn" id="5_g8mc7"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="9_0kt1j"]
+
+[node name="SlotMachineScene" type="Control"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g4db1")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.101961, 0.0784314, 0.137255, 0.827451)
+
+[node name="UI_Overlays" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 60)
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 60.0
+theme = ExtResource("2_s0ven")
+
+[node name="WinDisplay" type="Control" parent="UI_Overlays"]
+custom_minimum_size = Vector2(1080, 60)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WinAmount" type="Label" parent="UI_Overlays/WinDisplay"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_left = 360.0
+offset_right = 600.0
+offset_bottom = 60.0
+
+[node name="WinAnimation" type="AnimationPlayer" parent="UI_Overlays/WinDisplay"]
+
+[node name="PaytablePanel" type="Panel" parent="UI_Overlays"]
+custom_minimum_size = Vector2(840, 60)
+layout_mode = 0
+offset_left = 1080.0
+offset_right = 1920.0
+offset_bottom = 60.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI_Overlays/PaytablePanel"]
+custom_minimum_size = Vector2(840, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PaytableContent" type="VBoxContainer" parent="UI_Overlays/PaytablePanel/ScrollContainer"]
+custom_minimum_size = Vector2(840, 60)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UI_Overlays/PaytablePanel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Close"
+
+[node name="GameArea" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1020)
+anchors_preset = 0
+offset_top = 60.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TopSection" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(1920, 120)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("3_jikpt")
+
+[node name="AIOpponentArea" type="Control" parent="GameArea/TopSection"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AIReels" type="HBoxContainer" parent="GameArea/TopSection/AIOpponentArea"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ReelComponent" parent="GameArea/TopSection/AIOpponentArea/AIReels" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent2" parent="GameArea/TopSection/AIOpponentArea/AIReels" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent3" parent="GameArea/TopSection/AIOpponentArea/AIReels" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent4" parent="GameArea/TopSection/AIOpponentArea/AIReels" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent5" parent="GameArea/TopSection/AIOpponentArea/AIReels" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="AIHandLabel" type="Label" parent="GameArea/TopSection/AIOpponentArea"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Stats" type="HBoxContainer" parent="GameArea/TopSection"]
+custom_minimum_size = Vector2(1440, 120)
+layout_mode = 0
+offset_left = 30.0
+offset_right = 1690.0
+offset_bottom = 120.0
+theme = ExtResource("5_4cxkf")
+theme_override_constants/separation = 58
+
+[node name="ChipBalanceLabel" type="Label" parent="GameArea/TopSection/Stats"]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="LastWinLabel" type="Label" parent="GameArea/TopSection/Stats"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 2
+
+[node name="BetAmountLabel" type="Label" parent="GameArea/TopSection/Stats"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 2
+
+[node name="HandStrengthLabel" type="Label" parent="GameArea/TopSection/Stats"]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="AIHandStrengthLabel" type="Label" parent="GameArea/TopSection/Stats"]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 2
+
+[node name="MainSection" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(1920, 720)
+anchors_preset = 0
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 220.0
+theme = ExtResource("3_jikpt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameArea/MainSection"]
+custom_minimum_size = Vector2(360, 540)
+layout_mode = 0
+offset_left = 740.0
+offset_top = 180.0
+offset_right = 1100.0
+offset_bottom = 720.0
+
+[node name="JokerMeter" parent="GameArea/MainSection/VBoxContainer" instance=ExtResource("1_jp2t6")]
+custom_minimum_size = Vector2(360, 540)
+layout_mode = 2
+
+[node name="PlayerSection" type="VBoxContainer" parent="GameArea/MainSection"]
+custom_minimum_size = Vector2(640, 660)
+layout_mode = 0
+offset_left = 1240.0
+offset_right = 1880.0
+offset_bottom = 660.0
+
+[node name="YourHand" type="Label" parent="GameArea/MainSection/PlayerSection"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "Your Hand"
+
+[node name="ReelsContainer" type="HBoxContainer" parent="GameArea/MainSection/PlayerSection"]
+custom_minimum_size = Vector2(640, 540)
+layout_mode = 2
+
+[node name="ReelComponent" parent="GameArea/MainSection/PlayerSection/ReelsContainer" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent2" parent="GameArea/MainSection/PlayerSection/ReelsContainer" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent3" parent="GameArea/MainSection/PlayerSection/ReelsContainer" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent4" parent="GameArea/MainSection/PlayerSection/ReelsContainer" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="ReelComponent5" parent="GameArea/MainSection/PlayerSection/ReelsContainer" instance=ExtResource("2_60qxp")]
+layout_mode = 2
+
+[node name="AISection" type="VBoxContainer" parent="GameArea/MainSection"]
+custom_minimum_size = Vector2(640, 660)
+layout_mode = 0
+offset_left = 120.0
+offset_right = 760.0
+offset_bottom = 660.0
+
+[node name="AIHand" type="Label" parent="GameArea/MainSection/AISection"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+text = "AI Hand"
+
+[node name="AIReels" parent="GameArea/MainSection/AISection" instance=ExtResource("5_g8mc7")]
+layout_mode = 2
+
+[node name="PaylineOverlay" type="Control" parent="GameArea/MainSection"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ComparisonLabel" type="Label" parent="GameArea/MainSection"]
+custom_minimum_size = Vector2(360, 120)
+layout_mode = 0
+offset_left = 740.0
+offset_right = 1100.0
+offset_bottom = 120.0
+
+[node name="BottomSection" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(1920, 180)
+anchors_preset = 0
+offset_top = 900.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="ControlPanel" parent="GameArea/BottomSection" instance=ExtResource("3_6m3sd")]
+layout_mode = 1
+
+[node name="ReturnToHubButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1600.0
+offset_top = 120.0
+offset_right = 1822.0
+offset_bottom = 162.0
+theme = ExtResource("9_0kt1j")
+text = "Return to Hub"

@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://du2tgfugdruyb"]
+
+[ext_resource type="Script" path="res://scripts/SearchResultItem.gd" id="1_exct0"]
+
+[node name="SearchResultItem" type="Control"]
+custom_minimum_size = Vector2(1440, 60)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -480.0
+offset_bottom = -1020.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_exct0")
+
+[node name="Background" type="Panel" parent="."]
+custom_minimum_size = Vector2(1440, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarDisplay" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UserInfo" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(920, 60)
+layout_mode = 0
+offset_left = 60.0
+offset_right = 988.0
+offset_bottom = 60.0
+
+[node name="Username" type="Label" parent="UserInfo"]
+custom_minimum_size = Vector2(540, 60)
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="UserInfo"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+
+[node name="StatusIndicator" type="TextureRect" parent="UserInfo"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+
+[node name="AddFriendButton" type="Button" parent="."]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_left = 928.0
+offset_right = 936.0
+offset_bottom = 60.0
+text = "Add Friend"
+
+[node name="StatusLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_left = 1200.0
+offset_right = 1440.0
+offset_bottom = 60.0
+
+[connection signal="pressed" from="AddFriendButton" to="." method="_on_add_friend_button_pressed"]

@@ -1,0 +1,140 @@
+[gd_scene load_steps=5 format=3 uid="uid://dje8gnab3xr8a"]
+
+[ext_resource type="Script" path="res://scripts/ChallengeScene.gd" id="1_v7bv3"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="2_augt3"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="3_65ehi"]
+[ext_resource type="Texture2D" uid="uid://b7bfyk2psbpgm" path="res://assets/icons/packagechip.png" id="4_qkwib"]
+
+[node name="ChallengeScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v7bv3")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0.992157, 0.952941, 1)
+
+[node name="TitleLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(1920, 80)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("2_augt3")
+theme_override_font_sizes/font_size = 60
+text = "CHALLENGES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(1920, 80)
+layout_mode = 0
+offset_top = 80.0
+offset_right = 1920.0
+offset_bottom = 160.0
+theme = ExtResource("2_augt3")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(1800, 720)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 280.0
+offset_right = 1860.0
+offset_bottom = 1000.0
+theme = ExtResource("2_augt3")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="RewardsContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ClaimAllButton" type="Button" parent="."]
+custom_minimum_size = Vector2(320, 120)
+layout_mode = 0
+offset_left = 1550.0
+offset_top = 40.0
+offset_right = 1908.0
+offset_bottom = 160.0
+theme = ExtResource("3_65ehi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "REDEEM ALL"
+
+[node name="ReturnButton" type="Button" parent="."]
+custom_minimum_size = Vector2(320, 120)
+layout_mode = 0
+offset_top = 40.0
+offset_right = 320.0
+offset_bottom = 160.0
+theme = ExtResource("2_augt3")
+text = "Return"
+
+[node name="ChallengePointsLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_left = 380.0
+offset_top = 210.0
+offset_right = 780.0
+offset_bottom = 270.0
+theme = ExtResource("2_augt3")
+text = "Challenge Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 210.0
+offset_right = 360.0
+offset_bottom = 270.0
+theme = ExtResource("2_augt3")
+text = "Reward Status"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChipRewardLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 0
+offset_left = 800.0
+offset_top = 210.0
+offset_right = 1100.0
+offset_bottom = 270.0
+theme = ExtResource("2_augt3")
+text = "Chip Reward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GemRewardLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 0
+offset_left = 1120.0
+offset_top = 210.0
+offset_right = 1420.0
+offset_bottom = 270.0
+theme = ExtResource("2_augt3")
+text = "Gem Reward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChipImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_left = 806.0
+offset_top = 220.0
+offset_right = 846.0
+offset_bottom = 260.0
+texture = ExtResource("4_qkwib")
+expand_mode = 1

@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnekfbws2ax8p"]
+
+[sub_resource type="GDScript" id="GDScript_s3qeq"]
+script/source = "# StreakIndicator.gd
+extends Control
+
+signal explanation_requested(position: Vector2)
+
+@onready var streak_label = $StreakCount
+@onready var background = $Background
+@onready var info_button = $InfoButton
+
+const INACTIVE_COLOR = Color(0.5, 0.5, 0.5, 0.5)
+const ACTIVE_COLOR = Color(1, 1, 1, 1)
+const NEAR_MULTIPLIER_COLOR = Color(1, 0.8, 0, 1)
+const MULTIPLIER_COLOR = Color(0, 1, 0, 1)
+
+var current_streak: int = 0
+var is_eligible: bool = false
+
+func _ready():
+	print(\"StreakIndicator ready, setting up...\")
+	# Ensure the indicator is visible by default
+	visible = true
+	modulate.a = 1.0
+	
+	if not streak_label:
+		push_error(\"StreakIndicator: StreakCount Label not found\")
+		return
+	if not background:
+		push_error(\"StreakIndicator: Background Panel not found\")
+		return
+	if not info_button:
+		push_error(\"StreakIndicator: InfoButton not found\")
+		return
+		
+	info_button.pressed.connect(_on_info_button_pressed)
+	update_display()
+	print(\"StreakIndicator setup complete. Eligible:\", is_eligible, \" Streak:\", current_streak)
+	
+	z_index = 1  # Ensure it appears above other elements
+	custom_minimum_size = Vector2(60, 30)  # Ensure minimum visibility size
+
+func update_display() -> void:
+	print(\"StreakIndicator updating display. Eligible:\", is_eligible, \" Streak:\", current_streak)
+	if not streak_label:
+		push_error(\"StreakIndicator: StreakCount Label is null during update_display\")
+		return
+		
+	streak_label.text = str(current_streak) if is_eligible else \"-\"
+	
+	if not background:
+		push_error(\"StreakIndicator: Background is null during update_display\")
+		return
+		
+	var color = INACTIVE_COLOR
+	if is_eligible:
+		if current_streak >= 5:
+			color = MULTIPLIER_COLOR
+		elif current_streak == 4:
+			color = NEAR_MULTIPLIER_COLOR
+		else:
+			color = ACTIVE_COLOR
+	
+	background.modulate = color
+	print(\"StreakIndicator display updated. Text:\", streak_label.text, \" Color:\", color)
+	
+func set_streak(value: int, eligible: bool) -> void:
+	current_streak = value
+	is_eligible = eligible
+	update_display()
+
+func _on_info_button_pressed() -> void:
+	emit_signal(\"explanation_requested\", info_button.global_position)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tblq0"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_2r73h"]
+Panel/styles/panel = SubResource("StyleBoxFlat_tblq0")
+
+[node name="StreakIndicator" type="Control"]
+custom_minimum_size = Vector2(240, 30)
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_s3qeq")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2r73h")
+
+[node name="InfoButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="StreakCount" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+vertical_alignment = 1

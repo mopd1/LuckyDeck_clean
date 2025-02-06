@@ -1,0 +1,166 @@
+[gd_scene load_steps=4 format=3 uid="uid://v5voxjwe4yyp"]
+
+[ext_resource type="Script" path="res://scripts/FriendSystemScene.gd" id="1_kq7u1"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_vemqo"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_cy7x1"]
+
+[node name="FriendSystemScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kq7u1")
+
+[node name="Header" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 60)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleLabel" type="Label" parent="Header"]
+custom_minimum_size = Vector2(1920, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_vemqo")
+text = "Friend System"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="Header"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_vemqo")
+text = "Return"
+
+[node name="MainContent" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1920, 960)
+layout_mode = 0
+offset_top = 120.0
+offset_right = 40.0
+offset_bottom = 178.0
+
+[node name="LeftPanel" type="VBoxContainer" parent="MainContent"]
+custom_minimum_size = Vector2(480, 960)
+layout_mode = 2
+
+[node name="FriendList" type="VBoxContainer" parent="MainContent/LeftPanel"]
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 2
+
+[node name="ListTitle" type="Label" parent="MainContent/LeftPanel/FriendList"]
+custom_minimum_size = Vector2(480, 60)
+layout_mode = 2
+theme = ExtResource("1_vemqo")
+text = "Friends"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FriendListContainer" type="VBoxContainer" parent="MainContent/LeftPanel/FriendList"]
+custom_minimum_size = Vector2(480, 420)
+layout_mode = 2
+
+[node name="FriendRequests" type="VBoxContainer" parent="MainContent/LeftPanel"]
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 2
+
+[node name="RequestsTitle" type="Label" parent="MainContent/LeftPanel/FriendRequests"]
+custom_minimum_size = Vector2(480, 60)
+layout_mode = 2
+theme = ExtResource("1_vemqo")
+text = "Friend Requests"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RequestsContainer" type="VBoxContainer" parent="MainContent/LeftPanel/FriendRequests"]
+custom_minimum_size = Vector2(480, 420)
+layout_mode = 2
+
+[node name="RightPanel" type="VBoxContainer" parent="MainContent"]
+custom_minimum_size = Vector2(1440, 960)
+layout_mode = 2
+
+[node name="SearchSection" type="Control" parent="MainContent/RightPanel"]
+custom_minimum_size = Vector2(1440, 360)
+layout_mode = 2
+
+[node name="SearchTitle" type="Label" parent="MainContent/RightPanel/SearchSection"]
+custom_minimum_size = Vector2(1440, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_vemqo")
+text = "Search Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SearchContainer" type="HBoxContainer" parent="MainContent/RightPanel/SearchSection"]
+custom_minimum_size = Vector2(1440, 60)
+layout_mode = 0
+offset_top = 60.0
+offset_right = 79.0
+offset_bottom = 100.0
+
+[node name="SearchInput" type="LineEdit" parent="MainContent/RightPanel/SearchSection/SearchContainer"]
+custom_minimum_size = Vector2(1200, 60)
+layout_mode = 2
+
+[node name="SearchButton" type="Button" parent="MainContent/RightPanel/SearchSection/SearchContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+theme = ExtResource("2_cy7x1")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Search"
+
+[node name="SearchResults" type="VBoxContainer" parent="MainContent/RightPanel/SearchSection"]
+custom_minimum_size = Vector2(1440, 230)
+layout_mode = 0
+offset_top = 130.0
+offset_right = 1440.0
+offset_bottom = 170.0
+
+[node name="ChatSection" type="Control" parent="MainContent/RightPanel"]
+custom_minimum_size = Vector2(1440, 600)
+layout_mode = 2
+
+[node name="ChatTitle" type="Label" parent="MainContent/RightPanel/ChatSection"]
+custom_minimum_size = Vector2(1440, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_vemqo")
+text = "Chat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessagesContainer" type="ScrollContainer" parent="MainContent/RightPanel/ChatSection"]
+custom_minimum_size = Vector2(1440, 300)
+layout_mode = 0
+offset_top = 60.0
+offset_bottom = 60.0
+
+[node name="Messages" type="VBoxContainer" parent="MainContent/RightPanel/ChatSection/MessagesContainer"]
+layout_mode = 2
+
+[node name="MessageInputContainer" type="HBoxContainer" parent="MainContent/RightPanel/ChatSection"]
+custom_minimum_size = Vector2(1440, 240)
+layout_mode = 0
+offset_top = 360.0
+offset_right = 1440.0
+offset_bottom = 400.0
+
+[node name="MessageInput" type="LineEdit" parent="MainContent/RightPanel/ChatSection/MessageInputContainer"]
+custom_minimum_size = Vector2(1200, 240)
+layout_mode = 2
+
+[node name="SendButton" type="Button" parent="MainContent/RightPanel/ChatSection/MessageInputContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+theme = ExtResource("2_cy7x1")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Send Message"
+autowrap_mode = 3

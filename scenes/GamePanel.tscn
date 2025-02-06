@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://ccrvthber456w"]
+
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_47mr5"]
+[ext_resource type="Script" path="res://scripts/GamePanel.gd" id="1_pd1b7"]
+[ext_resource type="Texture2D" uid="uid://6iy476r73q3d" path="res://assets/backgrounds/game_image.png" id="2_nk45q"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="4_6ug2o"]
+[ext_resource type="Theme" uid="uid://bn8qmtgx536mm" path="res://scenes/ChipLabels.tres" id="4_881bx"]
+[ext_resource type="Texture2D" uid="uid://bskqhmhxhh63" path="res://assets/icons/grabber_lobby.png" id="4_h8qh5"]
+
+[sub_resource type="Theme" id="Theme_rk6ef"]
+HSlider/icons/grabber = ExtResource("4_h8qh5")
+HSlider/icons/grabber_highlight = ExtResource("4_h8qh5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clnsg"]
+bg_color = Color(0, 0.27451, 0.262745, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtvx2"]
+bg_color = Color(0.913725, 0.290196, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pd8mg"]
+bg_color = Color(0.980392, 0.945098, 0.603922, 1)
+
+[node name="GamePanel" type="Panel"]
+custom_minimum_size = Vector2(335, 580)
+offset_right = 320.0
+offset_bottom = 580.0
+theme = ExtResource("1_47mr5")
+script = ExtResource("1_pd1b7")
+
+[node name="TitleLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 60)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GameImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(315, 220)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 230.0
+offset_bottom = 200.0
+texture = ExtResource("2_nk45q")
+expand_mode = 1
+
+[node name="StakeSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(295, 40)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 320.0
+offset_right = 315.0
+offset_bottom = 360.0
+theme = SubResource("Theme_rk6ef")
+theme_override_styles/slider = SubResource("StyleBoxFlat_clnsg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_jtvx2")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_pd8mg")
+max_value = 1e+06
+
+[node name="MinBalanceLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 40)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 370.0
+offset_right = 325.0
+offset_bottom = 410.0
+theme = ExtResource("4_881bx")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayButton" type="Button" parent="."]
+custom_minimum_size = Vector2(315, 120)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 470.0
+offset_right = 310.0
+offset_bottom = 590.0
+theme = ExtResource("4_6ug2o")
+text = "PLAY"
+autowrap_mode = 3

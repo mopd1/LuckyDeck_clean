@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjd5evvo2jnnl"]
+
+[ext_resource type="Script" path="res://scripts/RNGTester.gd" id="1_4il68"]
+
+[node name="RNGTester" type="Node"]
+script = ExtResource("1_4il68")

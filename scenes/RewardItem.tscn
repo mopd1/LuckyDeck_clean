@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd14lujuibr0o"]
+
+[ext_resource type="Script" path="res://scripts/RewardItem.gd" id="1_6vsxc"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="2_0t68e"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="3_2y21y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f715c"]
+bg_color = Color(0, 0.462745, 0.505882, 1)
+border_width_top = 5
+
+[sub_resource type="Theme" id="Theme_7i7rm"]
+Label/styles/normal = SubResource("StyleBoxFlat_f715c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc3j8"]
+bg_color = Color(0, 0.462745, 0.505882, 1)
+border_width_left = 5
+border_width_top = 5
+
+[node name="RewardItem" type="Control"]
+custom_minimum_size = Vector2(1800, 120)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+script = ExtResource("1_6vsxc")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1800, 180)
+layout_mode = 0
+offset_right = 1800.0
+offset_bottom = 180.0
+theme = ExtResource("2_0t68e")
+
+[node name="Control" type="Control" parent="PanelContainer"]
+custom_minimum_size = Vector2(1800, 180)
+layout_mode = 2
+theme = SubResource("Theme_7i7rm")
+
+[node name="Control" type="Control" parent="PanelContainer/Control"]
+custom_minimum_size = Vector2(900, 60)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 900.0
+offset_bottom = 60.0
+
+[node name="StatusLabel" type="Label" parent="PanelContainer/Control/Control"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+offset_right = 300.0
+offset_bottom = 60.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MilestoneLabel" type="Label" parent="PanelContainer/Control/Control"]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
+offset_left = 320.0
+offset_right = 620.0
+offset_bottom = 60.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_nc3j8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="PanelContainer/Control"]
+custom_minimum_size = Vector2(900, 60)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 740.0
+offset_right = 1640.0
+offset_bottom = 60.0
+
+[node name="ChipRewardLabel" type="Label" parent="PanelContainer/Control/Control2"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+offset_right = 300.0
+offset_bottom = 60.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GemRewardLabel" type="Label" parent="PanelContainer/Control/Control2"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+offset_left = 320.0
+offset_right = 620.0
+offset_bottom = 60.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClaimButton" type="Button" parent="PanelContainer/Control"]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 2
+offset_left = 1430.0
+offset_right = 1790.0
+offset_bottom = 60.0
+theme = ExtResource("3_2y21y")
+theme_override_colors/font_color = Color(0, 0, 0, 1)

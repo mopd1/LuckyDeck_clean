@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dreys20ea1gmc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7pk7"]
+bg_color = Color(0.980392, 0.945098, 0.603922, 1)
+border_color = Color(0.505882, 0.396078, 0.262745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cfhg"]
+bg_color = Color(0.980392, 0.945098, 0.603922, 1)
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxFlat_p7pk7")
+Label/font_sizes/font_size = 32
+Label/fonts/font = null
+Label/styles/normal = SubResource("StyleBoxFlat_0cfhg")

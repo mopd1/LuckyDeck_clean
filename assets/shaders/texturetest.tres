@@ -1,0 +1,32 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://d07agvrk7s21o"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_jsun8"]
+parameter_name = "Alpha"
+hint = 1
+default_value_enabled = true
+default_value = 0.5
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float Alpha : hint_range(0, 1) = 0.5;
+
+
+
+void fragment() {
+// FloatParameter:2
+	float n_out2p0 = Alpha;
+
+
+// Output:0
+	COLOR.a = n_out2p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource("VisualShaderNodeFloatParameter_jsun8")
+nodes/fragment/2/position = Vector2(-400, 280)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1)

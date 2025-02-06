@@ -1,0 +1,117 @@
+[gd_scene load_steps=13 format=3 uid="uid://rptxvdf1jo1l"]
+
+[ext_resource type="Script" path="res://scripts/LoginScene.gd" id="1_38g6x"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_fjken"]
+[ext_resource type="Texture2D" uid="uid://secpphupvrbw" path="res://assets/backgrounds/login_logo.png" id="2_q522x"]
+[ext_resource type="PackedScene" uid="uid://cc72s2xkijchj" path="res://scenes/GoogleSignInButton.tscn" id="4_pcist"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftm1v"]
+bg_color = Color(0.101961, 0.0784314, 0.137255, 1)
+
+[sub_resource type="Theme" id="Theme_p2qxl"]
+default_font_size = 32
+Label/styles/normal = SubResource("StyleBoxFlat_ftm1v")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hh5yl"]
+bg_color = Color(0.352941, 0.647059, 0.690196, 1)
+
+[sub_resource type="Theme" id="Theme_h6bty"]
+LineEdit/styles/normal = SubResource("StyleBoxFlat_hh5yl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8air"]
+bg_color = Color(0.352941, 0.647059, 0.690196, 1)
+
+[sub_resource type="Theme" id="Theme_yhpy5"]
+LineEdit/styles/normal = SubResource("StyleBoxFlat_l8air")
+
+[sub_resource type="Theme" id="Theme_wvxwd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07w0a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="LoginScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fjken")
+script = ExtResource("1_38g6x")
+
+[node name="ColorBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.0784314, 0.137255, 1)
+
+[node name="Logo" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 240.0
+offset_top = -240.0
+offset_right = 720.0
+offset_bottom = 240.0
+grow_vertical = 2
+texture = ExtResource("2_q522x")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -240.0
+offset_right = -240.0
+offset_bottom = 240.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_p2qxl")
+text = "Sign-up or Login"
+horizontal_alignment = 1
+
+[node name="UsernameInput" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(720, 60)
+layout_mode = 2
+theme = SubResource("Theme_h6bty")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="PasswordInput" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(720, 60)
+layout_mode = 2
+theme = SubResource("Theme_yhpy5")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="LoginButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(720, 60)
+layout_mode = 2
+text = "Login"
+
+[node name="SignupButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(720, 60)
+layout_mode = 2
+text = "Signup"
+
+[node name="GoogleSignInButton" parent="VBoxContainer" instance=ExtResource("4_pcist")]
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_wvxwd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_07w0a")

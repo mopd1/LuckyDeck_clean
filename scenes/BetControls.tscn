@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://crynsq8jmehy2"]
+
+[ext_resource type="Texture2D" uid="uid://bpcipa8rvktyr" path="res://assets/table/10000chip.png" id="1_bh3bp"]
+[ext_resource type="Script" path="res://scripts/BetControls.gd" id="1_hea65"]
+[ext_resource type="Texture2D" uid="uid://bo12iie76nslr" path="res://assets/table/100000chip.png" id="2_t575w"]
+[ext_resource type="Texture2D" uid="uid://c445ffehdub66" path="res://assets/table/1000000chip.png" id="3_q00kb"]
+
+[node name="BetControls" type="Control"]
+custom_minimum_size = Vector2(300, 90)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hea65")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(360, 90)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 40
+
+[node name="Bet10kButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("1_bh3bp")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Bet100kButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("2_t575w")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet1mButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("3_q00kb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BetLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 2
+offset_left = 12.0
+offset_top = -60.0
+offset_right = 372.0
+horizontal_alignment = 1

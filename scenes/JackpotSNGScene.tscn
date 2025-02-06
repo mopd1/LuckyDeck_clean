@@ -1,0 +1,441 @@
+[gd_scene load_steps=12 format=3 uid="uid://clgo2romrv3n4"]
+
+[ext_resource type="Texture2D" uid="uid://6o10x2lbvm46" path="res://assets/table/LD_Poker_Table_1920x1080_blk.png" id="1_0144e"]
+[ext_resource type="Script" path="res://scripts/JackpotSNGScene.gd" id="1_qr4uc"]
+[ext_resource type="Texture2D" uid="uid://r0280w8dbd0i" path="res://assets/table/dealer_button.png" id="2_by54d"]
+[ext_resource type="Script" path="res://scripts/JackpotSNGGameManager.gd" id="3_pfwmp"]
+[ext_resource type="Script" path="res://scripts/JackpotSNGPlayerUI.gd" id="3_sdyab"]
+[ext_resource type="Script" path="res://scripts/ActionUI.gd" id="4_icolq"]
+[ext_resource type="Script" path="res://scripts/WinnerPopup.gd" id="7_hm8ep"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5g2n"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oo6xg"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vg0p2"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_oxpqg"]
+Panel/styles/panel = SubResource("StyleBoxFlat_t5g2n")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_oo6xg")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_vg0p2")
+
+[node name="JackpotSNGScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qr4uc")
+
+[node name="Background" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0144e")
+
+[node name="TournamentInfo" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(720, 30)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="InfoVBox" type="HBoxContainer" parent="TournamentInfo"]
+custom_minimum_size = Vector2(720, 30)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="BlindDisplay" type="HBoxContainer" parent="TournamentInfo/InfoVBox"]
+custom_minimum_size = Vector2(240, 30)
+layout_mode = 2
+
+[node name="BlindLabel" type="Label" parent="TournamentInfo/InfoVBox/BlindDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="BlindValue" type="Label" parent="TournamentInfo/InfoVBox/BlindDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="TimerDisplay" type="HBoxContainer" parent="TournamentInfo/InfoVBox"]
+custom_minimum_size = Vector2(240, 30)
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="TournamentInfo/InfoVBox/TimerDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="TimerValue" type="Label" parent="TournamentInfo/InfoVBox/TimerDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="PrizeDisplay" type="HBoxContainer" parent="TournamentInfo/InfoVBox"]
+custom_minimum_size = Vector2(240, 30)
+layout_mode = 2
+
+[node name="PrizeLabel" type="Label" parent="TournamentInfo/InfoVBox/PrizeDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="PrizeValue" type="Label" parent="TournamentInfo/InfoVBox/PrizeDisplay"]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+
+[node name="Table" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0144e")
+
+[node name="CommunityCards" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(720, 240)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 392.0
+offset_right = 1320.0
+offset_bottom = 632.0
+theme_override_constants/separation = 4
+
+[node name="Card1" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card3" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card4" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card5" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Players" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Player1" type="Control" parent="Players"]
+custom_minimum_size = Vector2(480, 280)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 640.0
+offset_top = 740.0
+offset_right = 1120.0
+offset_bottom = 1020.0
+script = ExtResource("3_sdyab")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player1"]
+custom_minimum_size = Vector2(300, 240)
+layout_mode = 1
+offset_left = 190.0
+offset_top = 30.0
+offset_right = 490.0
+offset_bottom = 270.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player1/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player1/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player1"]
+custom_minimum_size = Vector2(180, 280)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarViewport" type="SubViewport" parent="Players/Player1/Panel"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+offset_right = 180.0
+offset_bottom = 240.0
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player1/Panel"]
+layout_mode = 2
+offset_top = 244.0
+offset_right = 180.0
+offset_bottom = 267.0
+
+[node name="ChipCount" type="Label" parent="Players/Player1/Panel"]
+layout_mode = 2
+offset_top = 271.0
+offset_right = 180.0
+offset_bottom = 294.0
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="Player2" type="Control" parent="Players"]
+custom_minimum_size = Vector2(480, 280)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 120.0
+offset_right = 480.0
+offset_bottom = 400.0
+script = ExtResource("3_sdyab")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player2"]
+custom_minimum_size = Vector2(300, 240)
+layout_mode = 1
+offset_left = 190.0
+offset_top = 30.0
+offset_right = 490.0
+offset_bottom = 270.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player2/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player2/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player2"]
+custom_minimum_size = Vector2(180, 280)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarViewport" type="SubViewport" parent="Players/Player2/Panel"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+offset_right = 180.0
+offset_bottom = 240.0
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player2/Panel"]
+layout_mode = 2
+offset_top = 244.0
+offset_right = 180.0
+offset_bottom = 267.0
+
+[node name="ChipCount" type="Label" parent="Players/Player2/Panel"]
+layout_mode = 2
+offset_top = 271.0
+offset_right = 180.0
+offset_bottom = 294.0
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="Player3" type="Control" parent="Players"]
+custom_minimum_size = Vector2(480, 280)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1440.0
+offset_top = 120.0
+offset_right = 1920.0
+offset_bottom = 400.0
+script = ExtResource("3_sdyab")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player3"]
+custom_minimum_size = Vector2(300, 240)
+layout_mode = 1
+offset_left = 190.0
+offset_top = 30.0
+offset_right = 490.0
+offset_bottom = 270.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player3/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player3/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player3"]
+custom_minimum_size = Vector2(180, 280)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_oxpqg")
+
+[node name="AvatarViewport" type="SubViewport" parent="Players/Player3/Panel"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+offset_right = 180.0
+offset_bottom = 240.0
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player3/Panel"]
+layout_mode = 2
+offset_top = 244.0
+offset_right = 180.0
+offset_bottom = 267.0
+
+[node name="ChipCount" type="Label" parent="Players/Player3/Panel"]
+layout_mode = 2
+offset_top = 271.0
+offset_right = 180.0
+offset_bottom = 294.0
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="Pot" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(320, 90)
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 600.0
+offset_right = 1400.0
+offset_bottom = 690.0
+
+[node name="PotLabel" type="Label" parent="Pot"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="ActionUI" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(700, 240)
+layout_mode = 0
+offset_left = 1216.0
+offset_top = 840.0
+offset_right = 1916.0
+offset_bottom = 1080.0
+script = ExtResource("4_icolq")
+
+[node name="ActionButtons" type="HBoxContainer" parent="ActionUI"]
+custom_minimum_size = Vector2(700, 120)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="FoldButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+text = "Fold"
+
+[node name="CheckCallButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+
+[node name="RaiseButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+
+[node name="BetControl" type="HBoxContainer" parent="ActionUI"]
+custom_minimum_size = Vector2(700, 52)
+layout_mode = 2
+
+[node name="BetSlider" type="HSlider" parent="ActionUI/BetControl"]
+custom_minimum_size = Vector2(240, 80)
+layout_mode = 2
+
+[node name="BetAmount" type="SpinBox" parent="ActionUI/BetControl"]
+custom_minimum_size = Vector2(360, 80)
+layout_mode = 2
+
+[node name="DealerButton" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 1185.0
+offset_top = 725.0
+offset_right = 1265.0
+offset_bottom = 805.0
+texture = ExtResource("2_by54d")
+expand_mode = 1
+
+[node name="HandStrengthLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(420, 90)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 600.0
+offset_right = 1020.0
+offset_bottom = 690.0
+
+[node name="ReturnToLobbyButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Return to Lobby"
+
+[node name="JackpotSNGGameManager" type="Node" parent="."]
+script = ExtResource("3_pfwmp")
+
+[node name="WinnerPopup" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(660, 90)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 280.0
+offset_right = 1260.0
+offset_bottom = 370.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("7_hm8ep")
+
+[node name="WinnerLabel" type="Label" parent="WinnerPopup"]
+custom_minimum_size = Vector2(660, 90)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

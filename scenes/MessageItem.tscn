@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://cspxydls2dr4u"]
+
+[ext_resource type="Script" path="res://scripts/MessageItem.gd" id="1_w7eey"]
+
+[node name="MessageItem" type="Control"]
+custom_minimum_size = Vector2(1440, 120)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1440.0
+offset_bottom = 120.0
+script = ExtResource("1_w7eey")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1440, 120)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarDisplay" type="TextureRect" parent="Layout"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+expand_mode = 1
+
+[node name="MessageBubble" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(1320, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Layout/MessageBubble"]
+custom_minimum_size = Vector2(1320, 120)
+layout_mode = 2
+
+[node name="MessageContent" type="Label" parent="Layout/MessageBubble/VBoxContainer"]
+custom_minimum_size = Vector2(1320, 90)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/MessageBubble/VBoxContainer"]
+layout_mode = 2
+
+[node name="TimestampLabel" type="Label" parent="Layout/MessageBubble/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(710, 30)
+layout_mode = 2
+
+[node name="StatusIndicator" type="TextureRect" parent="Layout/MessageBubble/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(710, 30)
+layout_mode = 2
+expand_mode = 1

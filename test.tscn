@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd7bv7e4ngkws"]
+
+[sub_resource type="GDScript" id="GDScript_80yrn"]
+script/source = "extends Node
+
+func _ready():
+	var body_dict = {\"username\": \"testuser\", \"password\": \"testpass\"}
+	var json_instance = JSON.new()
+	var json_string = json_instance.print(body_dict)
+	if json_string != null:
+		print(\"Serialized JSON:\", json_string)
+	else:
+		print(\"Failed to serialize JSON.\")
+"
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_80yrn")

@@ -1,0 +1,128 @@
+[gd_scene load_steps=2 format=3 uid="uid://um1ndhop6eq6"]
+
+[ext_resource type="Script" path="res://scripts/JackpotMultiplierScene.gd" id="1_wqvp3"]
+
+[node name="JackpotMultiplierScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqvp3")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.282353)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="MainContainer"]
+custom_minimum_size = Vector2(1920, 60)
+layout_mode = 2
+text = "Jackpot Multiplier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayersContainer" type="HBoxContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(1920, 320)
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="PlayerPanel" type="Panel" parent="MainContainer/PlayersContainer"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+
+[node name="PlayerVBox" type="VBoxContainer" parent="MainContainer/PlayersContainer/PlayerPanel"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarViewport" type="SubViewport" parent="MainContainer/PlayersContainer/PlayerPanel/PlayerVBox"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="MainContainer/PlayersContainer/PlayerPanel/PlayerVBox"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NameLabel" type="Label" parent="MainContainer/PlayersContainer/PlayerPanel/PlayerVBox"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PlayerPanel2" type="Panel" parent="MainContainer/PlayersContainer"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+
+[node name="PlayerVBox" type="VBoxContainer" parent="MainContainer/PlayersContainer/PlayerPanel2"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarViewport" type="SubViewport" parent="MainContainer/PlayersContainer/PlayerPanel2/PlayerVBox"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="MainContainer/PlayersContainer/PlayerPanel2/PlayerVBox"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NameLabel" type="Label" parent="MainContainer/PlayersContainer/PlayerPanel2/PlayerVBox"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PlayerPanel3" type="Panel" parent="MainContainer/PlayersContainer"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+
+[node name="PlayerVBox" type="VBoxContainer" parent="MainContainer/PlayersContainer/PlayerPanel3"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarViewport" type="SubViewport" parent="MainContainer/PlayersContainer/PlayerPanel3/PlayerVBox"]
+
+[node name="AvatarDisplay" type="TextureRect" parent="MainContainer/PlayersContainer/PlayerPanel3/PlayerVBox"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NameLabel" type="Label" parent="MainContainer/PlayersContainer/PlayerPanel3/PlayerVBox"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="MultiplierContainer" type="HBoxContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(1920, 120)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MultiplierLabel" type="Label" parent="MainContainer/MultiplierContainer"]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="PrizeLabel" type="Label" parent="MainContainer/MultiplierContainer"]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckipd7ok0pl8l"]
+
+[ext_resource type="Script" path="res://scripts/PokerTestScene.gd" id="1_4xk6s"]
+[ext_resource type="Texture2D" uid="uid://r0280w8dbd0i" path="res://assets/table/dealer_button.png" id="2_oedkd"]
+
+[node name="PokerTestScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4xk6s")
+
+[node name="TestControls" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 720)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TestControls"]
+layout_mode = 2
+text = "Test Controls"
+
+[node name="AddPlayerButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Add Player"
+
+[node name="RemovePlayerButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Remove Player"
+
+[node name="StartHandButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Start Hand"
+
+[node name="SimulateHandButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Simulate Complete Hand"
+
+[node name="TestAllInButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Test All-In Scenario"
+
+[node name="TestSidePotButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Test Side Pot"
+
+[node name="ClearButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Clear Table"
+
+[node name="HSeparator" type="HSeparator" parent="TestControls"]
+layout_mode = 2
+
+[node name="ActionsLabel" type="Label" parent="TestControls"]
+layout_mode = 2
+text = "Player Actions"
+
+[node name="FoldButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Fold"
+
+[node name="CallButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Call"
+
+[node name="RaiseAmount" type="SpinBox" parent="TestControls"]
+layout_mode = 2
+min_value = 1000.0
+max_value = 10000.0
+step = 1000.0
+value = 1000.0
+alignment = 1
+
+[node name="RaiseButton" type="Button" parent="TestControls"]
+layout_mode = 2
+text = "Raise"
+
+[node name="TestOutput" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 0
+offset_left = 400.0
+offset_right = 1480.0
+offset_bottom = 992.0
+text = "Test output will appear here..."
+
+[node name="ReturnToHubButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 472.0
+offset_right = 134.0
+offset_bottom = 503.0
+text = "Return to Hub"
+
+[node name="DealerButton" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1184.0
+offset_top = 216.0
+offset_right = 1530.0
+offset_bottom = 545.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_oedkd")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://1xmoke6cfmd3"]
+
+[ext_resource type="Script" path="res://scripts/PackagePanel.gd" id="1_m8ohc"]
+[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="2_dd6yn"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_qboxj"]
+[ext_resource type="FontFile" uid="uid://vd3784hx2cna" path="res://assets/fonts/ApercuMonoProMedium.ttf" id="3_3kl1k"]
+[ext_resource type="Texture2D" uid="uid://b7bfyk2psbpgm" path="res://assets/icons/packagechip.png" id="5_8tlhb"]
+
+[sub_resource type="Theme" id="Theme_01y3j"]
+
+[node name="PackagePanel" type="Control"]
+custom_minimum_size = Vector2(540, 240)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 240.0
+script = ExtResource("1_m8ohc")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(540, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_01y3j")
+
+[node name="PriceLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 0
+offset_top = 80.0
+offset_right = 120.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dd6yn")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChipsLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(240, 180)
+layout_mode = 0
+offset_left = 140.0
+offset_top = 70.0
+offset_right = 380.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_3kl1k")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GemsLabel" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(240, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_top = 60.0
+offset_right = 560.0
+offset_bottom = 240.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_3kl1k")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyButton" type="Button" parent="."]
+custom_minimum_size = Vector2(540, 60)
+layout_mode = 0
+offset_top = 180.0
+offset_right = 540.0
+offset_bottom = 248.0
+theme = ExtResource("2_qboxj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "BUY"
+
+[node name="ChipIcon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.360784)
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_left = 200.0
+offset_top = 10.0
+offset_right = 320.0
+offset_bottom = 130.0
+texture = ExtResource("5_8tlhb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GemIcon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.4)
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_left = 380.0
+offset_right = 500.0
+offset_bottom = 120.0
+expand_mode = 1
+stretch_mode = 6

@@ -1,0 +1,755 @@
+[gd_scene load_steps=28 format=3 uid="uid://bs4w6cknxuc3"]
+
+[ext_resource type="Texture2D" uid="uid://6o10x2lbvm46" path="res://assets/table/LD_Poker_Table_1920x1080_blk.png" id="1_vy17v"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_yk4l7"]
+[ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="2_2n16t"]
+[ext_resource type="Texture2D" uid="uid://r0280w8dbd0i" path="res://assets/table/dealer_button.png" id="2_e42vm"]
+[ext_resource type="Script" path="res://scripts/WinnerPopup.gd" id="2_gy7rh"]
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="3_7l7kt"]
+[ext_resource type="Script" path="res://scripts/ActionUI.gd" id="3_gh18n"]
+[ext_resource type="Theme" uid="uid://c5y30tb5md0qt" path="res://scenes/PlayerPanel.tres" id="5_sdmxq"]
+[ext_resource type="PackedScene" uid="uid://dhyb7q1k4sgv3" path="res://scenes/AvatarScene.tscn" id="6_5d3nm"]
+[ext_resource type="FontFile" uid="uid://o3ljbppaccnq" path="res://assets/fonts/Inter_28pt-Regular.ttf" id="6_pxo7s"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="7_krkxb"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="8_d8q51"]
+[ext_resource type="Theme" uid="uid://c5i23lajnkrcf" path="res://scenes/TablePanels.tres" id="8_mo4it"]
+[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="8_tmb2x"]
+[ext_resource type="PackedScene" uid="uid://7yecnsfsjmov" path="res://scenes/ChipStackDisplay.tscn" id="9_msske"]
+[ext_resource type="Texture2D" uid="uid://b4m1i01slwlnc" path="res://assets/avatars/avatar_1.png" id="10_jkohc"]
+[ext_resource type="Theme" uid="uid://dk1wnv3orabg3" path="res://SpinBoxTheme.tres" id="11_xotbv"]
+[ext_resource type="Script" path="res://scripts/ChipStackDisplay.gd" id="14_xfeto"]
+[ext_resource type="PackedScene" uid="uid://bd7yqjyx5bo82" path="res://scenes/ChallengeProgressButton.tscn" id="17_7wu7r"]
+[ext_resource type="Texture2D" uid="uid://ct55u17saisc4" path="res://assets/icons/grabber.png" id="20_cwlku"]
+[ext_resource type="PackedScene" uid="uid://dtfjqwhwmtl0u" path="res://scenes/PotChipDisplay.tscn" id="20_rbrap"]
+
+[sub_resource type="Theme" id="Theme_e33w3"]
+default_font = ExtResource("1_yk4l7")
+
+[sub_resource type="Theme" id="Theme_q5lw8"]
+default_font = ExtResource("6_pxo7s")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwkpu"]
+bg_color = Color(0.913725, 0.290196, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7nkd"]
+bg_color = Color(0.913725, 0.290196, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yw1c"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.980392, 0.945098, 0.603922, 1)
+border_width_left = 15
+border_width_right = 15
+border_color = Color(0.980392, 0.945098, 0.603922, 1)
+
+[sub_resource type="Theme" id="Theme_ei1b7"]
+VSlider/icons/grabber = null
+VSlider/styles/grabber_area = SubResource("StyleBoxFlat_uwkpu")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_m7nkd")
+VSlider/styles/slider = SubResource("StyleBoxFlat_7yw1c")
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_e33w3")
+
+[node name="Table" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -238.0
+offset_right = 1682.0
+offset_bottom = 1080.0
+texture = ExtResource("1_vy17v")
+
+[node name="ActionBackground" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1472.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.101961, 0.0784314, 0.137255, 1)
+
+[node name="CommunityCards" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(720, 240)
+layout_mode = 0
+offset_left = 360.0
+offset_top = 392.0
+offset_right = 1080.0
+offset_bottom = 632.0
+theme_override_constants/separation = 4
+
+[node name="Card1" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card3" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card4" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card5" type="TextureRect" parent="CommunityCards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HandStrengthLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(420, 90)
+layout_mode = 0
+offset_left = 360.0
+offset_top = 600.0
+offset_right = 780.0
+offset_bottom = 690.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 3
+
+[node name="WinnerPopup" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(660, 90)
+layout_mode = 0
+offset_left = 360.0
+offset_top = 280.0
+offset_right = 1020.0
+offset_bottom = 370.0
+color = Color(0.388235, 0.388235, 0.388235, 0)
+script = ExtResource("2_gy7rh")
+
+[node name="WinnerLabel" type="Label" parent="WinnerPopup"]
+custom_minimum_size = Vector2(660, 90)
+layout_mode = 0
+offset_right = 660.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 24
+
+[node name="Players" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -240.0
+offset_right = -200.0
+offset_bottom = 40.0
+
+[node name="Player1" type="Control" parent="Players"]
+custom_minimum_size = Vector2(480, 280)
+anchors_preset = 0
+offset_left = 640.0
+offset_top = 740.0
+offset_right = 1120.0
+offset_bottom = 1020.0
+script = ExtResource("2_2n16t")
+
+[node name="Panel" type="Panel" parent="Players/Player1"]
+custom_minimum_size = Vector2(180, 280)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player1/Panel" instance=ExtResource("9_msske")]
+position = Vector2(-20, 40)
+scale = Vector2(0.3, 0.3)
+
+[node name="AvatarViewport" type="SubViewport" parent="Players/Player1/Panel"]
+transparent_bg = true
+size = Vector2i(180, 280)
+
+[node name="AvatarScene" parent="Players/Player1/Panel/AvatarViewport" instance=ExtResource("6_5d3nm")]
+custom_minimum_size = Vector2(180, 240)
+offset_top = 90.0
+offset_right = 180.0
+offset_bottom = 330.0
+scale = Vector2(0.2, 0.2)
+
+[node name="AvatarDisplay" type="TextureRect" parent="Players/Player1/Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(180, 280)
+layout_mode = 1
+offset_right = 180.0
+offset_bottom = 240.0
+theme = ExtResource("8_mo4it")
+
+[node name="NameLabel" type="Label" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_top = 210.0
+offset_right = 180.0
+offset_bottom = 240.0
+theme_override_fonts/font = ExtResource("1_yk4l7")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_top = 240.0
+offset_right = 180.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player1"]
+custom_minimum_size = Vector2(300, 240)
+layout_mode = 1
+offset_left = 190.0
+offset_top = 30.0
+offset_right = 554.0
+offset_bottom = 270.0
+alignment = 1
+
+[node name="Card1" type="TextureRect" parent="Players/Player1/Cards"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player1/Cards"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Player2" type="Control" parent="Players"]
+custom_minimum_size = Vector2(320, 420)
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 540.0
+offset_right = 640.0
+offset_bottom = 960.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("5_sdmxq")
+script = ExtResource("2_2n16t")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player2"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+offset_left = 20.0
+offset_right = 324.0
+offset_bottom = 240.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player2/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player2/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player2"]
+custom_minimum_size = Vector2(340, 160)
+layout_mode = 0
+offset_left = -60.0
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 300.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player2/Panel" instance=ExtResource("9_msske")]
+position = Vector2(60, -140)
+scale = Vector2(0.3, 0.3)
+
+[node name="Avatar" type="TextureRect" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = -20.0
+grow_vertical = 0
+texture = ExtResource("10_jkohc")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 99.0
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 110.0
+offset_right = 360.0
+offset_bottom = 149.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player2/Panel"]
+custom_minimum_size = Vector2(85, 20)
+layout_mode = 1
+offset_right = 85.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Player3" type="Control" parent="Players"]
+custom_minimum_size = Vector2(320, 420)
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 60.0
+offset_right = 640.0
+offset_bottom = 480.0
+scale = Vector2(0.75, 0.75)
+theme = ExtResource("5_sdmxq")
+script = ExtResource("2_2n16t")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player3"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 324.0
+offset_bottom = 340.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player3/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player3/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player3"]
+custom_minimum_size = Vector2(340, 160)
+layout_mode = 0
+offset_left = -60.0
+offset_top = 240.0
+offset_right = 280.0
+offset_bottom = 400.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player3/Panel" instance=ExtResource("9_msske")]
+position = Vector2(60, -240)
+scale = Vector2(0.3, 0.3)
+
+[node name="Avatar" type="TextureRect" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -160.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture = ExtResource("10_jkohc")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 84.0
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 110.0
+offset_right = 360.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player3/Panel"]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 1
+offset_right = 320.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Player4" type="Control" parent="Players"]
+custom_minimum_size = Vector2(600, 240)
+anchors_preset = 0
+offset_left = 790.0
+offset_top = 40.0
+offset_right = 1390.0
+offset_bottom = 280.0
+scale = Vector2(0.75, 0.75)
+script = ExtResource("2_2n16t")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player4"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+offset_left = 240.0
+offset_top = 50.0
+offset_right = 544.0
+offset_bottom = 290.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player4/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player4/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player4"]
+custom_minimum_size = Vector2(340, 160)
+layout_mode = 0
+offset_left = -110.0
+offset_top = 60.0
+offset_right = 230.0
+offset_bottom = 220.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player4/Panel" instance=ExtResource("9_msske")]
+position = Vector2(110, -60)
+scale = Vector2(0.3, 0.3)
+
+[node name="Avatar" type="TextureRect" parent="Players/Player4/Panel"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -160.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture = ExtResource("10_jkohc")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player4/Panel"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 240.0
+offset_bottom = 84.0
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player4/Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 110.0
+offset_right = 280.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player4/Panel"]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 1
+offset_right = 320.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Player5" type="Control" parent="Players"]
+custom_minimum_size = Vector2(240, 420)
+anchors_preset = 0
+offset_left = 1400.0
+offset_top = 60.0
+offset_right = 1640.0
+offset_bottom = 480.0
+scale = Vector2(0.75, 0.75)
+script = ExtResource("2_2n16t")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player5"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+offset_left = 80.0
+offset_top = 100.0
+offset_right = 384.0
+offset_bottom = 340.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player5/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player5/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player5"]
+custom_minimum_size = Vector2(320, 160)
+layout_mode = 0
+offset_top = 240.0
+offset_right = 340.0
+offset_bottom = 400.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player5/Panel" instance=ExtResource("9_msske")]
+position = Vector2(0, -240)
+scale = Vector2(0.3, 0.3)
+
+[node name="Avatar" type="TextureRect" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -160.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture = ExtResource("10_jkohc")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 84.0
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 110.0
+offset_right = 360.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 1
+offset_right = 320.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Player6" type="Control" parent="Players"]
+custom_minimum_size = Vector2(240, 420)
+anchors_preset = 0
+offset_left = 1400.0
+offset_top = 540.0
+offset_right = 1640.0
+offset_bottom = 960.0
+scale = Vector2(0.75, 0.75)
+theme = SubResource("Theme_q5lw8")
+script = ExtResource("2_2n16t")
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player6"]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 1
+offset_left = 80.0
+offset_right = 384.0
+offset_bottom = 240.0
+
+[node name="Card1" type="TextureRect" parent="Players/Player6/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player6/Cards"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="Players/Player6"]
+custom_minimum_size = Vector2(340, 160)
+layout_mode = 0
+offset_top = 140.0
+offset_right = 340.0
+offset_bottom = 300.0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player6/Panel" instance=ExtResource("9_msske")]
+position = Vector2(0, -140)
+scale = Vector2(0.3, 0.3)
+
+[node name="Avatar" type="TextureRect" parent="Players/Player6/Panel"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -160.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture = ExtResource("10_jkohc")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player6/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 84.0
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player6/Panel"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 0
+offset_left = 180.0
+offset_top = 110.0
+offset_right = 360.0
+offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 28
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player6/Panel"]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 1
+offset_right = 320.0
+offset_bottom = 20.0
+show_percentage = false
+
+[node name="Pot" type="Control" parent="."]
+custom_minimum_size = Vector2(320, 220)
+anchors_preset = 0
+offset_left = 1040.0
+offset_top = 530.0
+offset_right = 1360.0
+offset_bottom = 750.0
+
+[node name="PotLabel" type="Label" parent="Pot"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 2
+offset_left = -200.0
+offset_top = 70.0
+offset_right = 120.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("8_tmb2x")
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 3
+
+[node name="PotChipDisplay" parent="Pot" instance=ExtResource("20_rbrap")]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("14_xfeto")
+
+[node name="DealerButton" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 945.0
+offset_top = 725.0
+offset_right = 1025.0
+offset_bottom = 805.0
+texture = ExtResource("2_e42vm")
+expand_mode = 1
+
+[node name="ActionUI" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(230, 800)
+layout_mode = 0
+offset_left = 1500.0
+offset_top = 240.0
+offset_right = 1838.0
+offset_bottom = 1040.0
+theme_override_constants/separation = 30
+script = ExtResource("3_gh18n")
+
+[node name="ActionButtons" type="VBoxContainer" parent="ActionUI"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="BetAmount" type="SpinBox" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(120, 80)
+layout_mode = 2
+theme = ExtResource("11_xotbv")
+step = 500.0
+rounded = true
+
+[node name="RaiseButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+theme = ExtResource("8_d8q51")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Raise"
+text_overrun_behavior = 3
+autowrap_mode = 3
+
+[node name="CheckCallButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+theme = ExtResource("7_krkxb")
+theme_override_font_sizes/font_size = 24
+text = "Check"
+
+[node name="FoldButton" type="Button" parent="ActionUI/ActionButtons"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+theme = ExtResource("7_krkxb")
+theme_override_font_sizes/font_size = 24
+text = "Fold"
+
+[node name="BetControl" type="VBoxContainer" parent="ActionUI"]
+custom_minimum_size = Vector2(60, 52)
+layout_mode = 2
+theme_override_constants/separation = 75
+alignment = 2
+
+[node name="BetSlider" type="VSlider" parent="ActionUI/BetControl"]
+custom_minimum_size = Vector2(60, 800)
+layout_mode = 2
+theme = SubResource("Theme_ei1b7")
+theme_override_icons/grabber = ExtResource("20_cwlku")
+theme_override_icons/grabber_highlight = ExtResource("20_cwlku")
+step = 500.0
+rounded = true
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("3_7l7kt")
+
+[node name="ReturnToLobbyButton" type="Button" parent="."]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_right = 258.0
+offset_bottom = 60.0
+theme = ExtResource("7_krkxb")
+text = "Return To Lobby"
+
+[node name="ChallengeProgressButton" parent="." instance=ExtResource("17_7wu7r")]
+layout_mode = 0
+offset_left = 1120.0
+offset_top = 30.0
+offset_right = 1840.0
+offset_bottom = 90.0
+
+[connection signal="leaderboard_points_updated" from="GameManager" to="WinnerPopup" method="_on_leaderboard_points_updated"]

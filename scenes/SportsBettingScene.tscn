@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpgd4y7ultt7q"]
+
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_8bmdx"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_h57gk"]
+
+[node name="SportsBettingScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8bmdx")
+
+[node name="Header" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1920, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 10
+
+[node name="CurrentTime" type="Label" parent="Header"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LockTime" type="Label" parent="Header"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CountdownTimer" type="Label" parent="Header"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SettlementTime" type="Label" parent="Header"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PreviousRoundButton" type="Button" parent="Header"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("2_h57gk")
+text = "PREVIOUS ROUND"
+autowrap_mode = 3
+
+[node name="FixturesContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1920, 720)
+layout_mode = 0
+offset_top = 300.0
+offset_right = 1920.0
+offset_bottom = 340.0
+
+[node name="ReturnButton" type="Button" parent="."]
+custom_minimum_size = Vector2(1920, 60)
+layout_mode = 0
+offset_top = 1020.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+text = "RETURN TO MAIN HUB"
+
+[node name="SettlementPopup" type="Popup" parent="."]

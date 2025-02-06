@@ -1,0 +1,64 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://dd611vecmx7lf"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_c6ij0"]
+output_port_for_preview = 1
+expanded_output_ports = [0]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_ysjou"]
+default_input_values = [0, 0.5, 1, 0.5, 2, 0.0]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_jk2pc"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_6072i"]
+default_input_values = [0, 0.4, 1, 0.0]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+// VectorCompose:3
+	float n_in3p0 = 0.50000;
+	float n_in3p1 = 0.50000;
+	vec2 n_out3p0 = vec2(n_in3p0, n_in3p1);
+
+
+// Input:2
+	vec2 n_out2p0 = UV;
+
+
+// Distance:4
+	float n_out4p0 = distance(n_out3p0, n_out2p0);
+
+
+// Step:5
+	float n_in5p0 = 0.40000;
+	float n_out5p0 = step(n_in5p0, n_out4p0);
+
+
+// Output:0
+	COLOR.a = n_out5p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(1580, 440)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_c6ij0")
+nodes/fragment/2/position = Vector2(-520, 620)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorCompose_ysjou")
+nodes/fragment/3/position = Vector2(-322.722, 212.367)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDistance_jk2pc")
+nodes/fragment/4/position = Vector2(200, 200)
+nodes/fragment/5/node = SubResource("VisualShaderNodeStep_6072i")
+nodes/fragment/5/position = Vector2(820, 340)
+nodes/fragment/connections = PackedInt32Array(3, 0, 4, 0, 2, 0, 4, 1, 4, 0, 5, 1, 5, 0, 0, 1)

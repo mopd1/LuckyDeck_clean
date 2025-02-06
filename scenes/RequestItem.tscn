@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://cstdc247tcq3g"]
+
+[ext_resource type="Script" path="res://scripts/RequestItem.gd" id="1_q1d5q"]
+
+[node name="RequestItem" type="Control"]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_q1d5q")
+
+[node name="Background" type="Panel" parent="."]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AvatarDisplay" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UserInfo" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(360, 90)
+layout_mode = 0
+offset_left = 120.0
+offset_right = 160.0
+offset_bottom = 50.0
+
+[node name="Username" type="Label" parent="UserInfo"]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 2
+
+[node name="TimestampLabel" type="Label" parent="UserInfo"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(360, 30)
+layout_mode = 0
+offset_left = 120.0
+offset_top = 90.0
+offset_right = 480.0
+offset_bottom = 120.0
+
+[node name="AcceptButton" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+text = "Accept"
+
+[node name="RejectButton" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 2
+text = "Reject"

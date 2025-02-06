@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq6jhxidufo1g"]
+
+[ext_resource type="Script" path="res://scripts/JokerMeter.gd" id="1_bwrhb"]
+
+[node name="JokerMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bwrhb")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(360, 540)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.352941, 0.647059, 0.690196, 1)
+
+[node name="Slot1" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(114, 280)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Slot2" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(114, 280)
+layout_mode = 0
+offset_top = 280.0
+offset_right = 114.0
+offset_bottom = 560.0
+
+[node name="Slot3" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(114, 280)
+layout_mode = 0
+offset_top = 560.0
+offset_right = 40.0
+offset_bottom = 600.0
+
+[node name="MultiplierLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

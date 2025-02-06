@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ncsyvbfrm621"]
+
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_u7yc1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vh2jg"]
+bg_color = Color(0, 0.27451, 0.262745, 1)
+border_width_bottom = 10
+border_color = Color(0.101961, 0.0784314, 0.137255, 1)
+border_blend = true
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p23y"]
+bg_color = Color(0, 0.27451, 0.262745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_megft"]
+bg_color = Color(0.101961, 0.0784314, 0.137255, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvy1v"]
+bg_color = Color(0, 0.462745, 0.505882, 1)
+
+[resource]
+default_font = ExtResource("1_u7yc1")
+default_font_size = 32
+Button/fonts/font = ExtResource("1_u7yc1")
+Button/styles/normal = SubResource("StyleBoxFlat_vh2jg")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_u7yc1")
+Label/styles/normal = SubResource("StyleBoxFlat_0p23y")
+Panel/styles/panel = SubResource("StyleBoxFlat_megft")
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_yvy1v")

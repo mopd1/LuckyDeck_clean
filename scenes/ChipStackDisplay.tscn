@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7yecnsfsjmov"]
+
+[ext_resource type="Script" path="res://scripts/ChipStackDisplay.gd" id="1_i0a7w"]
+
+[node name="ChipStackDisplay" type="Node2D"]
+script = ExtResource("1_i0a7w")

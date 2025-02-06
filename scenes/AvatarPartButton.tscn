@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://oufgmm7pjtv5"]
+
+[ext_resource type="Script" path="res://scripts/AvatarPartButton.gd" id="1_ijemv"]
+[ext_resource type="FontFile" uid="uid://vd3784hx2cna" path="res://assets/fonts/ApercuMonoProMedium.ttf" id="2_0e5jk"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_f1dgn"]
+
+[node name="AvatarPartButton" type="Control"]
+custom_minimum_size = Vector2(620, 240)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ijemv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(620, 240)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_left = 240.0
+offset_top = 40.0
+offset_right = 360.0
+offset_bottom = 160.0
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_left = 480.0
+offset_top = 80.0
+offset_right = 660.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="PriceLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 80.0
+offset_right = 240.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_0e5jk")
+theme_override_font_sizes/font_size = 24
+
+[node name="BuyButton" type="Button" parent="."]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 0
+offset_top = 180.0
+offset_right = 620.0
+offset_bottom = 248.0
+theme = ExtResource("2_f1dgn")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "BUY"

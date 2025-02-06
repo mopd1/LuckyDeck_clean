@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bn8qmtgx536mm"]
+
+[ext_resource type="FontFile" uid="uid://8yagqva2u5rj" path="res://assets/fonts/ApercuMonoProBold.ttf" id="1_5vfai"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4sbo"]
+bg_color = Color(0.505882, 0.396078, 0.262745, 1)
+
+[resource]
+Label/colors/font_color = Color(0.101961, 0.0784314, 0.137255, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_5vfai")
+Label/styles/normal = SubResource("StyleBoxFlat_f4sbo")

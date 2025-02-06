@@ -1,0 +1,937 @@
+[gd_scene load_steps=27 format=3 uid="uid://c53digs1puw8l"]
+
+[ext_resource type="Texture2D" uid="uid://d18gxe3i7bj4k" path="res://assets/backgrounds/Table Background without line.png" id="1_32lr5"]
+[ext_resource type="Texture2D" uid="uid://bld0cbn1h6i7c" path="res://assets/icons/undo.png" id="2_scvgi"]
+[ext_resource type="Script" path="res://scripts/BlackjackUI.gd" id="2_urfpf"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="3_0lum2"]
+[ext_resource type="Theme" uid="uid://dk1wnv3orabg3" path="res://SpinBoxTheme.tres" id="3_4tw3p"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="3_028s4"]
+[ext_resource type="FontFile" uid="uid://c1f6oo7micchr" path="res://assets/fonts/Inter_28pt-Bold.ttf" id="3_lbmbj"]
+[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="3_vk83k"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="4_himo3"]
+[ext_resource type="FontFile" uid="uid://dwyfiy1cueaiq" path="res://assets/fonts/RussoOne-Regular.ttf" id="5_7aviu"]
+[ext_resource type="Script" path="res://scripts/StreakMeter.gd" id="5_pi5m0"]
+[ext_resource type="Texture2D" uid="uid://bpcipa8rvktyr" path="res://assets/table/10000chip.png" id="7_t57bd"]
+[ext_resource type="Theme" uid="uid://bn8qmtgx536mm" path="res://scenes/ChipLabels.tres" id="8_c0veb"]
+[ext_resource type="Texture2D" uid="uid://bo12iie76nslr" path="res://assets/table/100000chip.png" id="8_d1vgw"]
+[ext_resource type="PackedScene" uid="uid://dhyb7q1k4sgv3" path="res://scenes/AvatarScene.tscn" id="8_fuxx3"]
+[ext_resource type="Script" path="res://scripts/BetControls.gd" id="8_kufjo"]
+[ext_resource type="Texture2D" uid="uid://c445ffehdub66" path="res://assets/table/1000000chip.png" id="9_hh2qh"]
+[ext_resource type="Texture2D" uid="uid://b7bfyk2psbpgm" path="res://assets/icons/packagechip.png" id="10_8nom1"]
+[ext_resource type="PackedScene" uid="uid://bd7yqjyx5bo82" path="res://scenes/ChallengeProgressButton.tscn" id="11_ykqu0"]
+[ext_resource type="Script" path="res://scripts/ExplanationPopup.gd" id="12_b51gl"]
+[ext_resource type="Texture2D" uid="uid://bsm3bcxu1swxa" path="res://assets/icons/info_button.png" id="13_bk4sk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3cbe"]
+
+[sub_resource type="Theme" id="Theme_fl6v3"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_v3cbe")
+
+[sub_resource type="Theme" id="Theme_wvrbj"]
+Label/font_sizes/font_size = 28
+Label/fonts/font = ExtResource("3_lbmbj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kaou"]
+bg_color = Color(0.0980392, 0.137255, 0.109804, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="Theme" id="Theme_of2so"]
+Label/styles/normal = SubResource("StyleBoxFlat_8kaou")
+
+[node name="BlackjackScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackjackUI" type="Node" parent="."]
+script = ExtResource("2_urfpf")
+
+[node name="DealingTimer" type="Timer" parent="BlackjackUI"]
+wait_time = 0.2
+one_shot = true
+
+[node name="DebugLabel" type="Label" parent="BlackjackUI"]
+offset_top = 416.0
+offset_right = 768.0
+offset_bottom = 480.0
+
+[node name="UndoButton" type="TextureButton" parent="BlackjackUI"]
+custom_minimum_size = Vector2(60, 60)
+offset_left = 30.0
+offset_top = 240.0
+offset_right = 90.0
+offset_bottom = 300.0
+texture_normal = ExtResource("2_scvgi")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_32lr5")
+expand_mode = 1
+
+[node name="GameArea" type="Control" parent="."]
+custom_minimum_size = Vector2(1440, 1080)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DealerArea" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(720, 0)
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 60.0
+offset_right = 1040.0
+offset_bottom = 100.0
+
+[node name="DealerCards" type="Control" parent="GameArea/DealerArea"]
+anchors_preset = 0
+
+[node name="DealerCard1" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 1
+
+[node name="DealerCard2" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 80.0
+offset_right = 200.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard3" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 160.0
+offset_right = 280.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard4" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard5" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard6" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 400.0
+offset_right = 520.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard7" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 360.0
+offset_right = 480.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard8" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 420.0
+offset_right = 540.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard9" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 480.0
+offset_right = 600.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerCard10" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 540.0
+offset_right = 660.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="DealerScore" type="Label" parent="GameArea/DealerArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_top = 240.0
+offset_right = 240.0
+offset_bottom = 360.0
+theme_override_fonts/font = ExtResource("4_himo3")
+theme_override_font_sizes/font_size = 32
+
+[node name="PlayerArea" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(1440, 520)
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 540.0
+offset_right = 1560.0
+offset_bottom = 1060.0
+
+[node name="HandScore1" type="Label" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 0
+offset_left = 60.0
+offset_top = -90.0
+offset_right = 240.0
+theme = ExtResource("3_0lum2")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HandScore2" type="Label" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 0
+offset_left = 510.0
+offset_top = -90.0
+offset_right = 690.0
+theme = ExtResource("3_0lum2")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HandScore3" type="Label" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 0
+offset_left = 970.0
+offset_top = -90.0
+offset_right = 1150.0
+theme = ExtResource("3_0lum2")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hand1" type="Control" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(360, 240)
+anchors_preset = 0
+offset_left = 30.0
+offset_right = 390.0
+offset_bottom = 240.0
+
+[node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand1"]
+custom_minimum_size = Vector2(240, 60)
+anchors_preset = 0
+offset_top = 450.0
+offset_right = 240.0
+offset_bottom = 510.0
+script = ExtResource("5_pi5m0")
+
+[node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand1/StreakMeterContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 60.0
+theme = SubResource("Theme_fl6v3")
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 24
+
+[node name="ResultLabel" type="Label" parent="GameArea/PlayerArea/Hand1"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_top = -150.0
+offset_right = 240.0
+offset_bottom = -90.0
+theme_override_fonts/font = ExtResource("4_himo3")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand1"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Card1" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card2" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 80.0
+offset_right = 200.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card3" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 160.0
+offset_right = 280.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card4" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card5" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card6" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 400.0
+offset_right = 520.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card7" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 480.0
+offset_right = 600.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card8" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 420.0
+offset_right = 540.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card9" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 480.0
+offset_right = 600.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card10" type="TextureRect" parent="GameArea/PlayerArea/Hand1/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 540.0
+offset_right = 660.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="BetControls" type="Control" parent="GameArea/PlayerArea/Hand1"]
+custom_minimum_size = Vector2(360, 90)
+anchors_preset = 0
+offset_left = -60.0
+offset_top = 330.0
+offset_right = 300.0
+offset_bottom = 420.0
+script = ExtResource("8_kufjo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameArea/PlayerArea/Hand1/BetControls"]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 90.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Bet10kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand1/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("7_t57bd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet100kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand1/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("8_d1vgw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet1mButton" type="TextureButton" parent="GameArea/PlayerArea/Hand1/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+texture_normal = ExtResource("9_hh2qh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BetLabel" type="Label" parent="GameArea/PlayerArea/Hand1/BetControls"]
+custom_minimum_size = Vector2(330, 60)
+layout_mode = 0
+offset_top = -90.0
+offset_right = 345.0
+offset_bottom = -30.0
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hand2" type="Control" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(360, 240)
+anchors_preset = 0
+offset_left = 480.0
+offset_right = 840.0
+offset_bottom = 240.0
+
+[node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand2"]
+custom_minimum_size = Vector2(240, 60)
+anchors_preset = 0
+offset_top = 450.0
+offset_right = 240.0
+offset_bottom = 510.0
+script = ExtResource("5_pi5m0")
+
+[node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand2/StreakMeterContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
+theme = SubResource("Theme_fl6v3")
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 24
+
+[node name="ResultLabel" type="Label" parent="GameArea/PlayerArea/Hand2"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_top = -150.0
+offset_right = 240.0
+offset_bottom = -90.0
+theme_override_fonts/font = ExtResource("4_himo3")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand2"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Card1" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card2" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 80.0
+offset_right = 200.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card3" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 160.0
+offset_right = 280.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card4" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card5" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card6" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 400.0
+offset_right = 520.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card7" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 480.0
+offset_right = 600.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card8" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 280.0
+offset_right = 400.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card9" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card10" type="TextureRect" parent="GameArea/PlayerArea/Hand2/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 360.0
+offset_right = 480.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="BetControls" type="Control" parent="GameArea/PlayerArea/Hand2"]
+custom_minimum_size = Vector2(360, 90)
+anchors_preset = 0
+offset_left = -60.0
+offset_top = 330.0
+offset_right = 300.0
+offset_bottom = 420.0
+script = ExtResource("8_kufjo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameArea/PlayerArea/Hand2/BetControls"]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 90.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Bet10kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand2/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("7_t57bd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet100kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand2/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("8_d1vgw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet1mButton" type="TextureButton" parent="GameArea/PlayerArea/Hand2/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+texture_normal = ExtResource("9_hh2qh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BetLabel" type="Label" parent="GameArea/PlayerArea/Hand2/BetControls"]
+custom_minimum_size = Vector2(330, 60)
+layout_mode = 0
+offset_top = -90.0
+offset_right = 345.0
+offset_bottom = -30.0
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hand3" type="Control" parent="GameArea/PlayerArea"]
+custom_minimum_size = Vector2(360, 240)
+anchors_preset = 0
+offset_left = 940.0
+offset_right = 1300.0
+offset_bottom = 240.0
+
+[node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand3"]
+custom_minimum_size = Vector2(240, 60)
+anchors_preset = 0
+offset_top = 450.0
+offset_right = 240.0
+offset_bottom = 510.0
+script = ExtResource("5_pi5m0")
+
+[node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand3/StreakMeterContainer"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 60.0
+theme = SubResource("Theme_fl6v3")
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 24
+
+[node name="ResultLabel" type="Label" parent="GameArea/PlayerArea/Hand3"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 0
+offset_top = -150.0
+offset_right = 240.0
+offset_bottom = -90.0
+theme_override_fonts/font = ExtResource("4_himo3")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand3"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Card1" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card2" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 80.0
+offset_right = 200.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card3" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 160.0
+offset_right = 280.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card4" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card5" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card6" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 400.0
+offset_right = 520.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card7" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card8" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 280.0
+offset_right = 400.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card9" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 320.0
+offset_right = 440.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="Card10" type="TextureRect" parent="GameArea/PlayerArea/Hand3/Cards"]
+custom_minimum_size = Vector2(120, 180)
+layout_mode = 0
+offset_left = 360.0
+offset_right = 480.0
+offset_bottom = 180.0
+expand_mode = 1
+
+[node name="BetControls" type="Control" parent="GameArea/PlayerArea/Hand3"]
+custom_minimum_size = Vector2(360, 90)
+anchors_preset = 0
+offset_left = -60.0
+offset_top = 330.0
+offset_right = 300.0
+offset_bottom = 420.0
+script = ExtResource("8_kufjo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameArea/PlayerArea/Hand3/BetControls"]
+custom_minimum_size = Vector2(360, 60)
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 90.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Bet10kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand3/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("7_t57bd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet100kButton" type="TextureButton" parent="GameArea/PlayerArea/Hand3/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture_normal = ExtResource("8_d1vgw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Bet1mButton" type="TextureButton" parent="GameArea/PlayerArea/Hand3/BetControls/HBoxContainer"]
+custom_minimum_size = Vector2(120, 90)
+layout_mode = 2
+texture_normal = ExtResource("9_hh2qh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BetLabel" type="Label" parent="GameArea/PlayerArea/Hand3/BetControls"]
+custom_minimum_size = Vector2(330, 60)
+layout_mode = 0
+offset_top = -90.0
+offset_right = 345.0
+offset_bottom = -30.0
+theme_override_fonts/font = ExtResource("3_vk83k")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BettingArea" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(360, 320)
+anchors_preset = 0
+offset_left = 1520.0
+offset_top = 760.0
+offset_right = 1880.0
+offset_bottom = 1080.0
+theme = ExtResource("3_4tw3p")
+
+[node name="DealButton" type="Button" parent="GameArea/BettingArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 180.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme = ExtResource("3_028s4")
+text = "DEAL"
+
+[node name="ActionArea" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(360, 720)
+anchors_preset = 0
+offset_left = 1520.0
+offset_top = 30.0
+offset_right = 1880.0
+offset_bottom = 750.0
+theme = ExtResource("3_0lum2")
+
+[node name="HitButton" type="Button" parent="GameArea/ActionArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 240.0
+text = "HIT"
+
+[node name="StandButton" type="Button" parent="GameArea/ActionArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 280.0
+offset_right = 300.0
+offset_bottom = 400.0
+text = "STAND"
+
+[node name="DoubleButton" type="Button" parent="GameArea/ActionArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 440.0
+offset_right = 300.0
+offset_bottom = 560.0
+text = "DOUBLE"
+
+[node name="SplitButton" type="Button" parent="GameArea/ActionArea"]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 600.0
+offset_right = 300.0
+offset_bottom = 720.0
+text = "SPLIT"
+
+[node name="GameInfo" type="Control" parent="GameArea"]
+custom_minimum_size = Vector2(440, 240)
+anchors_preset = 0
+offset_left = 1080.0
+offset_top = 120.0
+offset_right = 1520.0
+offset_bottom = 480.0
+theme = SubResource("Theme_wvrbj")
+
+[node name="ChipBalance" type="Label" parent="GameArea/GameInfo"]
+custom_minimum_size = Vector2(380, 60)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 30.0
+offset_right = 440.0
+offset_bottom = 90.0
+theme = ExtResource("8_c0veb")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CurrentBet" type="Label" parent="GameArea/GameInfo"]
+custom_minimum_size = Vector2(440, 60)
+layout_mode = 0
+offset_top = 120.0
+offset_right = 440.0
+offset_bottom = 180.0
+theme = ExtResource("8_c0veb")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GameStatus" type="Label" parent="GameArea/GameInfo"]
+visible = false
+custom_minimum_size = Vector2(440, 120)
+layout_mode = 0
+offset_left = -24.0
+offset_top = -256.0
+offset_right = 416.0
+offset_bottom = -136.0
+theme = ExtResource("8_c0veb")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ChipIcon" type="TextureRect" parent="GameArea/GameInfo"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 90.0
+texture = ExtResource("10_8nom1")
+expand_mode = 1
+
+[node name="UIOverlay" type="Control" parent="."]
+custom_minimum_size = Vector2(240, 240)
+anchors_preset = 0
+offset_top = 120.0
+offset_right = 240.0
+offset_bottom = 360.0
+
+[node name="AvatarViewport" type="SubViewport" parent="UIOverlay"]
+transparent_bg = true
+
+[node name="AvatarScene" parent="UIOverlay/AvatarViewport" instance=ExtResource("8_fuxx3")]
+
+[node name="PlayerAvatar" type="TextureRect" parent="UIOverlay"]
+visible = false
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 352.0
+offset_bottom = 344.0
+expand_mode = 1
+
+[node name="ReturnToHubButton" type="Button" parent="."]
+custom_minimum_size = Vector2(240, 120)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 120.0
+theme = ExtResource("3_0lum2")
+text = "Return to Hub"
+
+[node name="ChallengeProgressButton" parent="." instance=ExtResource("11_ykqu0")]
+offset_left = 1080.0
+offset_top = 30.0
+offset_right = 1870.0
+offset_bottom = 120.0
+
+[node name="InfoButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 150.0
+offset_right = 90.0
+offset_bottom = 210.0
+texture_normal = ExtResource("13_bk4sk")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ExplanationPopup" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(480, 480)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 240.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_b51gl")
+
+[node name="ColorRect" type="ColorRect" parent="ExplanationPopup"]
+layout_mode = 2
+color = Color(0.0784314, 0.137255, 0.109804, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExplanationPopup"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ExplanationPopup/VBoxContainer"]
+custom_minimum_size = Vector2(480, 420)
+layout_mode = 2
+theme = SubResource("Theme_of2so")
+theme_override_fonts/font = ExtResource("4_himo3")
+theme_override_font_sizes/font_size = 32
+text = "Win Streak Multiplier:
+
+- Place bets of 10,000 or more to activate streak counting
+
+- Win 5 hands in a row to earn a 2.5x multiplier
+
+- Multiplier applies to the winning hand
+
+- Each betting position tracks streaks independently"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="ExplanationPopup/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_7aviu")
+theme_override_font_sizes/font_size = 24
+text = "CLOSE"

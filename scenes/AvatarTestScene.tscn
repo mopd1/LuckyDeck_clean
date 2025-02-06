@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://do70wrlhyp1io"]
+
+[ext_resource type="PackedScene" uid="uid://hg36t717p0sf" path="res://scenes/AvatarCustomizer.tscn" id="1_e0lho"]
+[ext_resource type="Script" path="res://scripts/AvatarTestScene.gd" id="1_pw5w2"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pw5w2")
+
+[node name="AvatarCustomizer" parent="." instance=ExtResource("1_e0lho")]
+layout_mode = 1

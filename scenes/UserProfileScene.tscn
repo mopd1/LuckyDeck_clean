@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://b421nll0xjn1c"]
+
+[ext_resource type="Script" path="res://scripts/UserProfileScene.gd" id="1_43m24"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_jtbxq"]
+
+[node name="UserProfileScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jtbxq")
+script = ExtResource("1_43m24")
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.286275)
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Profile Settings"
+
+[node name="EmailSection" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="EmailLabel" type="Label" parent="VBoxContainer/EmailSection"]
+layout_mode = 2
+text = "Email:"
+
+[node name="EmailField" type="LineEdit" parent="VBoxContainer/EmailSection"]
+layout_mode = 2
+
+[node name="PasswordSection" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentPasswordLabel" type="Label" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+text = "Current Password:"
+
+[node name="CurrentPasswordField" type="LineEdit" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+secret = true
+
+[node name="NewPasswordLabel" type="Label" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+text = "New Password:"
+
+[node name="NewPasswordField" type="LineEdit" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+secret = true
+
+[node name="ConfirmPasswordLabel" type="Label" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+text = "Confirm New Password:"
+
+[node name="ConfirmPasswordField" type="LineEdit" parent="VBoxContainer/PasswordSection"]
+layout_mode = 2
+secret = true
+
+[node name="CRMSection" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CRMLabel" type="Label" parent="VBoxContainer/CRMSection"]
+layout_mode = 2
+text = "Opt-in to CRM communications:"
+
+[node name="CRMOptInCheck" type="CheckBox" parent="VBoxContainer/CRMSection"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Save Changes"
+
+[node name="MessageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "\"\""
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Hub"

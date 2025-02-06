@@ -1,0 +1,467 @@
+[gd_scene load_steps=27 format=3 uid="uid://c4byhk0u6gh5v"]
+
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_s3xu5"]
+[ext_resource type="Script" path="res://scripts/MainHub.gd" id="1_svit3"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="4_pb4yn"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="4_yfthd"]
+[ext_resource type="Theme" uid="uid://bn8qmtgx536mm" path="res://scenes/ChipLabels.tres" id="5_utarw"]
+[ext_resource type="Theme" uid="uid://dreys20ea1gmc" path="res://TertiaryTheme.tres" id="6_4fhbl"]
+[ext_resource type="PackedScene" uid="uid://dhyb7q1k4sgv3" path="res://scenes/AvatarScene.tscn" id="6_fa6iq"]
+[ext_resource type="PackedScene" uid="uid://ccrvthber456w" path="res://scenes/GamePanel.tscn" id="7_3mdhe"]
+[ext_resource type="FontFile" uid="uid://dbcd7i33fwcir" path="res://assets/fonts/Inter_28pt-Thin.ttf" id="7_30cts"]
+[ext_resource type="Texture2D" uid="uid://b8vcu3wxjkwp4" path="res://assets/backgrounds/texas.png" id="7_y2txe"]
+[ext_resource type="Texture2D" uid="uid://bbk5bf4ajmy8h" path="res://assets/backgrounds/plohand.png" id="8_g0cry"]
+[ext_resource type="Script" path="res://scripts/JackpotSNGPanel.gd" id="8_g406a"]
+[ext_resource type="Texture2D" uid="uid://dka3xhlnye3jo" path="res://assets/backgrounds/jackpotsng.png" id="10_4ifol"]
+[ext_resource type="Texture2D" uid="uid://biabjtmd03jjt" path="res://assets/backgrounds/mtt_win.png" id="11_8gii4"]
+[ext_resource type="PackedScene" uid="uid://dxutx12jcfnoq" path="res://scenes/TableGamePanel.tscn" id="11_d7isi"]
+[ext_resource type="Texture2D" uid="uid://b7bfyk2psbpgm" path="res://assets/icons/packagechip.png" id="12_uufy6"]
+[ext_resource type="Texture2D" uid="uid://cp7velce7px55" path="res://assets/icons/gem_icon.png" id="13_aa672"]
+[ext_resource type="PackedScene" uid="uid://bd7yqjyx5bo82" path="res://scenes/ChallengeProgressButton.tscn" id="14_43skb"]
+[ext_resource type="Texture2D" uid="uid://b6mrvhlo4ocop" path="res://assets/backgrounds/50sale.png" id="18_mlnvp"]
+
+[sub_resource type="Theme" id="Theme_xfsp1"]
+default_font = ExtResource("1_s3xu5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5km4l"]
+bg_color = Color(0.913725, 0.290196, 0.266667, 1)
+border_width_bottom = 5
+border_color = Color(0.913725, 0.290196, 0.266667, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_l41o4"]
+default_font = ExtResource("1_s3xu5")
+Label/styles/normal = SubResource("StyleBoxFlat_5km4l")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fah8o"]
+bg_color = Color(0.980392, 0.945098, 0.603922, 0.654902)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_yv0ju"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r263d"]
+bg_color = Color(0.101961, 0.0784314, 0.137255, 1)
+border_width_bottom = 5
+border_color = Color(0.101961, 0.0784314, 0.137255, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_aq7gp"]
+Label/styles/normal = SubResource("StyleBoxFlat_r263d")
+
+[node name="MainHub" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xfsp1")
+script = ExtResource("1_svit3")
+
+[node name="AvatarViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(300, 600)
+
+[node name="AvatarScene" parent="AvatarViewport" instance=ExtResource("6_fa6iq")]
+offset_top = 240.0
+offset_bottom = 240.0
+scale = Vector2(0.3, 0.3)
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.101961, 0.0784314, 0.137255, 1)
+
+[node name="GameSelectionArea" type="Panel" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 310.0
+offset_right = 1890.0
+offset_bottom = 1030.0
+
+[node name="ColorRect2" type="ColorRect" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(390, 500)
+layout_mode = 0
+offset_top = 210.0
+offset_right = 40.0
+offset_bottom = 250.0
+color = Color(0.913725, 0.290196, 0.266667, 1)
+
+[node name="ColorRect" type="ColorRect" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(1470, 720)
+layout_mode = 0
+offset_left = 390.0
+offset_right = 1830.0
+offset_bottom = 720.0
+color = Color(0.913725, 0.290196, 0.266667, 1)
+
+[node name="Label" type="Label" parent="GameSelectionArea/ColorRect"]
+custom_minimum_size = Vector2(1860, 0)
+layout_mode = 0
+offset_left = -390.0
+offset_top = 710.0
+offset_right = 1270.0
+offset_bottom = 735.0
+theme = SubResource("Theme_l41o4")
+
+[node name="GameTypeButtons" type="VBoxContainer" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(360, 480)
+layout_mode = 0
+offset_top = 220.0
+offset_right = 360.0
+offset_bottom = 730.0
+theme_override_constants/separation = 10
+
+[node name="PokerButton" type="Button" parent="GameSelectionArea/GameTypeButtons"]
+custom_minimum_size = Vector2(350, 120)
+layout_mode = 2
+theme = ExtResource("4_pb4yn")
+theme_override_colors/font_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
+text = "Poker"
+
+[node name="TableGamesButton" type="Button" parent="GameSelectionArea/GameTypeButtons"]
+custom_minimum_size = Vector2(350, 120)
+layout_mode = 2
+theme = ExtResource("4_pb4yn")
+theme_override_colors/font_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
+text = "Table Games"
+
+[node name="SportsBettingButton" type="Button" parent="GameSelectionArea/GameTypeButtons"]
+custom_minimum_size = Vector2(350, 120)
+layout_mode = 2
+theme = ExtResource("4_pb4yn")
+theme_override_colors/font_color = Color(0.921569, 0.921569, 0.921569, 1)
+theme_override_font_sizes/font_size = 32
+text = "Sports Betting"
+
+[node name="GamePanels" type="HBoxContainer" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(1180, 480)
+layout_mode = 1
+offset_left = 420.0
+offset_top = 60.0
+offset_right = 1810.0
+offset_bottom = 660.0
+theme_override_constants/separation = 25
+
+[node name="NLHoldemPanel" parent="GameSelectionArea/GamePanels" instance=ExtResource("7_3mdhe")]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="GameSelectionArea/GamePanels/NLHoldemPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 314.0
+offset_bottom = 304.0
+texture = ExtResource("7_y2txe")
+expand_mode = 1
+
+[node name="PLOmahaPanel" parent="GameSelectionArea/GamePanels" instance=ExtResource("7_3mdhe")]
+custom_minimum_size = Vector2(335, 480)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameSelectionArea/GamePanels/PLOmahaPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 314.0
+offset_bottom = 304.0
+texture = ExtResource("8_g0cry")
+expand_mode = 1
+
+[node name="JackpotSNGPanel" parent="GameSelectionArea/GamePanels" instance=ExtResource("7_3mdhe")]
+custom_minimum_size = Vector2(335, 480)
+layout_mode = 2
+script = ExtResource("8_g406a")
+
+[node name="UnregisterButton" type="Button" parent="GameSelectionArea/GamePanels/JackpotSNGPanel"]
+custom_minimum_size = Vector2(180, 30)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 356.0
+offset_right = 189.0
+offset_bottom = 398.0
+text = "Unregister"
+
+[node name="RegistrationTimer" type="Timer" parent="GameSelectionArea/GamePanels/JackpotSNGPanel"]
+
+[node name="StatusLabel" type="Label" parent="GameSelectionArea/GamePanels/JackpotSNGPanel"]
+custom_minimum_size = Vector2(315, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 430.0
+offset_right = 325.0
+offset_bottom = 462.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GameSelectionArea/GamePanels/JackpotSNGPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 314.0
+offset_bottom = 304.0
+texture = ExtResource("10_4ifol")
+expand_mode = 1
+
+[node name="MTTPanel" parent="GameSelectionArea/GamePanels" instance=ExtResource("7_3mdhe")]
+custom_minimum_size = Vector2(335, 480)
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="GameSelectionArea/GamePanels/MTTPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 314.0
+offset_bottom = 304.0
+texture = ExtResource("11_8gii4")
+expand_mode = 1
+
+[node name="TableGamesPanels" type="HBoxContainer" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(1180, 480)
+layout_mode = 1
+offset_left = 420.0
+offset_top = 60.0
+offset_right = 1810.0
+offset_bottom = 660.0
+theme_override_constants/separation = 25
+
+[node name="BlackjackPanel" parent="GameSelectionArea/TableGamesPanels" instance=ExtResource("11_d7isi")]
+layout_mode = 2
+
+[node name="RoulettePanel" parent="GameSelectionArea/TableGamesPanels" instance=ExtResource("11_d7isi")]
+layout_mode = 2
+
+[node name="CrapsPanel" parent="GameSelectionArea/TableGamesPanels" instance=ExtResource("11_d7isi")]
+layout_mode = 2
+
+[node name="GameTypeSelection" type="OptionButton" parent="GameSelectionArea"]
+visible = false
+layout_mode = 0
+offset_top = 540.0
+offset_right = 40.0
+offset_bottom = 580.0
+
+[node name="StakeSelection" type="OptionButton" parent="GameSelectionArea"]
+visible = false
+layout_mode = 0
+offset_top = 600.0
+offset_right = 40.0
+offset_bottom = 640.0
+
+[node name="PlayerPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(360, 360)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 390.0
+offset_bottom = 390.0
+theme = ExtResource("4_pb4yn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fah8o")
+
+[node name="AvatarDisplay" type="TextureRect" parent="PlayerPanel"]
+clip_contents = true
+custom_minimum_size = Vector2(360, 360)
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 360.0
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PlayerName" type="Label" parent="PlayerPanel"]
+custom_minimum_size = Vector2(360, 50)
+layout_mode = 0
+offset_top = 360.0
+offset_right = 360.0
+offset_bottom = 410.0
+theme = ExtResource("5_utarw")
+theme_override_fonts/font = ExtResource("1_s3xu5")
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CustomizeAvatarButton" type="Button" parent="PlayerPanel"]
+custom_minimum_size = Vector2(370, 60)
+layout_mode = 0
+offset_left = -5.0
+offset_top = 410.0
+offset_right = 365.0
+offset_bottom = 470.0
+theme = ExtResource("4_pb4yn")
+text = "Customise Avatar"
+autowrap_mode = 3
+
+[node name="UserProfileButton" type="Button" parent="PlayerPanel"]
+visible = false
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 0
+offset_top = 760.0
+offset_right = 360.0
+offset_bottom = 820.0
+theme = ExtResource("4_pb4yn")
+text = "User Settings"
+
+[node name="PlayerPanel2" type="Panel" parent="."]
+custom_minimum_size = Vector2(600, 180)
+layout_mode = 0
+offset_left = 1280.0
+offset_top = 130.0
+offset_right = 1880.0
+offset_bottom = 310.0
+
+[node name="ChipBalanceDisplay" type="Label" parent="PlayerPanel2"]
+custom_minimum_size = Vector2(540, 60)
+layout_mode = 0
+offset_left = 70.0
+offset_top = 20.0
+offset_right = 610.0
+offset_bottom = 80.0
+theme = ExtResource("5_utarw")
+text = "1,000,000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GemBalanceDisplay" type="Label" parent="PlayerPanel2"]
+custom_minimum_size = Vector2(540, 60)
+layout_mode = 0
+offset_left = 70.0
+offset_top = 90.0
+offset_right = 610.0
+offset_bottom = 150.0
+theme = ExtResource("5_utarw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChipIcon" type="TextureRect" parent="PlayerPanel2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 80.0
+texture = ExtResource("12_uufy6")
+expand_mode = 1
+
+[node name="ChipIcon2" type="TextureRect" parent="PlayerPanel2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = -10.0
+offset_top = 80.0
+offset_right = 70.0
+offset_bottom = 160.0
+texture = ExtResource("13_aa672")
+expand_mode = 1
+
+[node name="ProfileDisplay" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="AvatarButton" type="TextureButton" parent="ProfileDisplay"]
+layout_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HelpButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(395, 60)
+layout_mode = 0
+offset_left = 440.0
+offset_top = 30.0
+offset_right = 780.0
+offset_bottom = 90.0
+theme = ExtResource("4_pb4yn")
+text = "Help/ Support"
+
+[node name="FriendsButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(395, 60)
+layout_mode = 0
+offset_left = 845.0
+offset_top = 30.0
+offset_right = 1240.0
+offset_bottom = 90.0
+theme = ExtResource("4_pb4yn")
+text = "Friends"
+
+[node name="PurchaseChipsButton" type="Button" parent="."]
+custom_minimum_size = Vector2(610, 90)
+layout_mode = 0
+offset_left = 1280.0
+offset_top = 30.0
+offset_right = 1890.0
+offset_bottom = 120.0
+theme = ExtResource("4_yfthd")
+theme_override_colors/font_color = Color(0.980392, 0.945098, 0.603922, 1)
+text = "$ GET CHIPS $"
+
+[node name="EngagementFeaturesButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="LogoutButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 0
+offset_left = 1440.0
+offset_top = 1020.0
+offset_right = 1560.0
+offset_bottom = 1080.0
+theme = ExtResource("4_pb4yn")
+theme_override_fonts/font = ExtResource("7_30cts")
+text = "Logout
+"
+
+[node name="TestAPIButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 0
+offset_left = 1720.0
+offset_top = 1000.0
+offset_right = 1861.0
+offset_bottom = 1060.0
+theme = ExtResource("6_4fhbl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Test API Endpoints"
+
+[node name="PromoImage" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(820, 210)
+layout_mode = 0
+offset_left = 440.0
+offset_top = 30.0
+offset_right = 1260.0
+offset_bottom = 240.0
+theme = SubResource("Theme_yv0ju")
+texture = ExtResource("18_mlnvp")
+expand_mode = 1
+
+[node name="Border" type="Label" parent="PromoImage"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 0
+offset_top = 195.0
+offset_right = 820.0
+offset_bottom = 220.0
+theme = SubResource("Theme_aq7gp")
+
+[node name="ChallengeProgressButton" parent="." instance=ExtResource("14_43skb")]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 30.0
+offset_right = 1230.0
+offset_bottom = 120.0
+
+[node name="PokerTestButton" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 0
+offset_left = 48.0
+offset_top = 960.0
+offset_right = 164.0
+offset_bottom = 990.0
+text = "Poker Test"

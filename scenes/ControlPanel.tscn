@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5e0sxu0h0hbx"]
+
+[ext_resource type="Script" path="res://scripts/ControlPanel.gd" id="1_3ltg5"]
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="2_8b6hr"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="3_qwhdw"]
+[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="3_tdde4"]
+
+[node name="ControlPanel" type="Control"]
+custom_minimum_size = Vector2(1920, 180)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3ltg5")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 180)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.352941, 0.647059, 0.690196, 1)
+
+[node name="BetControls" type="Control" parent="."]
+custom_minimum_size = Vector2(960, 180)
+anchors_preset = 0
+offset_left = 960.0
+offset_right = 1920.0
+offset_bottom = 180.0
+
+[node name="BetDownButton" type="Button" parent="BetControls"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+offset_left = 60.0
+offset_top = 30.0
+offset_right = 180.0
+offset_bottom = 90.0
+theme = ExtResource("2_8b6hr")
+text = "Bet Down"
+
+[node name="BetAmountDisplay" type="Label" parent="BetControls"]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+offset_left = 240.0
+offset_top = 30.0
+offset_right = 420.0
+offset_bottom = 90.0
+theme = ExtResource("2_8b6hr")
+theme_override_fonts/font = ExtResource("3_tdde4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BetUpButton" type="Button" parent="BetControls"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+offset_left = 480.0
+offset_top = 30.0
+offset_right = 600.0
+offset_bottom = 90.0
+theme = ExtResource("2_8b6hr")
+text = "Bet Up"
+
+[node name="SpinButton" type="Button" parent="BetControls"]
+custom_minimum_size = Vector2(180, 90)
+layout_mode = 2
+offset_left = 660.0
+offset_top = 15.0
+offset_right = 840.0
+offset_bottom = 105.0
+theme = ExtResource("3_qwhdw")
+text = "Spin"
+
+[node name="ActionButtons" type="Control" parent="."]
+custom_minimum_size = Vector2(720, 180)
+anchors_preset = 0
+offset_left = 240.0
+offset_right = 960.0
+offset_bottom = 180.0
+theme = ExtResource("2_8b6hr")
+
+[node name="AutoPlayButton" type="Button" parent="ActionButtons"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+offset_top = 30.0
+offset_right = 120.0
+offset_bottom = 90.0
+text = "Autoplay"
+
+[node name="MaxBetButton" type="Button" parent="ActionButtons"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+offset_left = 180.0
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 90.0
+text = "Max Bet"
+
+[node name="PaytableButton" type="Button" parent="."]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 30.0
+offset_right = 180.0
+offset_bottom = 90.0
+theme = ExtResource("2_8b6hr")
+text = "Paytable"

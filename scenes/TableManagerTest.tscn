@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnh2nfj7kh1ta"]
+
+[ext_resource type="Script" path="res://scripts/TableManagerTest.gd" id="1_4lo3u"]
+
+[node name="TableManagerTest" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4lo3u")
+
+[node name="TableManager" type="Node" parent="."]
+
+[node name="OutputLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 336.0
+text = "\"Test output will appear here...\""

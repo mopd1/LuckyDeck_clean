@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp3h1twcxx2vd"]
+
+[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_qjmdj"]
+[ext_resource type="Script" path="res://scripts/SportsBettingPanel.gd" id="2_7f40x"]
+[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_lp3wm"]
+
+[node name="SportsBettingPanel" type="Panel"]
+custom_minimum_size = Vector2(335, 580)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_qjmdj")
+script = ExtResource("2_7f40x")
+
+[node name="TitleLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 60)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 325.0
+offset_bottom = 70.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GameImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(315, 220)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 325.0
+offset_bottom = 300.0
+
+[node name="ActiveBetsLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 60)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 240.0
+offset_right = 325.0
+offset_bottom = 300.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CountdownTimer" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 60)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 310.0
+offset_right = 325.0
+offset_bottom = 370.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TimerLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(315, 60)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 380.0
+offset_right = 325.0
+offset_bottom = 440.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayButton" type="Button" parent="."]
+custom_minimum_size = Vector2(315, 120)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 470.0
+offset_right = 325.0
+offset_bottom = 590.0
+theme = ExtResource("2_lp3wm")
+text = "PLAY"

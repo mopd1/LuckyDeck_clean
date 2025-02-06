@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://caubyijmolot5"]
+
+[ext_resource type="Script" path="res://scripts/ErrorScene.gd" id="1_7inq8"]
+
+[node name="ErrorScene" type="Node"]
+script = ExtResource("1_7inq8")
