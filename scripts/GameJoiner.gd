@@ -28,35 +28,49 @@ func get_stakes(game_type: String) -> Array:
 	return []
 
 func join_game(player_data: Dictionary, game_type: String, stake: int) -> void:
-	print("Debug: Join game called with:")
+	print("\nDebug: Join game called with:")
 	print("- Game type:", game_type)
 	print("- Stake:", stake)
 	print("- Player data:", player_data)
 	
 	# Validate game type
 	if not game_type in available_game_types:
+		print("Debug: Invalid game type")
 		emit_signal("join_failed", "Invalid game type")
 		return
 	
 	if not available_game_types[game_type]:
+		print("Debug: Game type not available")
 		emit_signal("join_failed", "Game type not available")
 		return
 	
 	# Convert stake to int for comparison
 	var stake_int = int(stake)
 	if stake_int not in AVAILABLE_STAKES:
+		print("Debug: Invalid stake level")
 		emit_signal("join_failed", "Invalid stake level")
 		return
 	
 	# Calculate required stack
 	var required_stack = stake_int * 100  # 100 big blinds minimum
 	
-	# Wait for balance initialization if needed
+	# Request balance update if not initialized
 	if not PlayerData.is_balance_initialized:
-		await PlayerData.balance_initialized
+		print("Debug: Requesting balance update...")
+		PlayerData.update_balance_from_server()
+		# Wait for a maximum of 5 seconds for balance initialization
+		var start_time = Time.get_ticks_msec()
+		while not PlayerData.is_balance_initialized and (Time.get_ticks_msec() - start_time) < 5000:
+			await get_tree().create_timer(0.1).timeout
+		
+		if not PlayerData.is_balance_initialized:
+			print("Debug: Balance initialization timeout")
+			emit_signal("join_failed", "Failed to initialize balance")
+			return
 	
 	# Check balance
 	if not PlayerData.has_sufficient_balance(required_stack):
+		print("Debug: Insufficient balance")
 		emit_signal("join_failed", "Insufficient balance for this stake level")
 		return
 	
@@ -76,15 +90,21 @@ func join_game(player_data: Dictionary, game_type: String, stake: int) -> void:
 		"avatar_data": PlayerData.get_avatar_data()
 	}
 	
+	print("Debug: Finding optimal table...")
 	# Find optimal table
 	var table = TableManager.find_optimal_table(stake_int, table_player_data)
+	print("Debug: Found table:", table)
 	if not table:
+		print("Debug: No suitable table available")
 		emit_signal("join_failed", "No suitable table available")
 		return
 	
+	print("Debug: Attempting to seat player at table", table.id)
 	# Try to seat the player
 	var seat_index = TableManager.seat_player(table.id, table_player_data)
+	print("Debug: Seat index assigned:", seat_index)
 	if seat_index == -1:
+		print("Debug: Failed to seat player")
 		emit_signal("join_failed", "Failed to seat player")
 		return
 	

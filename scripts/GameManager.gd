@@ -28,6 +28,8 @@ var player_cards = []
 var current_bet = 0
 var last_action = ""
 var is_my_turn = false
+var players = []
+var current_player_index = -1
 
 @onready var challenge_progress = get_node_or_null("../ChallengeProgressButton")
 @onready var action_ui = get_node_or_null("../ActionUI")
@@ -44,7 +46,8 @@ func _ready():
 	# Connect to TableManager signals
 	TableManager.player_seated.connect(_on_player_seated)
 	TableManager.player_left.connect(_on_player_left)
-	TableManager.tables_updated.connect(_on_table_state_updated)
+	# Change 'tables_updated' connection to have a different name to avoid confusion
+	TableManager.tables_updated.connect(func(): _handle_table_update())
 
 	# Initialize the game with data from GameData singleton
 	var game_data = GameData.get_game_data()
@@ -84,11 +87,18 @@ func initialize_game(game_data: Dictionary) -> void:
 	current_bet = 0
 	last_action = ""
 	is_my_turn = false
+	players = game_data.table_state.players
+	current_player_index = game_data.seat_index
 
 	# Update UI with initial table state
 	update_ui_from_table_state(game_data.table_state)
+	
+	# Start new hand if one is not already in progress
+	var table_data = TableManager.get_table_data(table_id)
+	if table_data and not table_data.active_hand:
+		TableManager.start_new_hand(table_id)
 
-func _on_table_state_updated():
+func _handle_table_update() -> void:
 	var table_data = TableManager.get_table_data(table_id)
 	if table_data.is_empty():
 		push_error("Could not get table data for table: " + table_id)
@@ -101,6 +111,10 @@ func _on_table_state_updated():
 		start_player_turn()
 
 func update_ui_from_table_state(table_data: Dictionary):
+	# Update players array
+	players = table_data.players
+	current_player_index = table_data.action_on  # Add this line
+
 	# Update pot display
 	update_pot_display(table_data.current_pot)
 
@@ -321,14 +335,14 @@ func _on_player_seated(table_id: String, player_seat: int, player_data: Dictiona
 		return
 		
 	print("Debug: Player seated at table ", table_id, " seat ", player_seat)
-	_on_table_state_updated()
+	_handle_table_update()
 
 func _on_player_left(table_id: String, player_seat: int):
 	if table_id != self.table_id:
 		return
 		
 	print("Debug: Player left table ", table_id, " from seat ", player_seat)
-	_on_table_state_updated()
+	_handle_table_update()
 
 func move_dealer_button(new_position: int):
 	var dealer_button = get_node_or_null("../DealerButton")

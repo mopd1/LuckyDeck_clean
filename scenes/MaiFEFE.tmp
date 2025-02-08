@@ -666,3 +666,5 @@ offset_left = 1120.0
 offset_top = 30.0
 offset_right = 1840.0
 offset_bottom = 90.0
+
+[connection signal="leaderboard_points_updated" from="GameManager" to="WinnerPopup" method="_on_leaderboard_points_updated"]

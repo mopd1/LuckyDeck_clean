@@ -86,8 +86,12 @@ var tables = {}
 
 func _ready():
 	# Initialize minimal tables for each stake level
+	print("Debug: TableManager initializing...")
 	for stake in GameJoiner.AVAILABLE_STAKES:
+		print("Debug: Ensuring minimum tables for stake", stake)
 		ensure_minimum_tables(stake)
+	print("Debug: TableManager initialization complete.")
+	print("Debug: Tables initialized:", tables)
 
 # Utility functions (defined first as they're used by other methods)
 func generate_table_id(stake_level: int) -> String:
@@ -126,16 +130,22 @@ func calculate_rake(pot_amount: int) -> int:
 
 # Core table management functions
 func ensure_minimum_tables(stake_level: int) -> void:
+	print("Debug: Ensuring minimum tables for stake level", stake_level)
 	if not tables.has(stake_level):
 		tables[stake_level] = {}
+		print("Debug: Created tables dictionary for stake level", stake_level)
 	
 	var active_tables = get_active_tables(stake_level)
+	print("Debug: Current active tables for stake", stake_level, ":", active_tables.size())
 	while active_tables.size() < MIN_TABLES_PER_STAKE:
 		create_table(stake_level)
 		active_tables = get_active_tables(stake_level)
+	print("Debug: Final active tables for stake", stake_level, ":", active_tables.size())
 
 func create_table(stake_level: int) -> Dictionary:
+	print("\nDebug: Creating new table for stake level", stake_level)
 	var table_id = generate_table_id(stake_level)
+	print("Debug: Generated table ID:", table_id)
 	var table_data = {
 		"id": table_id,
 		"stake_level": stake_level,
@@ -186,39 +196,52 @@ func close_table(stake_level: int, table_id: String) -> void:
 			print("Debug: Closed table ", table_id, " at stake level ", stake_level)
 
 func get_active_tables(stake_level: int) -> Array:
+	print("Debug: Getting active tables for stake level", stake_level)
 	if not tables.has(stake_level):
+		print("Debug: No tables found for stake level", stake_level)
 		return []
-	return tables[stake_level].values()
+	var active = tables[stake_level].values()
+	print("Debug: Found", active.size(), "active tables")
+	return active
 
 # Player management functions
 func find_optimal_table(stake_level: int, player_data: Dictionary) -> Dictionary:
-	print("Debug: Finding optimal table for stake level ", stake_level)
+	print("\nDebug: Finding optimal table for stake level ", stake_level)
+	print("Debug: Current tables for stake level:", tables.get(stake_level, {}).size())
 	
 	if not tables.has(stake_level):
+		print("Debug: No tables found for stake level - creating new tables")
 		ensure_minimum_tables(stake_level)
 	
 	var active_tables = get_active_tables(stake_level)
 	if active_tables.is_empty():
+		print("Debug: No active tables found - creating new table")
 		return create_table(stake_level)
 	
 	# First, try to find a table with players but available seats
 	var best_table = null
 	var best_player_count = MAX_PLAYERS
 	
+	print("Debug: Searching through", active_tables.size(), "active tables")
 	for table in active_tables:
 		var player_count = count_active_players(table)
+		print("Debug: Table", table.id, "has", player_count, "players")
 		if player_count > 0 and player_count < MAX_PLAYERS and player_count < best_player_count:
 			best_table = table
 			best_player_count = player_count
+			print("Debug: Found better table with", player_count, "players")
 	
 	# If no suitable table found, create a new one or use an empty table
 	if not best_table:
+		print("Debug: No suitable table found with players")
 		if active_tables.size() >= MIN_TABLES_PER_STAKE:
+			print("Debug: Creating new table as all existing tables are full")
 			best_table = create_table(stake_level)
 		else:
+			print("Debug: Using first available table")
 			best_table = active_tables[0]
 	
-	print("Debug: Selected table ", best_table.id, " with ", count_active_players(best_table), " players")
+	print("Debug: Selected table", best_table.id, "with", count_active_players(best_table), "players")
 	return best_table
 
 func seat_player(table_id: String, player_data: Dictionary) -> int:

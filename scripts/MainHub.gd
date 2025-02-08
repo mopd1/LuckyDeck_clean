@@ -52,6 +52,10 @@ var player_data = {
 var original_main_scene = Node
 
 func _ready():
+	# Debug: Track initialization sequence
+	print("Debug: MainHub _ready() started")
+	
+	# Initialize shader material
 	shader_material = ShaderMaterial.new()
 	shader_material.shader = preload("res://assets/shaders/panel_background.gdshader")
 	game_area_rect.material = shader_material
@@ -61,18 +65,39 @@ func _ready():
 	shader_material.set_shader_parameter("scale", 5.0)
 	shader_material.set_shader_parameter("intensity", 0.5)
 	
+	# Check authentication
 	if APIManager.user_token.is_empty():
-		print("No user token found. Redirecting to login.")
+		print("Debug: No user token found. Redirecting to login.")
 		SceneManager.goto_scene("res://scenes/LoginScene.tscn")
 		return
 	
-	APIManager.get_user_data()
+	# Connect to API manager signals first
+	if not APIManager.is_connected("user_data_received", _on_user_data_received):
+		APIManager.connect("user_data_received", _on_user_data_received)
+		print("Debug: Connected to user_data_received signal")
 	
-	# Connect to all balance-related signals
+	# Connect to PlayerData signals
 	if not PlayerData.is_connected("balance_updated", _on_balance_updated):
 		PlayerData.connect("balance_updated", _on_balance_updated)
+		print("Debug: Connected to balance_updated signal")
 	if not PlayerData.is_connected("balance_initialized", _on_balance_initialized):
 		PlayerData.connect("balance_initialized", _on_balance_initialized)
+		print("Debug: Connected to balance_initialized signal")
+	
+	# Hide balance displays until we have data
+	if chip_balance_display:
+		chip_balance_display.text = ""
+	if gem_balance_display:
+		gem_balance_display.text = ""
+	
+	# Update displays with current data before requesting new data
+	print("Debug: Initial balance:", PlayerData.get_balance())
+	update_chip_balance_display()
+	update_gem_balance_display()
+	
+	# Request fresh data from server
+	print("Debug: Requesting user data from server")
+	APIManager.get_user_data()
 	
 	hide_all_game_sections()
 	
@@ -93,7 +118,7 @@ func _ready():
 	
 	setup_table_games_panels()
 	
-	# Connect existing button signals
+	# Connect button signals
 	table_games_button.pressed.connect(_on_table_games_button_pressed)
 	logout_button.pressed.connect(_on_logout_button_pressed)
 	user_profile_button.pressed.connect(_on_user_profile_button_pressed)
@@ -101,6 +126,7 @@ func _ready():
 	friends_button.pressed.connect(_on_friends_button_pressed)
 	$GameSelectionArea/GameTypeButtons/PokerButton.pressed.connect(_on_poker_button_pressed)
 	poker_test_button.pressed.connect(_on_poker_test_button_pressed)
+	
 	# Initialize challenge button
 	if challenge_button:
 		challenge_button.pressed.connect(_on_challenge_button_pressed)
@@ -112,20 +138,18 @@ func _ready():
 	if not JackpotSNGManager.is_connected("multiplier_selected", _on_jackpot_sng_multiplier_selected):
 		JackpotSNGManager.connect("multiplier_selected", _on_jackpot_sng_multiplier_selected)
 	
-	# Add verification for the button
+	# Add verification for the customize button
 	var customize_button = $PlayerPanel/CustomizeAvatarButton
 	if customize_button:
-		print("CustomizeAvatarButton found")
+		print("Debug: CustomizeAvatarButton found")
 		if not customize_button.is_connected("pressed", _on_customize_avatar_button_pressed):
 			customize_button.pressed.connect(_on_customize_avatar_button_pressed)
-			print("CustomizeAvatarButton signal connected")
+			print("Debug: CustomizeAvatarButton signal connected")
 	else:
 		push_error("CustomizeAvatarButton not found in scene")
 	
 	# Initialize stake selection and theme
 	initialize_stake_selection()
-	
-	# Setup tooltips
 	
 	# Update avatar display
 	_update_avatar_display()
@@ -147,8 +171,32 @@ func _process(_delta):
 		game_selection_area.queue_redraw()
 
 func _on_user_data_received(data):
-	chip_balance_display.text = str(data.chips)
-	gem_balance_display.text = str(data.gems)
+	print("Debug: User data received in MainHub:", data)
+	
+	if not data is Dictionary:
+		push_error("Received invalid user data type")
+		return
+	
+	# Check for both "balance" and "chips" fields for compatibility
+	var balance = null
+	if data.has("balance"):
+		balance = data["balance"]
+		print("Debug: Found balance field:", balance)
+	elif data.has("chips"):
+		balance = data["chips"]
+		print("Debug: Found chips field:", balance)
+		
+	if balance != null:
+		print("Debug: Updating chip balance to:", balance)
+		PlayerData.player_data["total_balance"] = balance
+		if chip_balance_display:
+			chip_balance_display.text = Utilities.format_number(balance)
+	
+	if data.has("gems"):
+		print("Debug: Updating gem balance to:", data.gems)
+		PlayerData.player_data["gems"] = data.gems
+		if gem_balance_display:
+			gem_balance_display.text = Utilities.format_number(data.gems)
 
 func hide_all_game_sections():
 	poker_panels.hide()
@@ -236,7 +284,7 @@ func _on_game_panel_play_pressed(game_type: String, stake: int):
 	print("Debug: Game type:", game_type)
 	print("Debug: Stake:", stake)
 	print("Debug: Available stakes:", GameJoiner.AVAILABLE_STAKES)
-	print("Debug: Available games:", GameJoiner.available_games.keys())
+	print("Debug: Available game types:", GameJoiner.available_game_types.keys())
 	
 	# Make sure we're using the exact game type string
 	if game_type == "NL Hold'em Cash Game":
@@ -328,13 +376,17 @@ func _on_balance_changed(_new_balance: int):
 
 func _on_balance_initialized():
 	print("Debug: Balance initialized in MainHub")
+	print("Debug: Current balance:", PlayerData.get_balance())
 	update_chip_balance_display()
 	initialize_stake_selection()
 
 func update_chip_balance_display():
 	if chip_balance_display:
 		var balance = PlayerData.get_balance()
+		print("Debug: Updating chip display to:", balance)
 		chip_balance_display.text = Utilities.format_number(balance)
+	else:
+		push_error("chip_balance_display node not found")
 
 func update_gem_balance_display():
 	if gem_balance_display:

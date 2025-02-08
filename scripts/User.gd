@@ -21,11 +21,27 @@ func login(username: String, password: String):
 
 # Add this new method to handle successful login
 func handle_login_success(response_data: Dictionary):
-	if response_data.has("user") and response_data.user.has("id"):
+	print("Debug: Handling login success with data:", response_data)
+	
+	if response_data.has("user"):
 		current_user_id = response_data.user.id
 		user_data = response_data.user
+		
+		# Initialize PlayerData with user data if available
+		# Check for both "balance" and "chips" fields
+		if response_data.user.has("balance"):
+			print("Debug: Setting initial balance:", response_data.user.balance)
+			PlayerData.player_data["total_balance"] = response_data.user.balance
+		elif response_data.user.has("chips"):
+			print("Debug: Setting initial chips balance:", response_data.user.chips)
+			PlayerData.player_data["total_balance"] = response_data.user.chips
+			
+		if response_data.user.has("gems"):
+			print("Debug: Setting initial gems balance:", response_data.user.gems)
+			PlayerData.player_data["gems"] = response_data.user.gems
+			
 		emit_signal("user_logged_in", current_user_id)
-		print("User logged in successfully with ID:", current_user_id)
+		print("Debug: User logged in successfully with ID:", current_user_id)
 	else:
 		push_error("Login response missing user data")
 

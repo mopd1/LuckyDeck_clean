@@ -49,22 +49,29 @@ func _ready():
 
 # New server sync handler
 func _on_user_data_received(data):
-	print("Debug: PlayerData received user data update")
-	if data.has("chips"):
+	print("Debug: PlayerData received user data update:", data)
+	if data.has("balance"):
+		var old_balance = player_data["total_balance"]
+		player_data["total_balance"] = data.balance
+		
+		if not is_balance_initialized:
+			print("Debug: Initializing balance:", data.balance)
+			is_balance_initialized = true
+			emit_signal("balance_initialized")
+		
+		if old_balance != data.balance:
+			emit_signal("balance_updated", player_data["total_balance"])
+	elif data.has("chips"):  # Alternative field name
 		var old_balance = player_data["total_balance"]
 		player_data["total_balance"] = data.chips
 		
 		if not is_balance_initialized:
+			print("Debug: Initializing balance (chips):", data.chips)
 			is_balance_initialized = true
 			emit_signal("balance_initialized")
 		
 		if old_balance != data.chips:
 			emit_signal("balance_updated", player_data["total_balance"])
-	
-	if data.has("gems"):
-		if player_data["gems"] != data.gems:
-			player_data["gems"] = data.gems
-			emit_signal("gem_balance_updated", player_data["gems"])
 
 # Modified balance methods
 func get_balance() -> int:

@@ -97,11 +97,15 @@ func _on_bet_changed(value):
 	$ActionButtons/BetAmount.value = value
 
 	if game_manager and game_manager.players:
-		update_button_text(
-			game_manager.current_bet,
-			game_manager.players[game_manager.current_player_index].bet,
-			value  # Use the selected bet amount
-		)
+		var current_player = game_manager.players[game_manager.current_player_index]
+		if current_player:
+			update_button_text(
+				game_manager.current_bet,
+				current_player.bet,
+				value  # Use the selected bet amount
+			)
+		else:
+			push_error("Current player is null")
 	else:
 		push_error("Could not find GameManager node or players not initialized")
 
