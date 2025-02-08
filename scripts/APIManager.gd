@@ -17,8 +17,7 @@ signal message_received(message)
 signal messages_marked_read(friend_id)
 signal chat_history_received(messages)
 
-var API_URL = ""
-var api_url = ConfigManager.api_url
+var api_url: String
 var is_development: bool = true
 var EC2_IP = "13.60.228.103"
 var user_token = ""
@@ -27,9 +26,8 @@ var user_data = {}
 var pending_balance_update = 0
 
 func _ready():
-	# Remove URL override
-	API_URL = ConfigManager.api_url
-	print("Using API URL: ", API_URL)
+	api_url = ConfigManager.api_url
+	print("APIManager initialized with URL: ", api_url)
 
 # Update your error handling to use the new logging system
 # Example for a network request:
@@ -44,8 +42,10 @@ func _on_request_completed(result, response_code, headers, body):
 	ConfigManager.log("API request successful", "debug")
 
 func login(username: String, password: String) -> void:
-	print("Debug - ConfigManager.api_url: ", ConfigManager.api_url)
-	var base_url = API_URL.strip_edges().trim_suffix("/")  # Remove any trailing slash
+	var request_id = Time.get_unix_time_from_system()
+	print("Debug: Starting login request %d" % request_id)
+	
+	var base_url = api_url.strip_edges().trim_suffix("/")  # Remove any trailing slash
 	var login_endpoint = "/auth/login"
 	var full_url = base_url + login_endpoint
 	
@@ -53,6 +53,7 @@ func login(username: String, password: String) -> void:
 	print("Debug - Full URL: ", full_url)
 	
 	var http_request = HTTPRequest.new()
+	http_request.set_meta("request_id", request_id)
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_login_request_completed"))
 	
@@ -62,26 +63,25 @@ func login(username: String, password: String) -> void:
 	
 	var body = JSON.stringify({"username": username, "password": password})
 	var headers = ["Content-Type: application/json"]
-	print("Sending login request to: ", full_url)
-	print("Request headers: ", headers)
-	print("Request body: ", body)
+	print("Debug: Login request %d - sending to URL: %s" % [request_id, full_url])
+	print("Debug: Login request %d - headers: %s" % [request_id, headers])
+	print("Debug: Login request %d - body: %s" % [request_id, body])
 	
 	var error = http_request.request(full_url, headers, HTTPClient.METHOD_POST, body)
-	print("Request error code: ", error)
 	
 	match error:
 		OK:
-			print("Request sent successfully")
+			print("Debug: Login request %d sent successfully" % request_id)
 		ERR_CANT_CONNECT:
-			print("Failed to connect to host: ", full_url)
+			print("Debug: Login request %d - Failed to connect to host: %s" % [request_id, full_url])
 			emit_signal("login_completed", false, "Could not connect to server")
 			http_request.queue_free()
 		ERR_CANT_RESOLVE:
-			print("Could not resolve hostname: ", full_url)
+			print("Debug: Login request %d - Could not resolve hostname: %s" % [request_id, full_url])
 			emit_signal("login_completed", false, "Could not resolve server address")
 			http_request.queue_free()
 		_:
-			print("HTTP Request error code: ", error)
+			print("Debug: Login request %d failed with error code: %d" % [request_id, error])
 			emit_signal("login_completed", false, "Connection error: " + str(error))
 			http_request.queue_free()
 
@@ -113,6 +113,20 @@ func _on_login_request_completed(result: int, response_code: int, headers: Packe
 	var response_text = body.get_string_from_utf8()
 	print("Raw response: ", response_text)
 	
+	if response_code == 429:
+		# Get retry after time from headers
+		var retry_after = 0
+		for header in headers:
+			if header.begins_with("Retry-After: "):
+				retry_after = header.trim_prefix("Retry-After: ").to_int()
+				break
+		
+		var error_msg = "Rate limited. Please wait %d seconds before trying again." % retry_after
+		emit_signal("login_completed", false, error_msg)
+		if http_request:
+			http_request.queue_free()
+		return
+	
 	if result != HTTPRequest.RESULT_SUCCESS:
 		print("Request failed with result: ", result)
 		emit_signal("login_completed", false, "Connection failed: " + result_message)
@@ -133,7 +147,15 @@ func _on_login_request_completed(result: int, response_code: int, headers: Packe
 			User.handle_login_success(json)
 			emit_signal("login_completed", true, "Login successful")
 	else:
-		emit_signal("login_completed", false, "Server error: " + str(response_code))
+		# Try to get more detailed error message from response
+		var error_msg = "Server error: " + str(response_code)
+		var json = JSON.parse_string(response_text)
+		if json != null and json.has("error"):
+			error_msg = json["error"]
+		emit_signal("login_completed", false, error_msg)
+
+	if http_request:
+		http_request.queue_free()
 
 func handle_google_signin():
 	if OS.get_name() == "iOS":
@@ -183,7 +205,7 @@ func get_user_data():
 	http_request.connect("request_completed", Callable(self, "_on_get_user_data_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(API_URL + "/auth/user", headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(api_url + "/auth/user", headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -223,7 +245,7 @@ func refresh_auth_token():
 
 	var body = JSON.stringify({"refreshToken": refresh_token})
 	var headers = ["Content-Type: application/json"]
-	var error = http_request.request(API_URL + "/auth/refresh-token", headers, HTTPClient.METHOD_POST, body)
+	var error = http_request.request(api_url + "/auth/refresh-token", headers, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -246,7 +268,7 @@ func logout():
 	http_request.connect("request_completed", Callable(self, "_on_logout_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(API_URL + "/auth/logout", headers, HTTPClient.METHOD_POST)
+	var error = http_request.request(api_url + "/auth/logout", headers, HTTPClient.METHOD_POST)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -272,7 +294,7 @@ func update_user_profile(update_data: Dictionary):
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
 	var body = JSON.stringify(update_data)
-	var error = http_request.request(API_URL + "/auth/update-profile", headers, HTTPClient.METHOD_PUT, body)
+	var error = http_request.request(api_url + "/auth/update-profile", headers, HTTPClient.METHOD_PUT, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -304,7 +326,7 @@ func verify_email(verification_token: String):
 
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({"token": verification_token})
-	var error = http_request.request(API_URL + "/auth/verify-email", headers, HTTPClient.METHOD_POST, body)
+	var error = http_request.request(api_url + "/auth/verify-email", headers, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -348,7 +370,7 @@ func purchase_package(package_data: Dictionary):
 		"price": package_data["price"]
 	})
 	
-	var error = http_request.request(API_URL + "/store/purchase-package", 
+	var error = http_request.request(api_url + "/store/purchase-package", 
 								   headers, 
 								   HTTPClient.METHOD_POST, 
 								   body)
@@ -409,7 +431,7 @@ func update_server_balance(new_balance: int):
 	print("Debug: Request body:", body)
 	
 	var error = http_request.request(
-		API_URL + "/auth/update-chips",
+		api_url + "/auth/update-chips",
 		headers,
 		HTTPClient.METHOD_PUT,
 		body
@@ -456,7 +478,7 @@ func search_users(query: String):
 	
 	# Remove the extra 'api/' from the path
 	var error = http_request.request(
-		API_URL + "/friends/search?query=" + query.uri_encode(),
+		api_url + "/friends/search?query=" + query.uri_encode(),
 		headers,
 		HTTPClient.METHOD_GET
 	)
@@ -508,7 +530,7 @@ func send_friend_request(friend_id: int) -> void:
 	print("Sending friend request with body:", body)  # Debug print
 	
 	var error = http_request.request(
-		API_URL + "/friends/request",
+		api_url + "/friends/request",
 		headers,
 		HTTPClient.METHOD_POST,
 		body
@@ -550,7 +572,7 @@ func get_user_friends():
 	http_request.connect("request_completed", Callable(self, "_on_get_user_friends_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(API_URL + "/friends/list", headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(api_url + "/friends/list", headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -582,7 +604,7 @@ func get_pending_friend_requests():
 	]
 
 	var error = http_request.request(
-		API_URL + "/friends/pending",
+		api_url + "/friends/pending",
 		headers,
 		HTTPClient.METHOD_GET
 	)
@@ -626,7 +648,7 @@ func respond_to_friend_request(request_id: int, status: String):
 	]
 	var body = JSON.stringify({"status": status})
 	var error = http_request.request(
-		API_URL + "/friends/request/" + str(request_id),
+		api_url + "/friends/request/" + str(request_id),
 		headers,
 		HTTPClient.METHOD_PUT,
 		body
@@ -678,7 +700,7 @@ func send_message(receiver_id: int, content: String):
 		"content": content
 	})
 	var error = http_request.request(
-		API_URL + "/friends/message",
+		api_url + "/friends/message",
 		headers,
 		HTTPClient.METHOD_POST,
 		body
@@ -714,7 +736,7 @@ func get_chat_history(friend_id: int, page: int = 1):
 		"Authorization: Bearer " + user_token
 	]
 	var error = http_request.request(
-		API_URL + "/friends/messages/" + str(friend_id) + "?page=" + str(page),
+		api_url + "/friends/messages/" + str(friend_id) + "?page=" + str(page),
 		headers,
 		HTTPClient.METHOD_GET
 	)
@@ -749,7 +771,7 @@ func mark_messages_as_read(friend_id: int):
 		"Authorization: Bearer " + user_token
 	]
 	var error = http_request.request(
-		API_URL + "/friends/messages/read/" + str(friend_id),
+		api_url + "/friends/messages/read/" + str(friend_id),
 		headers,
 		HTTPClient.METHOD_PUT
 	)
@@ -787,7 +809,7 @@ func test_endpoints():
 		)
 		
 		var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-		print("Debug: Testing endpoint:", API_URL + endpoint)
+		print("Debug: Testing endpoint:", api_url + endpoint)
 		
 		# Try both GET and PUT methods
 		for method in [HTTPClient.METHOD_GET, HTTPClient.METHOD_PUT]:
@@ -802,7 +824,7 @@ func test_endpoints():
 					"user_id": user_data.get("id", null)  # Include user ID if we have it
 				})
 			
-			var error = http_request.request(API_URL + endpoint, headers, method, body if method == HTTPClient.METHOD_PUT else "")
+			var error = http_request.request(api_url + endpoint, headers, method, body if method == HTTPClient.METHOD_PUT else "")
 			
 			if error != OK:
 				print("Debug: Error testing %s %s: %s" % [method_name, endpoint, error])

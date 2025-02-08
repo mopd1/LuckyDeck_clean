@@ -142,4 +142,7 @@ func _on_login_completed(success: bool, message: String):
 		error_label.text = "Login successful!"
 		SceneManager.goto_scene("res://scenes/MainHub.tscn")
 	else:
-		error_label.text = "Login failed: " + message
+		if message.contains("Rate limited"):
+			error_label.text = message  # Show the countdown
+		else:
+			error_label.text = "Login failed: " + message

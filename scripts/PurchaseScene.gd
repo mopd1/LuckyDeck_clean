@@ -66,8 +66,31 @@ func _process(delta):
 	update_refresh_time_label()
 
 func _on_user_data_received(data):
-	PlayerData.player_data["total_balance"] = data.chips
-	PlayerData.player_data["gems"] = data.gems
+	# Debug logging
+	print("Received user data:", data)
+	
+	# Data validation
+	if typeof(data) != TYPE_DICTIONARY:
+		push_error("Received data is not a dictionary")
+		return
+	
+	# Safe dictionary access for balance - try different possible field names
+	if data.has("balance"):
+		PlayerData.player_data["total_balance"] = data["balance"]
+	elif data.has("chips"):
+		PlayerData.player_data["total_balance"] = data["chips"]
+	elif data.has("new_balance"):
+		PlayerData.player_data["total_balance"] = data["new_balance"]
+	else:
+		push_error("No balance field found in received data")
+	
+	# Handle gems data
+	if data.has("gems"):
+		PlayerData.player_data["gems"] = data["gems"]
+	elif data.has("new_gems"):
+		PlayerData.player_data["gems"] = data["new_gems"]
+	else:
+		push_error("No gems field found in received data")
 	
 	$TopBar/BalanceDisplay.show()
 	update_balance_display()
