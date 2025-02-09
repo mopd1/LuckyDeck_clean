@@ -2,6 +2,8 @@ extends Node
 
 class_name Bot
 
+const HandEvaluator = preload("res://scripts/HandEvaluator.gd")
+
 const BOT_NAMES = [
 	"CoolBot",
 	"PokerMaster",
@@ -13,7 +15,7 @@ const BOT_NAMES = [
 var seat_index: int
 var table_id: String
 var chips: int
-var display_name: String  # Changed from 'name' to 'display_name'
+var display_name: String
 var avatar_data: Dictionary
 
 func _init(seat: int, table: String, starting_chips: int):
@@ -30,38 +32,64 @@ func _init(seat: int, table: String, starting_chips: int):
 		"accessories": randi() % 5
 	}
 
+func should_fold(hand_strength: int, pot_odds: float) -> bool:
+	match hand_strength:
+		HandEvaluator.HandRank.HIGH_CARD:
+			return randf() < 0.8  # 80% chance to fold
+		HandEvaluator.HandRank.PAIR:
+			return randf() < 0.4  # 40% chance to fold
+		_:
+			return false  # Stronger hands don't fold
+
+func calculate_bet_size(table_data: Dictionary, hand_strength: int) -> int:
+	var pot_size = table_data.current_pot
+	var min_raise = table_data.stake_level
+	
+	match hand_strength:
+		HandEvaluator.HandRank.HIGH_CARD:
+			return table_data.current_bet  # Just call
+		HandEvaluator.HandRank.PAIR:
+			return table_data.current_bet + min_raise  # Min raise
+		_:
+			# Stronger hands make bigger bets
+			return table_data.current_bet + min_raise * 2
+
 func make_decision(table_data: Dictionary) -> Dictionary:
-	# Simple random decision-making
-	var action_weights = {
-		"fold": 0.33,
-		"call": 0.33,
-		"raise": 0.34
-	}
+	# Get hand info based on current round
+	var hand_info
+	if table_data.current_round == "preflop":
+		hand_info = HandEvaluator.evaluate_preflop_hand(table_data.players[seat_index].cards)
+	else:
+		hand_info = HandEvaluator.evaluate_hand(table_data.players[seat_index].cards, table_data.community_cards)
 	
-	var rand_value = randf()
-	var cumulative_weight = 0.0
+	if hand_info == null:
+		print("DEBUG: Bot ", seat_index, " couldn't evaluate hand, defaulting to fold")
+		return {"action": "fold"}
+		
+	var pot_odds = float(table_data.current_bet) / float(table_data.current_pot) if table_data.current_pot > 0 else 0.0
+	print("DEBUG: Bot ", seat_index, " evaluating decision:")
+	print("- Hand rank: ", hand_info.rank)
+	print("- Pot odds: ", pot_odds)
 	
-	for action in action_weights:
-		cumulative_weight += action_weights[action]
-		if rand_value <= cumulative_weight:
-			match action:
-				"fold":
-					return {"action": "fold"}
-				"call":
-					var call_amount = table_data.current_bet
-					return {"action": "call", "amount": call_amount}
-				"raise":
-					var min_raise = table_data.stake_level
-					var raise_amount = table_data.current_bet + min_raise
-					return {"action": "raise", "amount": raise_amount}
+	if should_fold(hand_info.rank, pot_odds):
+		print("DEBUG: Bot ", seat_index, " decided to fold")
+		return {"action": "fold"}
 	
-	# Default to folding if something goes wrong
-	return {"action": "fold"}
+	var bet_size = calculate_bet_size(table_data, hand_info.rank)
+	if table_data.current_bet == 0:
+		print("DEBUG: Bot ", seat_index, " decided to bet ", bet_size)
+		return {"action": "raise", "amount": bet_size}
+	elif bet_size > table_data.current_bet:
+		print("DEBUG: Bot ", seat_index, " decided to raise to ", bet_size)
+		return {"action": "raise", "amount": bet_size}
+	else:
+		print("DEBUG: Bot ", seat_index, " decided to call")
+		return {"action": "call", "amount": table_data.current_bet}
 
 func get_player_data() -> Dictionary:
 	return {
 		"user_id": "bot_" + str(seat_index),
-		"name": display_name,  # Use display_name here
+		"name": display_name,
 		"chips": chips,
 		"bet": 0,
 		"folded": false,

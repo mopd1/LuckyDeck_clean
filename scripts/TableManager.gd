@@ -360,6 +360,14 @@ func start_new_hand(table_id: String) -> void:
 	table.action_on = find_next_active_player(table, (table.dealer_position + 3) % table.players.size())
 	print("DEBUG: First action set to ", table.action_on)
 	
+	table.action_on = find_first_actor(table)
+	print("DEBUG: First action set to ", table.action_on)
+	
+	# If first actor is a bot, trigger their action
+	if table.action_on != -1 and is_bot_turn(table):
+		print("DEBUG: First actor is bot, triggering bot action")
+		handle_bot_turn(table)
+	
 	table.last_activity = Time.get_unix_time_from_system()
 	emit_signal("tables_updated")
 
@@ -577,75 +585,53 @@ func process_player_action(table_id: String, seat_index: int, action: String, am
 	if player == null or player.folded:
 		return false
 	
+	# Process the action
+	var success = false
+	
 	match action:
 		"fold":
 			print("DEBUG: Processing fold")
 			player.folded = true
 			player.last_action = "fold"
-			handle_post_action(table)
+			success = true
 			
 		"call":
 			print("DEBUG: Processing call/check")
-			# If no bet to call, this is a check
 			if table.current_bet == player.bet:
 				print("DEBUG: This is a check")
 				player.last_action = "check"
-				handle_post_action(table)
+				success = true
 			else:
-				# This is a call
 				var call_amount = table.current_bet - player.bet
-				if call_amount > player.chips:  # All-in call
+				if call_amount > player.chips:
 					call_amount = player.chips
 					handle_all_in(table, seat_index)
-				
 				player.chips -= call_amount
 				player.bet += call_amount
 				player.last_action = "call"
 				player.last_action_amount = call_amount
-				handle_post_action(table)
-			
+				success = true
+				
 		"raise":
 			print("DEBUG: Processing raise")
-			# Validate raise amount
-			var min_raise = table.stake_level  # 1 BB minimum raise
-			var total_to_call = table.current_bet - player.bet
-			var min_amount = table.current_bet + min_raise
-			
-			print("- Min raise amount: ", min_raise)
-			print("- Total to call: ", total_to_call)
-			print("- Min amount: ", min_amount)
-			
-			# If this is the first bet in the round
-			if table.current_bet == 0:
-				if amount < table.stake_level:
-					print("DEBUG: Invalid bet - below minimum")
-					return false
-			else:
-				if amount < min_amount:
-					print("DEBUG: Invalid raise - below minimum raise")
-					return false
-			
-			if amount > player.chips + player.bet:
-				print("DEBUG: Invalid raise - not enough chips")
-				return false
-			
-			var raise_amount = amount - player.bet
-			player.chips -= raise_amount
-			player.bet = amount
-			table.current_bet = amount
-			player.last_action = "raise"
-			player.last_action_amount = raise_amount
-			
-			# Reset had_turn_this_round for other players
-			for p in table.players:
-				if p != null and p != player and not p.folded:
-					p.had_turn_this_round = false
-			
-			handle_post_action(table)
+			if amount <= player.chips + player.bet:
+				var raise_amount = amount - player.bet
+				player.chips -= raise_amount
+				player.bet = amount
+				table.current_bet = amount
+				player.last_action = "raise"
+				player.last_action_amount = raise_amount
+				success = true
 	
-	table.last_activity = Time.get_unix_time_from_system()
-	emit_signal("tables_updated")
-	return true
+	if success:
+		handle_post_action(table)
+		
+		# Check if next player is a bot and trigger their action
+		if is_bot_turn(table):
+			print("DEBUG: Bot turn detected, triggering bot action")
+			handle_bot_turn(table)
+	
+	return success
 
 func validate_action(table: Dictionary, seat_index: int, action: String, amount: int) -> bool:
 	if table.action_on != seat_index:
@@ -1430,3 +1416,76 @@ func check_high_card(cards: Array) -> Dictionary:
 	values.sort()
 	values.reverse()
 	return {"rank": HandRank.HIGH_CARD, "values": values.slice(0, 5)}
+
+func create_bot_player(table_id: String, seat_index: int) -> void:
+	print("DEBUG: Creating bot for table ", table_id, " seat ", seat_index)
+	var table = get_table_data(table_id)
+	if table.is_empty():
+		push_error("Table not found when creating bot")
+		return
+		
+	var starting_chips = table.min_buyin
+	var bot = Bot.new(seat_index, table_id, starting_chips)
+	var bot_data = bot.get_player_data()
+	
+	print("DEBUG: Created bot with data: ", bot_data)
+	table.players[seat_index] = bot_data
+	table.last_activity = Time.get_unix_time_from_system()
+	emit_signal("player_seated", table_id, seat_index, bot_data)
+	emit_signal("tables_updated")
+	
+func fill_empty_seats_with_bots(table_id: String) -> void:
+	print("DEBUG: Filling empty seats with bots for table ", table_id)
+	var table = get_table_data(table_id)
+	if table.is_empty():
+		push_error("Table not found when filling bots")
+		return
+		
+	# Fill all but one seat with bots (leave space for players)
+	var bot_count = 0
+	var max_bots = 4  # Leave 2 seats for human players
+	
+	for i in range(table.players.size()):
+		if table.players[i] == null and bot_count < max_bots:
+			print("DEBUG: Creating bot for empty seat ", i)
+			create_bot_player(table_id, i)
+			bot_count += 1
+			await get_tree().create_timer(0.2).timeout
+	
+	print("DEBUG: Added ", bot_count, " bots to table")
+	
+	# If we added bots and there's a human player, start the hand
+	if bot_count > 0 and has_human_player(table):
+		print("DEBUG: Starting new hand after adding bots")
+		start_new_hand(table_id)
+
+func has_human_player(table: Dictionary) -> bool:
+	for player in table.players:
+		if player != null and not player.get("is_bot", false):
+			return true
+	return false
+
+func is_bot_turn(table: Dictionary) -> bool:
+	if table.action_on < 0 or table.action_on >= table.players.size():
+		return false
+	
+	var current_player = table.players[table.action_on]
+	return current_player != null and current_player.get("is_bot", false)
+
+func handle_bot_turn(table: Dictionary) -> void:
+	if not is_bot_turn(table):
+		return
+		
+	print("DEBUG: Handling bot turn for seat ", table.action_on)
+	var bot_seat = table.action_on
+	var bot = Bot.new(bot_seat, table.id, table.players[bot_seat].chips)
+	var decision = bot.make_decision(table)
+	
+	print("DEBUG: Bot decision: ", decision)
+	
+	# Add slight delay before bot acts
+	await get_tree().create_timer(1.5).timeout
+	
+	# Only process action if it's still the bot's turn
+	if table.action_on == bot_seat:
+		process_player_action(table.id, bot_seat, decision.action, decision.get("amount", 0))

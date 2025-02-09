@@ -22,6 +22,7 @@ var table_id: String
 var seat_index: int
 var current_stake: int
 var initial_stack: int
+var table_data: Dictionary
 
 # Local game state tracking
 var player_cards = []
@@ -30,6 +31,7 @@ var last_action = ""
 var is_my_turn = false
 var players = []
 var current_player_index = -1
+var last_bet_amount: int = 0
 
 @onready var challenge_progress = get_node_or_null("../ChallengeProgressButton")
 @onready var action_ui = get_node_or_null("../ActionUI")
@@ -46,7 +48,6 @@ func _ready():
 	# Connect to TableManager signals
 	TableManager.player_seated.connect(_on_player_seated)
 	TableManager.player_left.connect(_on_player_left)
-	# Change 'tables_updated' connection to have a different name to avoid confusion
 	TableManager.tables_updated.connect(func(): _handle_table_update())
 
 	# Initialize the game with data from GameData singleton
@@ -54,6 +55,10 @@ func _ready():
 	if game_data:
 		initialize_game(game_data)
 		GameData.clear_game_data()
+		
+		# Fill empty seats with bots after a short delay
+		await get_tree().create_timer(1.0).timeout
+		TableManager.fill_empty_seats_with_bots(table_id)
 	else:
 		push_error("No game data available for initialization")
 		return_to_lobby()
@@ -66,10 +71,7 @@ func _ready():
 	# Connect to challenge points updated signal
 	PlayerData.connect("challenge_points_updated", _on_challenge_points_updated)
 
-	# Initialize challenge progress button
-	if challenge_progress:
-		challenge_progress.pressed.connect(_on_challenge_button_pressed)
-		_update_challenge_points_display()
+	_update_challenge_points_display()
 
 	return_to_lobby_button.pressed.connect(_on_return_to_lobby_pressed)
 
@@ -81,6 +83,7 @@ func initialize_game(game_data: Dictionary) -> void:
 	seat_index = game_data.seat_index
 	current_stake = game_data.stake_level
 	initial_stack = game_data.player_stack
+	table_data = game_data.table_state  # Store the table state
 
 	# Initialize local state
 	player_cards.clear()
@@ -99,7 +102,7 @@ func initialize_game(game_data: Dictionary) -> void:
 		TableManager.start_new_hand(table_id)
 
 func _handle_table_update() -> void:
-	var table_data = TableManager.get_table_data(table_id)
+	table_data = TableManager.get_table_data(table_id)
 	if table_data.is_empty():
 		push_error("Could not get table data for table: " + table_id)
 		return
@@ -138,6 +141,7 @@ func update_ui_from_table_state(table_data: Dictionary):
 	update_hand_strength_label()
 
 func start_player_turn():
+	print("DEBUG: Starting player turn")
 	is_my_turn = true
 	var table_data = TableManager.get_table_data(table_id)
 	
@@ -152,31 +156,51 @@ func start_player_turn():
 	emit_signal("player_turn_started", seat_index)
 
 func process_player_action(action: String, amount: int = 0) -> bool:
+	print("DEBUG: Player attempting action:", action, " amount:", amount)
 	if not is_my_turn:
+		print("DEBUG: Not player's turn!")
 		return false
 
+	print("DEBUG: Processing player action...")
 	var success = TableManager.process_player_action(table_id, seat_index, action, amount)
 	if success:
+		print("DEBUG: Action processed successfully")
 		is_my_turn = false
 		last_action = action
+		
+		# After player acts, check if next player is a bot
+		var table_data = TableManager.get_table_data(table_id)
+		if TableManager.is_bot_turn(table_data):
+			print("DEBUG: Next player is bot, triggering bot action")
+			TableManager.handle_bot_turn(table_data)
+	else:
+		print("DEBUG: Action processing failed")
 
 	return success
 
 func _on_fold_pressed():
-	if is_my_turn:
-		process_player_action("fold")
+	if not is_my_turn:
+		return
+	process_player_action("fold")
 
 func _on_check_call_pressed():
-	if is_my_turn:
-		var call_amount = TableManager.get_table_data(table_id).current_bet
-		process_player_action("call", call_amount)
+	if not is_my_turn:
+		return
+	var table_data = TableManager.get_table_data(table_id)
+	var call_amount = table_data.current_bet - table_data.players[seat_index].bet
+	process_player_action("call", call_amount)
 
 func _on_raise_pressed():
-	if is_my_turn and action_ui:
+	if not is_my_turn:
+		return
+	if action_ui:
 		var raise_amount = action_ui.get_bet_amount()
 		process_player_action("raise", raise_amount)
 
 # Helper methods
+
+func get_bet_amount() -> int:
+	return $ActionButtons/BetAmount.value
 
 func update_pot_display(pot_amount: int):
 	var pot_label = get_node("../Pot/PotLabel")
@@ -249,6 +273,9 @@ func update_action_ui():
 	var min_raise = current_stake  # 1 BB minimum raise
 	var call_amount = table_data.current_bet - player.bet
 	var max_raise = player.chips + player.bet
+	
+	# Set default raise amount to last bet or 1 BB if no previous bet
+	last_bet_amount = max(current_stake, table_data.current_bet)
 
 	action_ui.update_bet_limits(call_amount, max_raise, table_data.current_bet + min_raise)
 

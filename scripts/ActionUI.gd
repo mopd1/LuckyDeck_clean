@@ -36,6 +36,12 @@ func _ready():
 
 func setup(manager: Node):
 	game_manager = manager
+	
+	# Connect button signals to manager
+	$ActionButtons/FoldButton.pressed.connect(game_manager._on_fold_pressed)
+	$ActionButtons/CheckCallButton.pressed.connect(game_manager._on_check_call_pressed)
+	$ActionButtons/RaiseButton.pressed.connect(game_manager._on_raise_pressed)
+	
 	_update_controls()
 
 func _update_controls():
@@ -125,17 +131,18 @@ func update_button_text(current_bet: int, player_bet: int, bet_amount: int, can_
 	var call_amount = current_bet - player_bet
 
 	print("- call_amount calculated:", call_amount)
+	# Use current_round instead of current_betting_round
 	print("- can check:", call_amount == 0 or (
-		game_manager.current_betting_round == "preflop" and
-		player_bet == game_manager.big_blind and
-		current_bet == game_manager.big_blind))
+		game_manager.table_data.current_round == "preflop" and
+		player_bet == game_manager.table_data.stake_level and
+		current_bet == game_manager.table_data.stake_level))
 
 	# Update CheckCall button
 	var check_call_button = $ActionButtons/CheckCallButton
 	if call_amount == 0 or (
-		game_manager.current_betting_round == "preflop" and
-		player_bet == game_manager.big_blind and
-		current_bet == game_manager.big_blind
+		game_manager.table_data.current_round == "preflop" and
+		player_bet == game_manager.table_data.stake_level and
+		current_bet == game_manager.table_data.stake_level
 	):
 		check_call_button.text = "Check"
 	else:

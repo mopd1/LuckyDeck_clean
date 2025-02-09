@@ -101,6 +101,12 @@ func update_display(player_data, is_current_player: bool, show_cards: bool):
 		card1.texture = load("res://assets/cards/card_back.png")
 		card2.texture = load("res://assets/cards/card_back.png")
 
+		# Add visual indicator for bot players
+	if player_data.get("is_bot", false):
+		name_label.add_theme_color_override("font_color", Color(0.7, 0.9, 1.0))  # Light blue for bots
+	else:
+		name_label.remove_theme_color_override("font_color")
+
 func display_bet(amount: int):
 	if not chip_stack_display:
 		return
