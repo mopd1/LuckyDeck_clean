@@ -24,6 +24,11 @@ var user_token = ""
 var refresh_token = ""
 var user_data = {}
 var pending_balance_update = 0
+var request_queue = []
+var is_processing_queue = false
+var last_request_time = 0.0
+var min_request_interval = 1.0  # Minimum time between requests in seconds
+var rate_limit_reset_time = 0.0
 
 func _ready():
 	api_url = ConfigManager.api_url
@@ -53,7 +58,6 @@ func login(username: String, password: String) -> void:
 	print("Debug - Full URL: ", full_url)
 	
 	var http_request = HTTPRequest.new()
-	http_request.set_meta("request_id", request_id)
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_login_request_completed"))
 	
@@ -108,24 +112,10 @@ func _on_login_request_completed(result: int, response_code: int, headers: Packe
 		_: result_message = "Unknown result code: " + str(result)
 	
 	print("Result meaning: ", result_message)
-	
-	var http_request = get_node_or_null("HTTPRequest")
 	var response_text = body.get_string_from_utf8()
 	print("Raw response: ", response_text)
 	
-	if response_code == 429:
-		# Get retry after time from headers
-		var retry_after = 0
-		for header in headers:
-			if header.begins_with("Retry-After: "):
-				retry_after = header.trim_prefix("Retry-After: ").to_int()
-				break
-		
-		var error_msg = "Rate limited. Please wait %d seconds before trying again." % retry_after
-		emit_signal("login_completed", false, error_msg)
-		if http_request:
-			http_request.queue_free()
-		return
+	var http_request = get_node_or_null("HTTPRequest")
 	
 	if result != HTTPRequest.RESULT_SUCCESS:
 		print("Request failed with result: ", result)
@@ -143,7 +133,6 @@ func _on_login_request_completed(result: int, response_code: int, headers: Packe
 		else:
 			user_token = json.get("token", "")
 			refresh_token = json.get("refreshToken", "")
-			# Add this line to update User singleton
 			User.handle_login_success(json)
 			emit_signal("login_completed", true, "Login successful")
 	else:
@@ -836,3 +825,78 @@ func _on_test_endpoint_completed(endpoint: String, result, response_code: int, h
 	print("Debug: Response headers:", headers)
 	print("Debug: Response body:", response_text)
 	print("-----------------")
+
+func queue_request(request_data: Dictionary) -> void:
+	# Just send the request immediately
+	send_request(request_data)
+
+func send_request(request_data: Dictionary) -> void:
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(
+		func(result, response_code, headers, body): 
+			_on_queued_request_completed(result, response_code, headers, body, request_data)
+	)
+	
+	var error = http_request.request(
+		request_data.url,
+		request_data.headers,
+		request_data.method,
+		request_data.body
+	)
+	
+	if error != OK:
+		push_error("Failed to send request: " + str(error))
+		http_request.queue_free()
+
+func process_request_queue() -> void:
+	if request_queue.is_empty():
+		is_processing_queue = false
+		return
+		
+	var current_time = Time.get_unix_time_from_system()
+	
+	# Check if we're rate limited
+	if rate_limit_reset_time > current_time:
+		print("Rate limited. Waiting %d seconds..." % int(rate_limit_reset_time - current_time))
+		await get_tree().create_timer(rate_limit_reset_time - current_time).timeout
+		current_time = Time.get_unix_time_from_system()
+	
+	# Ensure minimum interval between requests
+	if current_time - last_request_time < min_request_interval:
+		await get_tree().create_timer(min_request_interval - (current_time - last_request_time)).timeout
+	
+	is_processing_queue = true
+	var request = request_queue.pop_front()
+	
+	# Create and send the request
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(
+		func(result, response_code, headers, body): 
+			_on_queued_request_completed(result, response_code, headers, body, request)
+	)
+	
+	var error = http_request.request(
+		request.url,
+		request.headers,
+		request.method,
+		request.body
+	)
+	
+	if error != OK:
+		push_error("Failed to send request: " + str(error))
+		http_request.queue_free()
+		process_request_queue()
+	
+	last_request_time = Time.get_unix_time_from_system()
+
+func _on_queued_request_completed(result, response_code, headers, body, request):
+	var http_request = get_node_or_null("HTTPRequest")
+	
+	# Always call the completion callback regardless of response code
+	if request.has("completion_callback"):
+		request.completion_callback.call(result, response_code, headers, body)
+	
+	if http_request:
+		http_request.queue_free()

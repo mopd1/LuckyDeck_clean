@@ -168,11 +168,17 @@ func process_player_action(action: String, amount: int = 0) -> bool:
 		is_my_turn = false
 		last_action = action
 		
-		# After player acts, check if next player is a bot
+		# Get updated table state
 		var table_data = TableManager.get_table_data(table_id)
-		if TableManager.is_bot_turn(table_data):
+		
+		# If it's a bot's turn and no one has raised since player's last action
+		if TableManager.is_bot_turn(table_data) and table_data.current_bet <= amount:
 			print("DEBUG: Next player is bot, triggering bot action")
 			TableManager.handle_bot_turn(table_data)
+		else:
+			# If someone raised or it's player's turn again, update UI
+			if table_data.action_on == seat_index:
+				start_player_turn()
 	else:
 		print("DEBUG: Action processing failed")
 

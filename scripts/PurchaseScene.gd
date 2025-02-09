@@ -26,23 +26,26 @@ var cooldown_timer_active = false
 var avatar_parts_data = []
 var displayed_parts = []
 var refresh_time = 0
+var is_fetching_data = false
+var last_api_call_time = 0
+var MIN_API_CALL_INTERVAL = 1.0  # Minimum time between API calls in seconds
 
 func _ready():
 	if APIManager.user_token.is_empty():
 		SceneManager.goto_scene("res://scenes/LoginScene.tscn")
 		return
 		
-	# Hide balance display until we have data
-	$TopBar/BalanceDisplay.hide()
+	balance_display.hide()
 	
-	# Fetch fresh data
-	APIManager.get_user_data()
-	APIManager.connect("user_data_received", Callable(self, "_on_user_data_received"))
-	update_balance_display()
-	setup_packages()
-	update_claim_button()
+	# Connect signals
+	APIManager.user_data_received.connect(_on_user_data_received)
+	APIManager.package_purchase_completed.connect(_on_package_purchase_completed)
 	$TopBar/ReturnButton.pressed.connect(return_to_main_hub)
 	claim_button.pressed.connect(claim_free_chips)
+	
+	# Initial setup
+	setup_packages()
+	update_claim_button()
 	load_avatar_parts_data()
 	refresh_avatar_parts()
 	update_refresh_time_label()
@@ -52,8 +55,27 @@ func _ready():
 	message_label.add_theme_constant_override("outline_size", 1)
 	message_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	
-	# Connect to the API manager signals
-	APIManager.connect("package_purchase_completed", Callable(self, "_on_package_purchase_completed"))
+	# Fetch initial data with rate limiting
+	fetch_user_data()
+
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		_cleanup_signals()
+
+func _cleanup_signals():
+	if APIManager.user_data_received.is_connected(_on_user_data_received):
+		APIManager.user_data_received.disconnect(_on_user_data_received)
+	if APIManager.package_purchase_completed.is_connected(_on_package_purchase_completed):
+		APIManager.package_purchase_completed.disconnect(_on_package_purchase_completed)
+
+func fetch_user_data():
+	var current_time = Time.get_unix_time_from_system()
+	if is_fetching_data or (current_time - last_api_call_time) < MIN_API_CALL_INTERVAL:
+		return
+		
+	is_fetching_data = true
+	last_api_call_time = current_time
+	APIManager.get_user_data()
 
 func _process(delta):
 	if cooldown_timer_active and PlayerData.can_claim_free_chips():
@@ -64,30 +86,25 @@ func _process(delta):
 	update_refresh_time_label()
 
 func _on_user_data_received(data):
-	# Data validation
+	is_fetching_data = false
+	
 	if typeof(data) != TYPE_DICTIONARY:
 		push_error("Received data is not a dictionary")
 		return
 	
-	# Safe dictionary access for balance - try different possible field names
 	if data.has("balance"):
 		PlayerData.player_data["total_balance"] = data["balance"]
 	elif data.has("chips"):
 		PlayerData.player_data["total_balance"] = data["chips"]
 	elif data.has("new_balance"):
 		PlayerData.player_data["total_balance"] = data["new_balance"]
-	else:
-		push_error("No balance field found in received data")
 	
-	# Handle gems data
 	if data.has("gems"):
 		PlayerData.player_data["gems"] = data["gems"]
 	elif data.has("new_gems"):
 		PlayerData.player_data["gems"] = data["new_gems"]
-	else:
-		push_error("No gems field found in received data")
 	
-	$TopBar/BalanceDisplay.show()
+	balance_display.show()
 	update_balance_display()
 
 func update_balance_display():
@@ -299,4 +316,5 @@ func update_refresh_time_label():
 		refresh_time_label.text = "Refreshes in: %02d:%02d:%02d" % [hours, minutes, seconds]
 
 func return_to_main_hub():
+	_cleanup_signals()
 	SceneManager.goto_scene("res://scenes/MainHub.tscn")

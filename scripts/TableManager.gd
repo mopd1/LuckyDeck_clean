@@ -923,16 +923,27 @@ func is_all_in_situation(table: Dictionary) -> bool:
 	return total_active >= 2 and active_non_allin_count <= 1
 
 func find_first_actor(table: Dictionary) -> int:
+	# For preflop, first action is after BB (UTG position)
+	if table.current_round == "preflop":
+		# Find BB position (2 seats after dealer)
+		var bb_pos = table.dealer_position
+		for _i in range(2):
+			bb_pos = find_next_active_seat(table, bb_pos)
+		# First actor is after BB
+		var first_actor = find_next_active_seat(table, bb_pos)
+		print("DEBUG: Preflop first actor (UTG): ", first_actor)
+		return first_actor
+	
 	# After preflop, first active player after dealer acts first
-	var start_pos = (table.dealer_position + 1) % table.players.size()
+	var start_pos = table.dealer_position
 	var current_pos = start_pos
 	
-	# Find first active player
+	# Find first active player after dealer
 	while true:
+		current_pos = find_next_active_seat(table, current_pos)
 		var player = table.players[current_pos]
 		if player != null and not player.folded and player.chips > 0:
 			return current_pos
-		current_pos = (current_pos + 1) % table.players.size()
 		if current_pos == start_pos:
 			break
 	

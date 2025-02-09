@@ -13,11 +13,10 @@ extends Control
 # Define offsets from the panel's center
 const PLAYER_BET_OFFSETS = {
 	0: Vector2(200, -240),    # Bottom player (You) - above panel
-	1: Vector2(180, -120),   # Bottom left - up and right from panel
-	2: Vector2(200, 30),     # Top left - right from panel
-	3: Vector2(30, 150),     # Top - below panel
-	4: Vector2(-300, 50),    # Top right - left from panel
-	5: Vector2(-300, -100)   # Bottom right - up and left from panel
+	1: Vector2(180, -120),   # Bottom left
+	2: Vector2(180, -480),     # Top left
+	3: Vector2(-720, -480),     # Top right
+	4: Vector2(-720, -480)    # Bottom right
 }
 
 var player_index: int
@@ -118,15 +117,10 @@ func display_bet(amount: int):
 	# Make chip stack display visible
 	chip_stack_display.visible = true
 	
-	# Calculate positions
-	var offset = PLAYER_BET_OFFSETS[player_index]
-	var target_pos = panel.size / 2 + offset
-	chip_stack_display.position = target_pos
-	
 	# Start animation from panel center
 	var start_pos = panel.size / 2
 	
-	# Set up new chips with animation
+	# Set up new chips with animation without changing position
 	chip_stack_display.set_amount(amount, true, start_pos)
 
 func collect_bet_to_pot(pot_position: Vector2):

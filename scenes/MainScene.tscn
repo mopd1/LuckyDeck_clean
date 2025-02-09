@@ -156,7 +156,7 @@ offset_bottom = 40.0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player1/Panel" instance=ExtResource("9_msske")]
-position = Vector2(-20, 40)
+position = Vector2(180, -60)
 scale = Vector2(0.3, 0.3)
 
 [node name="AvatarViewport" type="SubViewport" parent="Players/Player1/Panel"]
@@ -266,7 +266,7 @@ offset_bottom = 300.0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player2/Panel" instance=ExtResource("9_msske")]
-position = Vector2(60, -140)
+position = Vector2(360, -80)
 scale = Vector2(0.3, 0.3)
 
 [node name="Avatar" type="TextureRect" parent="Players/Player2/Panel"]
@@ -312,9 +312,9 @@ show_percentage = false
 custom_minimum_size = Vector2(320, 420)
 anchors_preset = 0
 offset_left = 320.0
-offset_top = 60.0
+offset_top = 240.0
 offset_right = 640.0
-offset_bottom = 480.0
+offset_bottom = 660.0
 scale = Vector2(0.75, 0.75)
 theme = ExtResource("5_sdmxq")
 script = ExtResource("2_2n16t")
@@ -323,9 +323,8 @@ script = ExtResource("2_2n16t")
 custom_minimum_size = Vector2(240, 240)
 layout_mode = 1
 offset_left = 20.0
-offset_top = 100.0
 offset_right = 324.0
-offset_bottom = 340.0
+offset_bottom = 240.0
 
 [node name="Card1" type="TextureRect" parent="Players/Player3/Cards"]
 custom_minimum_size = Vector2(120, 0)
@@ -343,13 +342,13 @@ stretch_mode = 4
 custom_minimum_size = Vector2(340, 160)
 layout_mode = 0
 offset_left = -60.0
-offset_top = 240.0
+offset_top = 140.0
 offset_right = 280.0
-offset_bottom = 400.0
+offset_bottom = 300.0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player3/Panel" instance=ExtResource("9_msske")]
-position = Vector2(60, -240)
+position = Vector2(360, 0)
 scale = Vector2(0.3, 0.3)
 
 [node name="Avatar" type="TextureRect" parent="Players/Player3/Panel"]
@@ -358,10 +357,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -160.0
-offset_right = 100.0
-offset_bottom = -40.0
+offset_left = 20.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = -20.0
 grow_vertical = 0
 texture = ExtResource("10_jkohc")
 expand_mode = 1
@@ -372,7 +371,7 @@ layout_mode = 0
 offset_left = 180.0
 offset_top = 60.0
 offset_right = 360.0
-offset_bottom = 84.0
+offset_bottom = 99.0
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player3/Panel"]
 custom_minimum_size = Vector2(180, 0)
@@ -380,34 +379,34 @@ layout_mode = 0
 offset_left = 180.0
 offset_top = 110.0
 offset_right = 360.0
-offset_bottom = 134.0
+offset_bottom = 149.0
 theme_override_fonts/font = ExtResource("8_tmb2x")
 theme_override_font_sizes/font_size = 28
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player3/Panel"]
-custom_minimum_size = Vector2(320, 20)
+custom_minimum_size = Vector2(85, 20)
 layout_mode = 1
-offset_right = 320.0
+offset_right = 85.0
 offset_bottom = 20.0
 show_percentage = false
 
 [node name="Player4" type="Control" parent="Players"]
-custom_minimum_size = Vector2(600, 240)
+custom_minimum_size = Vector2(320, 420)
 anchors_preset = 0
-offset_left = 790.0
-offset_top = 40.0
-offset_right = 1390.0
-offset_bottom = 280.0
+offset_left = 1400.0
+offset_top = 240.0
+offset_right = 1720.0
+offset_bottom = 660.0
 scale = Vector2(0.75, 0.75)
+theme = ExtResource("5_sdmxq")
 script = ExtResource("2_2n16t")
 
 [node name="Cards" type="HBoxContainer" parent="Players/Player4"]
 custom_minimum_size = Vector2(240, 240)
 layout_mode = 1
-offset_left = 240.0
-offset_top = 50.0
-offset_right = 544.0
-offset_bottom = 290.0
+offset_left = 20.0
+offset_right = 324.0
+offset_bottom = 240.0
 
 [node name="Card1" type="TextureRect" parent="Players/Player4/Cards"]
 custom_minimum_size = Vector2(120, 0)
@@ -424,14 +423,14 @@ stretch_mode = 4
 [node name="Panel" type="Panel" parent="Players/Player4"]
 custom_minimum_size = Vector2(340, 160)
 layout_mode = 0
-offset_left = -110.0
-offset_top = 60.0
-offset_right = 230.0
-offset_bottom = 220.0
+offset_left = -60.0
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 300.0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player4/Panel" instance=ExtResource("9_msske")]
-position = Vector2(110, -60)
+position = Vector2(-120, 0)
 scale = Vector2(0.3, 0.3)
 
 [node name="Avatar" type="TextureRect" parent="Players/Player4/Panel"]
@@ -440,56 +439,56 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -160.0
-offset_right = 100.0
-offset_bottom = -40.0
+offset_left = 20.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = -20.0
 grow_vertical = 0
 texture = ExtResource("10_jkohc")
 expand_mode = 1
 
 [node name="NameLabel" type="Label" parent="Players/Player4/Panel"]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 0
 offset_left = 180.0
 offset_top = 60.0
-offset_right = 240.0
-offset_bottom = 84.0
+offset_right = 360.0
+offset_bottom = 99.0
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player4/Panel"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 0
 offset_left = 180.0
 offset_top = 110.0
-offset_right = 280.0
-offset_bottom = 134.0
+offset_right = 360.0
+offset_bottom = 149.0
 theme_override_fonts/font = ExtResource("8_tmb2x")
 theme_override_font_sizes/font_size = 28
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player4/Panel"]
-custom_minimum_size = Vector2(320, 20)
+custom_minimum_size = Vector2(85, 20)
 layout_mode = 1
-offset_right = 320.0
+offset_right = 85.0
 offset_bottom = 20.0
 show_percentage = false
 
 [node name="Player5" type="Control" parent="Players"]
-custom_minimum_size = Vector2(240, 420)
+custom_minimum_size = Vector2(320, 420)
 anchors_preset = 0
 offset_left = 1400.0
-offset_top = 60.0
-offset_right = 1640.0
-offset_bottom = 480.0
+offset_top = 540.0
+offset_right = 1720.0
+offset_bottom = 960.0
 scale = Vector2(0.75, 0.75)
+theme = ExtResource("5_sdmxq")
 script = ExtResource("2_2n16t")
 
 [node name="Cards" type="HBoxContainer" parent="Players/Player5"]
 custom_minimum_size = Vector2(240, 240)
 layout_mode = 1
-offset_left = 80.0
-offset_top = 100.0
-offset_right = 384.0
-offset_bottom = 340.0
+offset_left = 20.0
+offset_right = 324.0
+offset_bottom = 240.0
 
 [node name="Card1" type="TextureRect" parent="Players/Player5/Cards"]
 custom_minimum_size = Vector2(120, 0)
@@ -504,15 +503,16 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Panel" type="Panel" parent="Players/Player5"]
-custom_minimum_size = Vector2(320, 160)
+custom_minimum_size = Vector2(340, 160)
 layout_mode = 0
-offset_top = 240.0
-offset_right = 340.0
-offset_bottom = 400.0
+offset_left = -60.0
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 300.0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player5/Panel" instance=ExtResource("9_msske")]
-position = Vector2(0, -240)
+position = Vector2(-120, 0)
 scale = Vector2(0.3, 0.3)
 
 [node name="Avatar" type="TextureRect" parent="Players/Player5/Panel"]
@@ -521,10 +521,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -160.0
-offset_right = 100.0
-offset_bottom = -40.0
+offset_left = 20.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = -20.0
 grow_vertical = 0
 texture = ExtResource("10_jkohc")
 expand_mode = 1
@@ -535,7 +535,7 @@ layout_mode = 0
 offset_left = 180.0
 offset_top = 60.0
 offset_right = 360.0
-offset_bottom = 84.0
+offset_bottom = 99.0
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player5/Panel"]
 custom_minimum_size = Vector2(180, 0)
@@ -543,14 +543,14 @@ layout_mode = 0
 offset_left = 180.0
 offset_top = 110.0
 offset_right = 360.0
-offset_bottom = 134.0
+offset_bottom = 149.0
 theme_override_fonts/font = ExtResource("8_tmb2x")
 theme_override_font_sizes/font_size = 28
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(320, 20)
+custom_minimum_size = Vector2(85, 20)
 layout_mode = 1
-offset_right = 320.0
+offset_right = 85.0
 offset_bottom = 20.0
 show_percentage = false
 

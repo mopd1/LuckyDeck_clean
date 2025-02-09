@@ -63,6 +63,9 @@ func _on_check_call_pressed():
 func _on_raise_pressed():
 	emit_signal("raise_pressed")
 
+func get_bet_amount() -> int:
+	return $ActionButtons/BetAmount.value
+
 func update_bet_limits(min_bet, max_bet, default_bet_amount = -1):
 	print("DEBUG: Updating bet limits")
 	print("- Min Bet:", min_bet)
