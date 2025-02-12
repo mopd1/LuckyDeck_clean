@@ -15,17 +15,13 @@ var packages = [
 @onready var claim_button = $FreeChipsSection/ClaimButton
 @onready var cooldown_timer = $FreeChipsSection/CooldownTimer
 @onready var packages_grid = $PackagesGrid
-@onready var avatar_parts_grid = $AvatarPartsSection/AvatarPartsGrid
-@onready var refresh_time_label = $AvatarPartsSection/RefreshTimeLabel
+@onready var packs_grid = $PacksGrid
 @onready var message_label = $MessageLabel
 
 var current_message_timer: SceneTreeTimer = null
 var current_fade_tween: Tween = null
 var is_message_showing: bool = false
 var cooldown_timer_active = false
-var avatar_parts_data = []
-var displayed_parts = []
-var refresh_time = 0
 var is_fetching_data = false
 var last_api_call_time = 0
 var MIN_API_CALL_INTERVAL = 1.0  # Minimum time between API calls in seconds
@@ -45,10 +41,8 @@ func _ready():
 	
 	# Initial setup
 	setup_packages()
+	setup_packs()
 	update_claim_button()
-	load_avatar_parts_data()
-	refresh_avatar_parts()
-	update_refresh_time_label()
 	
 	# Initialize message label
 	message_label.text = ""
@@ -83,7 +77,6 @@ func _process(delta):
 		update_claim_button()
 	elif cooldown_timer_active:
 		update_cooldown_timer()
-	update_refresh_time_label()
 
 func _on_user_data_received(data):
 	is_fetching_data = false
@@ -121,6 +114,13 @@ func setup_packages():
 		packages_grid.add_child(package_panel)
 		package_panel.setup(i, package["price"], package["chips"], package["gems"])
 		package_panel.connect("package_bought", Callable(self, "buy_package"))
+
+func setup_packs():
+	for pack_type in Packs.PACK_TYPES:
+		var pack_panel = preload("res://scenes/PackPanel.tscn").instantiate()
+		packs_grid.add_child(pack_panel)
+		pack_panel.setup(pack_type)
+		pack_panel.connect("pack_bought", Callable(self, "buy_pack"))
 
 func buy_package(index: int) -> void:
 	var package = packages[index]
@@ -161,6 +161,69 @@ func _set_buy_buttons_enabled(enabled: bool) -> void:
 	for child in packages_grid.get_children():
 		if child.has_node("BuyButton"):
 			child.get_node("BuyButton").disabled = not enabled
+
+func buy_pack(pack_type: String):
+	print("buy_pack called with: ", pack_type)  # Debug print
+	var pack_data = Packs.PACK_TYPES[pack_type]
+	
+	if PlayerData.player_data["gems"] < pack_data.cost:
+		_show_transaction_message("Not enough gems!", Color.RED)
+		return
+	
+	# Determine rarity and select item
+	var rarity = Packs.get_rarity_for_pack(pack_type)
+	print("Selected rarity: ", rarity)  # Debug print
+	var item = _select_random_item_of_rarity(rarity)
+	
+	if item == null:
+		_show_transaction_message("Error selecting item!", Color.RED)
+		return
+	
+	# Deduct gems
+	PlayerData.update_gems(-pack_data.cost)
+	update_gem_balance_display()
+	
+	# Add item to player's collection
+	PlayerData.add_avatar_part(item.id)
+	
+	# Show reveal popup
+	var reveal_popup = preload("res://scenes/PackRevealPopup.tscn").instantiate()
+	add_child(reveal_popup)
+	reveal_popup.reveal_item(pack_type, item)
+	reveal_popup.connect("reveal_completed", Callable(self, "_on_reveal_completed"))
+
+func _select_random_item_of_rarity(rarity: String) -> Dictionary:
+	print("Selecting random item of rarity: ", rarity)  # Debug print
+	var available_items = []
+	
+	# Load items from avatar_parts_store.json
+	var file = FileAccess.open("res://data/avatar_parts_store.json", FileAccess.READ)
+	if not file:
+		push_error("Failed to open avatar_parts_store.json")
+		return {}
+		
+	var content = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var error = json.parse(content)
+	if error == OK:
+		var data = json.get_data()
+		# Filter items by rarity
+		for item in data.parts:
+			if item.rarity == rarity:
+				available_items.append(item)
+	
+	if available_items.size() > 0:
+		var selected_item = available_items[randi() % available_items.size()]
+		print("Selected item: ", selected_item)  # Debug print
+		return selected_item
+	
+	print("No items found for rarity: ", rarity)  # Debug print
+	return {}
+
+func _on_reveal_completed():
+	_show_transaction_message("Item added to your collection!", Color.GREEN)
 
 func _show_transaction_message(message: String, color: Color = Color.WHITE) -> void:
 	if not message_label:
@@ -225,95 +288,6 @@ func claim_free_chips():
 		update_claim_button()
 		cooldown_timer_active = true
 		update_cooldown_timer()
-
-func load_avatar_parts_data():
-	if not FileAccess.file_exists("res://data/avatar_parts_store.json"):
-		push_error("avatar_parts_store.json does not exist")
-		return
-
-	var file = FileAccess.open("res://data/avatar_parts_store.json", FileAccess.READ)
-	if not file:
-		push_error("Failed to open avatar_parts_store.json")
-		return
-
-	var content = file.get_as_text()
-	file.close()
-	
-	var json = JSON.new()
-	var error = json.parse(content)
-	if error == OK:
-		var data = json.get_data()
-		if typeof(data) == TYPE_DICTIONARY and data.has("parts"):
-			avatar_parts_data = data["parts"]
-		else:
-			push_error("Invalid JSON structure")
-	else:
-		push_error("JSON Parse Error: " + json.get_error_message() + " at line " + str(json.get_error_line()))
-
-func refresh_avatar_parts():
-	displayed_parts.clear()
-	var available_parts = avatar_parts_data.duplicate()
-	for i in range(3):
-		if available_parts.size() > 0:
-			var index = randi() % available_parts.size()
-			displayed_parts.append(available_parts[index])
-			available_parts.remove_at(index)
-	
-	refresh_time = Time.get_unix_time_from_system() + 86400 # 24 hours
-	update_avatar_parts_display()
-
-func update_avatar_parts_display():
-	for child in avatar_parts_grid.get_children():
-		child.queue_free()
-	
-	for part in displayed_parts:
-		var part_button = preload("res://scenes/AvatarPartButton.tscn").instantiate()
-		if part_button:
-			avatar_parts_grid.add_child(part_button)
-			part_button.setup(part)
-			if not part_button.is_connected("part_purchased", _on_part_purchased):
-				part_button.connect("part_purchased", _on_part_purchased)
-
-func _on_part_purchased(part):
-	# First check if the part is already owned
-	if part["id"] in PlayerData.get_owned_avatar_parts():
-		_show_transaction_message("You already own this item!", Color.YELLOW)
-		return
-	
-	if PlayerData.player_data["gems"] >= part["price"]:
-		PlayerData.update_gems(-part["price"])
-		PlayerData.add_avatar_part(part["id"])
-		update_gem_balance_display()
-		
-		# Immediately update the button state
-		for child in avatar_parts_grid.get_children():
-			if child.part_data["id"] == part["id"]:
-				child.set_owned_state()
-				break
-		
-		_show_transaction_message("Avatar part purchased successfully!", Color.GREEN)
-	else:
-		_show_transaction_message("Not enough gems to purchase this item", Color.RED)
-		# Re-enable the button if purchase failed
-		for child in avatar_parts_grid.get_children():
-			if child.part_data["id"] == part["id"]:
-				var buy_button = child.get_node("BuyButton")
-				if buy_button:
-					buy_button.disabled = false
-					buy_button.text = "Buy"
-					child.can_purchase = true
-				break
-
-func update_refresh_time_label():
-	var current_time = Time.get_unix_time_from_system()
-	var time_left = refresh_time - current_time
-	if time_left <= 0:
-		refresh_avatar_parts()
-	else:
-		var hours = int(time_left) / 3600
-		var minutes = int(time_left) % 3600 / 60
-		var seconds = int(time_left) % 60
-		refresh_time_label.text = "Refreshes in: %02d:%02d:%02d" % [hours, minutes, seconds]
 
 func return_to_main_hub():
 	_cleanup_signals()

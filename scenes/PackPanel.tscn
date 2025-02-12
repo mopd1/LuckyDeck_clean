@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqp4yx3ccu3lm"]
+
+[ext_resource type="Script" path="res://scripts/PackPanel.gd" id="1_f2f8d"]
+
+[node name="PackPanel" type="Panel"]
+custom_minimum_size = Vector2(540, 240)
+offset_right = 540.0
+offset_bottom = 240.0
+script = ExtResource("1_f2f8d")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 228.0
+offset_bottom = 46.0
+
+[node name="CostLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 10.0
+offset_right = 523.0
+offset_bottom = 57.0
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 201.0
+offset_right = 512.0
+offset_bottom = 237.0
+text = "BUY"
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 202.0
+offset_top = 60.0
+offset_right = 325.0
+offset_bottom = 183.0
+expand_mode = 1

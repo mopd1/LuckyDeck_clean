@@ -23,6 +23,7 @@ var seat_index: int
 var current_stake: int
 var initial_stack: int
 var table_data: Dictionary
+var pot_initial_position: Vector2
 
 # Local game state tracking
 var player_cards = []
@@ -36,23 +37,40 @@ var last_bet_amount: int = 0
 @onready var challenge_progress = get_node_or_null("../ChallengeProgressButton")
 @onready var action_ui = get_node_or_null("../ActionUI")
 @onready var hand_strength_label = get_node_or_null("../HandStrengthLabel")
-@onready var winner_popup = get_node_or_null("../WinnerPopup")
+@onready var winner_popup = get_node_or_null("../WinnerPopup") as ColorRect:
+	set(value):
+		winner_popup = value
+		print("DEBUG: winner_popup assigned: ", value != null)
 @onready var return_to_lobby_button = get_node_or_null("../ReturnToLobbyButton")
 @onready var pot_chip_display = get_node("../Pot/PotChipDisplay")
 
 func _ready():
+	print("DEBUG: Winner popup node check:")
+	print("- winner_popup assigned: ", winner_popup != null)
+	if winner_popup:
+		print("- WinnerLabel child exists: ", winner_popup.has_node("WinnerLabel"))
+		print("- script attached: ", winner_popup.get_script() != null)
+
 	if not _verify_required_nodes():
 		push_error("Missing required nodes - game may not function correctly")
 		return
 
-	# Connect to TableManager signals
-	TableManager.player_seated.connect(_on_player_seated)
-	TableManager.player_left.connect(_on_player_left)
-	TableManager.tables_updated.connect(func(): _handle_table_update())
+	# Store initial pot chip display position
+	if pot_chip_display:
+		pot_initial_position = pot_chip_display.position
 
 	# Initialize the game with data from GameData singleton
 	var game_data = GameData.get_game_data()
 	if game_data:
+		# Connect to TableManager signals first
+		TableManager.player_seated.connect(_on_player_seated)
+		TableManager.player_left.connect(_on_player_left)
+		TableManager.tables_updated.connect(func(): _handle_table_update())
+		TableManager.disconnect("hand_completed", _on_hand_completed) # Disconnect first in case it exists
+		TableManager.connect("hand_completed", _on_hand_completed)
+		print("DEBUG: hand_completed signal connected:", TableManager.is_connected("hand_completed", _on_hand_completed))
+
+		# Then initialize game data
 		initialize_game(game_data)
 		GameData.clear_game_data()
 		
@@ -404,7 +422,13 @@ func move_dealer_button(new_position: int):
 
 func collect_pot_to_winner(winner_index: int):
 	if pot_chip_display and pot_chip_display.visible:
-		var winner_position = get_node("../Players/Player" + str(winner_index + 1)).position
+		var winner_node = get_node("../Players/Player" + str(winner_index + 1))
+		if not winner_node:
+			return
+		
+		var winner_position = winner_node.position
+		var original_position = pot_chip_display.position  # Store current position
+		
 		# Only animate pot collection if there are actual chips to collect
 		var table_data = TableManager.get_table_data(table_id)
 		if table_data and table_data.current_pot > 0:
@@ -415,5 +439,69 @@ func collect_pot_to_winner(winner_index: int):
 			for side_pot in pot_result.side_pots:
 				final_pot += side_pot.amount
 			
-			pot_chip_display.set_amount(final_pot, false)  # Update to show actual winning amount
-			pot_chip_display.move_to_winner(winner_position)
+			# Update to show actual winning amount
+			pot_chip_display.set_amount(final_pot, false)
+			
+			# Create tween for chip animation
+			var tween = create_tween()
+			tween.set_trans(Tween.TRANS_CUBIC)
+			tween.set_ease(Tween.EASE_OUT)
+			
+			# Animate chips to winner
+			tween.tween_property(pot_chip_display, "position", winner_position, 1.0)
+			
+			# Fade out chips after reaching winner
+			tween.tween_property(pot_chip_display, "modulate:a", 0.0, 0.5)
+			
+			# After animation completes, reset chip display
+			await tween.finished
+			pot_chip_display.position = original_position  # Use stored position instead
+			pot_chip_display.modulate.a = 1.0
+			pot_chip_display.visible = false
+
+func _on_hand_completed(completed_table_id: String, winner_info: Dictionary):
+	print("DEBUG: Hand completed signal received")
+	print("- Completed table ID: ", completed_table_id)
+	print("- Current table ID: ", table_id)
+	
+	if completed_table_id != table_id:
+		print("DEBUG: Table ID mismatch, ignoring")
+		return
+	
+	var winner_index = winner_info.winner_index
+	var hand_description = winner_info.hand_description
+	var pot_amount = winner_info.pot_amount
+	
+	print("DEBUG: Winner info:")
+	print("- Winner index: ", winner_index)
+	print("- Hand description: ", hand_description)
+	print("- Pot amount: ", pot_amount)
+	print("- Table data: ", table_data)
+	
+	# Show winner popup
+	if winner_popup:
+		print("DEBUG: Winner popup found")
+		if table_data.players and winner_index < table_data.players.size():
+			var winner = table_data.players[winner_index]
+			if winner:
+				var winner_name = winner.name
+				print("DEBUG: Showing winner popup for: ", winner_name)
+				winner_popup.show_winner(winner_name, hand_description, pot_amount)
+			else:
+				print("ERROR: Winner data is null for index ", winner_index)
+		else:
+			print("ERROR: Invalid winner index or no players in table data")
+	else:
+		print("ERROR: Winner popup not found")
+	
+	# Animate chips to winner
+	print("DEBUG: Starting chip animation")
+	collect_pot_to_winner(winner_index)
+	
+	# If this player won, award challenge points
+	if winner_index == seat_index:
+		print("DEBUG: Awarding winner challenge points")
+		award_challenge_points(true)
+	else:
+		print("DEBUG: Awarding participant challenge points")
+		award_challenge_points(false)

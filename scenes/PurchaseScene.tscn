@@ -107,23 +107,13 @@ theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 15
 columns = 2
 
-[node name="AvatarPartsSection" type="VBoxContainer" parent="."]
+[node name="PacksGrid" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(620, 720)
 layout_mode = 0
 offset_left = 1240.0
 offset_top = 240.0
 offset_right = 1860.0
 offset_bottom = 960.0
-
-[node name="RefreshTimeLabel" type="Label" parent="AvatarPartsSection"]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="AvatarPartsGrid" type="GridContainer" parent="AvatarPartsSection"]
-custom_minimum_size = Vector2(620, 540)
-layout_mode = 2
-theme_override_constants/h_separation = 50
-theme_override_constants/v_separation = 15
 
 [node name="MessageLabel" type="Label" parent="."]
 layout_mode = 0

@@ -1,22 +1,22 @@
 {
   "parts": [
-	{
-	  "id": "face1",
-	  "type": "face",
-	  "price": 100,
-	  "image": "res://assets/avatars/face/face1.png"
-	},
-	{
-	  "id": "hair1",
-	  "type": "hair",
-	  "price": 150,
-	  "image": "res://assets/avatars/hair/hair1.png"
-	},
-	{
-	  "id": "clothing2",
-	  "type": "clothing",
-	  "price": 200,
-	  "image": "res://assets/avatars/clothing/clothing2.png"
-	}
+    {
+      "id": "face1",
+      "type": "face",
+      "rarity": "common",
+      "image": "res://assets/avatars/face/face1.png"
+    },
+    {
+      "id": "hair1",
+      "type": "hair",
+      "rarity": "uncommon",
+      "image": "res://assets/avatars/hair/hair1.png"
+    },
+    {
+      "id": "clothing2",
+      "type": "clothing",
+      "rarity": "rare",
+      "image": "res://assets/avatars/clothing/clothing2.png"
+    }
   ]
 }

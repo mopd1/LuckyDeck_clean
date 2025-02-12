@@ -6,6 +6,7 @@ signal table_closed(table_id)
 signal player_seated(table_id, seat_index, player_data)
 signal player_left(table_id, seat_index)
 signal tables_updated
+signal hand_completed(table_id, winner_info)
 
 enum HandRank {
 	HIGH_CARD,
@@ -1007,13 +1008,6 @@ func handle_showdown(table: Dictionary) -> void:
 		if player != null and not player.folded:
 			active_players.append(i)
 	
-	if active_players.size() == 1:
-		print("DEBUG: Single player remaining - auto-win")
-		var winner_index = active_players[0]
-		award_pot_to_player(table, winner_index)
-		prepare_next_hand(table)
-		return
-	
 	# Collect any remaining bets to pot
 	for player in table.players:
 		if player != null and player.bet > 0:
@@ -1028,6 +1022,24 @@ func handle_showdown(table: Dictionary) -> void:
 	var pot_results = process_pot_with_rake(table.id)
 	print("- Rake applied. Main pot: ", pot_results.main_pot)
 	
+	if active_players.size() == 1:
+		print("DEBUG: Single player remaining - auto-win")
+		var winner_index = active_players[0]
+		
+		# Emit winner info first
+		var winner_info = {
+			"winner_index": winner_index,
+			"hand_description": "All other players folded",
+			"pot_amount": table.current_pot
+		}
+		print("DEBUG: Emitting winner info")
+		emit_signal("hand_completed", table.id, winner_info)
+		
+		# Then award pot
+		award_pot_to_player(table, winner_index)
+		prepare_next_hand(table)
+		return
+	
 	# For main pot
 	if active_players.size() > 0:
 		var winners = find_winners(table, active_players)
@@ -1035,21 +1047,15 @@ func handle_showdown(table: Dictionary) -> void:
 		var share = pot_results.main_pot / winners.size()
 		
 		for winner_index in winners:
+			var winner_hand = evaluate_hand(table.players[winner_index].cards, table.community_cards)
+			var winner_info = {
+				"winner_index": winner_index,
+				"hand_description": hand_to_string(winner_hand),
+				"pot_amount": share
+			}
+			print("DEBUG: Emitting winner info")
+			emit_signal("hand_completed", table.id, winner_info)
 			award_pot_to_player(table, winner_index, share)
-			print("- Awarded ", share, " to player ", winner_index)
-	
-	# Handle side pots from smallest to largest
-	for i in range(pot_results.side_pots.size()):
-		var side_pot = pot_results.side_pots[i]
-		var eligible_players = side_pot.participants
-		var winners = find_winners(table, eligible_players)
-		print("- Side pot ", i, " winners: ", winners.size())
-		
-		if winners.size() > 0:
-			var share = side_pot.amount / winners.size()
-			for winner_index in winners:
-				award_pot_to_player(table, winner_index, share)
-				print("- Awarded ", share, " to player ", winner_index)
 	
 	prepare_next_hand(table)
 

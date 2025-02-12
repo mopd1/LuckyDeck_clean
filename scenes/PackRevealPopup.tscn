@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvw4p2x2s5x0y"]
+
+[ext_resource type="Script" path="res://scripts/PackRevealPopup.gd" id="1_bw0mf"]
+
+[node name="PackRevealPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bw0mf")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PopupPanel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="PackSprite" type="TextureRect" parent="CenterContainer/PopupPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemSprite" type="TextureRect" parent="CenterContainer/PopupPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemNameLabel" type="Label" parent="CenterContainer/PopupPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RarityLabel" type="Label" parent="CenterContainer/PopupPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="CloseButton" type="Button" parent="CenterContainer/PopupPanel"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 844.0
+offset_right = 1298.0
+offset_bottom = 958.0
+text = "CLOSE"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
