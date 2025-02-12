@@ -1,37 +1,71 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqp4yx3ccu3lm"]
+[gd_scene load_steps=5 format=3 uid="uid://bqp4yx3ccu3lm"]
 
 [ext_resource type="Script" path="res://scripts/PackPanel.gd" id="1_f2f8d"]
+[ext_resource type="Theme" uid="uid://djcbejm0sa73g" path="res://scenes/PackPanel.tres" id="1_lw424"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="2_pi6wd"]
+[ext_resource type="Texture2D" uid="uid://cddbv7vp1srwx" path="res://assets/ui/PackLabel.png" id="4_62lqv"]
 
 [node name="PackPanel" type="Panel"]
-custom_minimum_size = Vector2(540, 240)
-offset_right = 540.0
-offset_bottom = 240.0
+custom_minimum_size = Vector2(240, 100)
+offset_right = 240.0
+offset_bottom = 100.0
+theme = ExtResource("1_lw424")
 script = ExtResource("1_f2f8d")
 
 [node name="NameLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(97, 12)
 layout_mode = 0
-offset_right = 228.0
-offset_bottom = 46.0
+offset_left = 100.0
+offset_top = 8.0
+offset_right = 197.0
+offset_bottom = 25.0
+theme_override_font_sizes/font_size = 16
 
 [node name="CostLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(97, 12)
 layout_mode = 0
-offset_left = 300.0
-offset_top = 10.0
-offset_right = 523.0
-offset_bottom = 57.0
+offset_left = 100.0
+offset_top = 31.0
+offset_right = 197.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 12
 
 [node name="BuyButton" type="Button" parent="."]
+custom_minimum_size = Vector2(132, 32)
 layout_mode = 0
-offset_left = 8.0
-offset_top = 201.0
-offset_right = 512.0
-offset_bottom = 237.0
+offset_left = 100.0
+offset_top = 60.0
+offset_right = 232.0
+offset_bottom = 92.0
+theme = ExtResource("1_lw424")
+theme_override_fonts/font = ExtResource("2_pi6wd")
+theme_override_font_sizes/font_size = 12
 text = "BUY"
 
 [node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(84, 62)
 layout_mode = 0
-offset_left = 202.0
-offset_top = 60.0
-offset_right = 325.0
-offset_bottom = 183.0
+offset_left = 8.0
+offset_top = 30.0
+offset_right = 92.0
+offset_bottom = 92.0
 expand_mode = 1
+
+[node name="LabelUIElement" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(52, 26)
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 26.0
+texture = ExtResource("4_62lqv")
+expand_mode = 1
+
+[node name="PackLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(52, 26)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_lw424")
+theme_override_font_sizes/font_size = 10
+text = "Pack"
+horizontal_alignment = 1
+vertical_alignment = 1

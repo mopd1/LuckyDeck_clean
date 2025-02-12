@@ -1,4 +1,4 @@
-extends Control
+extends Panel
 
 signal package_bought(index)
 

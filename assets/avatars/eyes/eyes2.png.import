@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yaw5k4rbnkge"
-path="res://.godot/imported/mouthaccessories1.png-badda55a07f9d90322ccd8fc06853f8f.ctex"
+uid="uid://ybxhev6jf217"
+path="res://.godot/imported/eyes2.png-c86c0a472abe69ec7b08d81bf0cbc39c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/avatars/mouth_accessories/mouthaccessories1.png"
-dest_files=["res://.godot/imported/mouthaccessories1.png-badda55a07f9d90322ccd8fc06853f8f.ctex"]
+source_file="res://assets/avatars/eyes/eyes2.png"
+dest_files=["res://.godot/imported/eyes2.png-c86c0a472abe69ec7b08d81bf0cbc39c.ctex"]
 
 [params]
 

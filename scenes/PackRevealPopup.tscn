@@ -18,41 +18,59 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.341176, 0.639216, 0.67451, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_top = 104.0
+offset_right = 874.0
+offset_bottom = 306.0
 
 [node name="PopupPanel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(874, 202)
 layout_mode = 2
 
 [node name="PackSprite" type="TextureRect" parent="CenterContainer/PopupPanel"]
+custom_minimum_size = Vector2(360, 202)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 8.0
+offset_right = 368.0
+offset_bottom = 202.0
+expand_mode = 1
 
 [node name="ItemSprite" type="TextureRect" parent="CenterContainer/PopupPanel"]
+custom_minimum_size = Vector2(360, 202)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 504.0
+offset_right = 864.0
+offset_bottom = 202.0
+expand_mode = 1
 
 [node name="ItemNameLabel" type="Label" parent="CenterContainer/PopupPanel"]
+custom_minimum_size = Vector2(360, 32)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 504.0
+offset_top = -100.0
+offset_right = 864.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 12
 
 [node name="RarityLabel" type="Label" parent="CenterContainer/PopupPanel"]
+custom_minimum_size = Vector2(360, 32)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 504.0
+offset_top = -60.0
+offset_right = 864.0
+offset_bottom = -28.0
+theme_override_font_sizes/font_size = 12
 
 [node name="CloseButton" type="Button" parent="CenterContainer/PopupPanel"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 0
-offset_left = 552.0
-offset_top = 844.0
-offset_right = 1298.0
-offset_bottom = 958.0
+offset_left = 434.0
+offset_top = 200.0
+offset_right = 492.0
+offset_bottom = 248.0
 text = "CLOSE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

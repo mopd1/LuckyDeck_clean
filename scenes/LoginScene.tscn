@@ -64,20 +64,19 @@ texture = ExtResource("2_q522x")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(480, 480)
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -240.0
-offset_right = -240.0
-offset_bottom = 240.0
-grow_horizontal = 0
+offset_left = -360.0
+offset_top = -206.0
+offset_right = 360.0
+offset_bottom = 206.0
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 80
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
@@ -104,7 +103,7 @@ layout_mode = 2
 text = "Login"
 
 [node name="SignupButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(720, 60)
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 text = "Signup"
 

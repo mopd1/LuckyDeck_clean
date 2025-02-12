@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://0e3imrdd5i8k"]
+[gd_scene load_steps=14 format=3 uid="uid://0e3imrdd5i8k"]
 
 [ext_resource type="Script" path="res://scripts/PurchaseScene.gd" id="1_cmrme"]
 [ext_resource type="Theme" uid="uid://c5y30tb5md0qt" path="res://scenes/PlayerPanel.tres" id="1_vuefs"]
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="3_1csph"]
-[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="3_r5i0x"]
-[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="4_nla34"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="3_4uxih"]
+[ext_resource type="Texture2D" uid="uid://i7jeh26tlv7q" path="res://assets/ui/player-avatar-levelbar_reference-full 1.png" id="5_xuo0m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aj3up"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+
+[sub_resource type="Theme" id="Theme_rkpd1"]
+Label/styles/normal = SubResource("StyleBoxFlat_aj3up")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq2lv"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+
+[sub_resource type="Theme" id="Theme_w0u1g"]
+Label/styles/normal = SubResource("StyleBoxFlat_qq2lv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6jqx"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_vg8bf"]
+Button/styles/normal = SubResource("StyleBoxFlat_m6jqx")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q27f"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+
+[sub_resource type="Theme" id="Theme_hrcic"]
+Label/styles/normal = SubResource("StyleBoxFlat_3q27f")
 
 [node name="PurchaseScene" type="Control"]
 layout_mode = 3
@@ -17,11 +45,26 @@ theme = ExtResource("1_vuefs")
 script = ExtResource("1_cmrme")
 
 [node name="Background" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.0784314, 0.137255, 1)
+
+[node name="PlayerName" type="Label" parent="."]
+custom_minimum_size = Vector2(136, 72)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0, 0.462745, 0.505882, 1)
+offset_left = 44.0
+offset_top = 68.0
+offset_right = 180.0
+offset_bottom = 140.0
+theme_override_fonts/font = ExtResource("3_4uxih")
+theme_override_font_sizes/font_size = 16
+text = "Ricky
+\"Good Times\"
+Fiesta"
 
 [node name="TopBar" type="Control" parent="."]
 custom_minimum_size = Vector2(1920, 80)
@@ -30,92 +73,112 @@ offset_right = 1920.0
 offset_bottom = 240.0
 
 [node name="ReturnButton" type="Button" parent="TopBar"]
-custom_minimum_size = Vector2(320, 120)
 layout_mode = 2
-offset_top = 40.0
-offset_right = 320.0
-offset_bottom = 160.0
+offset_left = 44.0
+offset_top = 16.0
+offset_right = 89.0
+offset_bottom = 53.0
 theme = ExtResource("3_1csph")
 theme_override_font_sizes/font_size = 20
-text = "Back to Main Hub"
+text = "L"
 
 [node name="BalanceDisplay" type="Control" parent="TopBar"]
-custom_minimum_size = Vector2(1280, 240)
+custom_minimum_size = Vector2(136, 80)
 layout_mode = 2
 anchors_preset = 0
-offset_left = 320.0
-offset_right = 1400.0
-offset_bottom = 240.0
+offset_left = 44.0
+offset_top = 152.0
+offset_right = 44.0
+offset_bottom = 152.0
 
 [node name="ChipBalance" type="Label" parent="TopBar/BalanceDisplay"]
-custom_minimum_size = Vector2(640, 240)
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 2
-offset_right = 360.0
-offset_bottom = 240.0
-theme_override_fonts/font = ExtResource("4_nla34")
-theme_override_font_sizes/font_size = 48
+offset_right = 1.0
+offset_bottom = 13.0
+theme = SubResource("Theme_rkpd1")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GemBalance" type="Label" parent="TopBar/BalanceDisplay"]
-custom_minimum_size = Vector2(640, 240)
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 2
-offset_left = 640.0
-offset_right = 1280.0
-offset_bottom = 240.0
-theme_override_fonts/font = ExtResource("4_nla34")
-theme_override_font_sizes/font_size = 48
+offset_top = 40.0
+offset_right = 1.0
+offset_bottom = 53.0
+theme = SubResource("Theme_w0u1g")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="LevelImage" type="TextureRect" parent="TopBar/BalanceDisplay"]
+custom_minimum_size = Vector2(136, 32)
+layout_mode = 0
+offset_top = 80.0
+offset_right = 136.0
+offset_bottom = 120.0
+texture = ExtResource("5_xuo0m")
+expand_mode = 1
+
 [node name="FreeChipsSection" type="Control" parent="."]
-custom_minimum_size = Vector2(320, 160)
+custom_minimum_size = Vector2(136, 80)
 anchors_preset = 0
-offset_left = 1580.0
-offset_top = 40.0
-offset_right = 1900.0
-offset_bottom = 200.0
+offset_left = 44.0
+offset_top = 280.0
+offset_right = 180.0
+offset_bottom = 360.0
 
 [node name="ClaimButton" type="Button" parent="FreeChipsSection"]
-custom_minimum_size = Vector2(320, 120)
-layout_mode = 2
-offset_right = 335.0
-offset_bottom = 120.0
-theme = ExtResource("3_r5i0x")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_nla34")
-theme_override_font_sizes/font_size = 24
-text = "Claim 100,000 Free Chips"
+custom_minimum_size = Vector2(136, 32)
+layout_mode = 0
+offset_right = 136.0
+offset_bottom = 32.0
+theme = SubResource("Theme_vg8bf")
+theme_override_font_sizes/font_size = 12
+text = "Free Chips"
 autowrap_mode = 3
 
 [node name="CooldownTimer" type="Label" parent="FreeChipsSection"]
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 2
-offset_top = 140.0
-offset_right = 320.0
-offset_bottom = 172.0
-theme_override_font_sizes/font_size = 18
+offset_top = 40.0
+offset_right = 136.0
+offset_bottom = 72.0
+theme = SubResource("Theme_hrcic")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
-
-[node name="PackagesGrid" type="GridContainer" parent="."]
-custom_minimum_size = Vector2(1080, 720)
-layout_mode = 0
-offset_left = 60.0
-offset_top = 260.0
-offset_right = 780.0
-offset_bottom = 980.0
-theme_override_constants/h_separation = 50
-theme_override_constants/v_separation = 15
-columns = 2
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="PacksGrid" type="GridContainer" parent="."]
-custom_minimum_size = Vector2(620, 720)
+custom_minimum_size = Vector2(240, 324)
 layout_mode = 0
-offset_left = 1240.0
-offset_top = 240.0
-offset_right = 1860.0
-offset_bottom = 960.0
+offset_left = 196.0
+offset_top = 68.0
+offset_right = 436.0
+offset_bottom = 392.0
+
+[node name="PackagesScroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(412, 324)
+layout_mode = 0
+offset_left = 452.0
+offset_top = 68.0
+offset_right = 864.0
+offset_bottom = 392.0
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="PackagesGrid" type="GridContainer" parent="PackagesScroll"]
+custom_minimum_size = Vector2(0, 324)
+layout_mode = 2
+theme_override_constants/h_separation = 8
+columns = 6
 
 [node name="MessageLabel" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 16.0
+offset_left = 104.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.0235294, 0.631373, 0.482353, 1)

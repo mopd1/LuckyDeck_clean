@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rkb0m4bnq417"
-path="res://.godot/imported/hair1.png-75d11d0e2af1f1fd4147fbe23263689f.ctex"
+uid="uid://ci0cn5ar2725g"
+path="res://.godot/imported/chip-black 1.png-816e3026177e62a05029b03c1b36df8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/avatars/hair/hair1.png"
-dest_files=["res://.godot/imported/hair1.png-75d11d0e2af1f1fd4147fbe23263689f.ctex"]
+source_file="res://assets/ui/chip-black 1.png"
+dest_files=["res://.godot/imported/chip-black 1.png-816e3026177e62a05029b03c1b36df8c.ctex"]
 
 [params]
 

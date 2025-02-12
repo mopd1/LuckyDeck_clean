@@ -1,52 +1,40 @@
-[gd_scene load_steps=7 format=3 uid="uid://1xmoke6cfmd3"]
+[gd_scene load_steps=6 format=3 uid="uid://1xmoke6cfmd3"]
 
+[ext_resource type="Theme" uid="uid://d6a0n168pf4u" path="res://scenes/PackagePanel.tres" id="1_4w152"]
 [ext_resource type="Script" path="res://scripts/PackagePanel.gd" id="1_m8ohc"]
-[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="2_dd6yn"]
-[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="2_qboxj"]
 [ext_resource type="FontFile" uid="uid://vd3784hx2cna" path="res://assets/fonts/ApercuMonoProMedium.ttf" id="3_3kl1k"]
-[ext_resource type="Texture2D" uid="uid://b7bfyk2psbpgm" path="res://assets/icons/packagechip.png" id="5_8tlhb"]
+[ext_resource type="Texture2D" uid="uid://ci0cn5ar2725g" path="res://assets/ui/chip-black 1.png" id="5_no85b"]
+[ext_resource type="Texture2D" uid="uid://cf75f5jsyoqbb" path="res://assets/ui/PackageLabel.png" id="6_2rir0"]
 
-[sub_resource type="Theme" id="Theme_01y3j"]
-
-[node name="PackagePanel" type="Control"]
-custom_minimum_size = Vector2(540, 240)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 360.0
-offset_bottom = 240.0
+[node name="PackagePanel" type="Panel"]
+custom_minimum_size = Vector2(176, 316)
+offset_right = 176.0
+offset_bottom = 316.0
+theme = ExtResource("1_4w152")
 script = ExtResource("1_m8ohc")
-
-[node name="Background" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(540, 240)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme = SubResource("Theme_01y3j")
 
 [node name="PriceLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(120, 60)
 layout_mode = 0
-offset_top = 80.0
-offset_right = 120.0
-offset_bottom = 140.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_dd6yn")
+offset_left = 8.0
+offset_top = 34.0
+offset_right = 168.0
+offset_bottom = 94.0
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ChipsLabel" type="Label" parent="."]
-custom_minimum_size = Vector2(240, 180)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 0
-offset_left = 140.0
-offset_top = 70.0
-offset_right = 380.0
-offset_bottom = 250.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_3kl1k")
-theme_override_font_sizes/font_size = 24
+offset_left = 8.0
+offset_top = 138.0
+offset_right = 9.0
+offset_bottom = 169.0
+theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="GemsLabel" type="Label" parent="."]
 visible = false
@@ -63,24 +51,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BuyButton" type="Button" parent="."]
-custom_minimum_size = Vector2(540, 60)
+custom_minimum_size = Vector2(160, 50)
 layout_mode = 0
-offset_top = 180.0
-offset_right = 540.0
-offset_bottom = 248.0
-theme = ExtResource("2_qboxj")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_left = 8.0
+offset_top = 258.0
+offset_right = 168.0
+offset_bottom = 308.0
+theme = ExtResource("1_4w152")
 text = "BUY"
 
 [node name="ChipIcon" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.360784)
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(160, 120)
 layout_mode = 0
-offset_left = 200.0
-offset_top = 10.0
-offset_right = 320.0
-offset_bottom = 130.0
-texture = ExtResource("5_8tlhb")
+offset_left = 8.0
+offset_top = 130.0
+offset_right = 168.0
+offset_bottom = 250.0
+texture = ExtResource("5_no85b")
 expand_mode = 1
 stretch_mode = 5
 
@@ -93,3 +81,21 @@ offset_right = 500.0
 offset_bottom = 120.0
 expand_mode = 1
 stretch_mode = 6
+
+[node name="LabelUIElement" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(52, 26)
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 26.0
+texture = ExtResource("6_2rir0")
+expand_mode = 1
+
+[node name="PackageLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(52, 26)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 10
+text = "Chips"
+horizontal_alignment = 1
+vertical_alignment = 1

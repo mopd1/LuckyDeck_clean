@@ -36,8 +36,8 @@ ChallengesManager="*res://scripts/challenges/ChallengesManager.gd"
 
 [display]
 
-window/size/viewport_width=1900
-window/size/viewport_height=1020
+window/size/viewport_width=874
+window/size/viewport_height=402
 window/size/initial_position_type=0
 window/stretch/mode="viewport"
 

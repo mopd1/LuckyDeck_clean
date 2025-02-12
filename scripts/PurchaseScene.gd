@@ -14,7 +14,7 @@ var packages = [
 @onready var gem_balance_label = $TopBar/BalanceDisplay/GemBalance
 @onready var claim_button = $FreeChipsSection/ClaimButton
 @onready var cooldown_timer = $FreeChipsSection/CooldownTimer
-@onready var packages_grid = $PackagesGrid
+@onready var packages_grid = $PackagesScroll/PackagesGrid
 @onready var packs_grid = $PacksGrid
 @onready var message_label = $MessageLabel
 
@@ -102,10 +102,10 @@ func _on_user_data_received(data):
 
 func update_balance_display():
 	chip_balance_label.text = "Chips: " + Utilities.format_number(PlayerData.player_data["total_balance"])
-	gem_balance_label.text = "Gems: " + Utilities.format_number(PlayerData.player_data["gems"])
+	gem_balance_label.text = "Flash: " + Utilities.format_number(PlayerData.player_data["gems"])
 
 func update_gem_balance_display():
-	gem_balance_label.text = "Gems: " + Utilities.format_number(PlayerData.player_data["gems"])
+	gem_balance_label.text = "Flash: " + Utilities.format_number(PlayerData.player_data["gems"])
 
 func setup_packages():
 	for i in range(packages.size()):

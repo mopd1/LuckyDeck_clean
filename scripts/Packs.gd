@@ -3,7 +3,7 @@ class_name Packs
 
 const PACK_TYPES = {
 	"envelope": {
-		"name": "Envelope Pack",
+		"name": "Envelope",
 		"cost": 100,
 		"probabilities": {
 			"common": 0.80,
@@ -12,7 +12,7 @@ const PACK_TYPES = {
 		}
 	},
 	"holdall": {
-		"name": "Holdall Pack",
+		"name": "Holdall",
 		"cost": 200,
 		"probabilities": {
 			"common": 0.60,
@@ -21,7 +21,7 @@ const PACK_TYPES = {
 		}
 	},
 	"briefcase": {
-		"name": "Briefcase Pack",
+		"name": "Briefcase",
 		"cost": 300,
 		"probabilities": {
 			"common": 0.30,

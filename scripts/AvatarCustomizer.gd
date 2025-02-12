@@ -20,6 +20,7 @@ var avatar_config = {
 	"mouth_accessories": null
 }
 
+@onready var categories_container = $UIRoot/ScrollContainer/CategoriesContainer
 @onready var head_base = $AvatarRoot/HeadBase
 @onready var torso_base = $AvatarRoot/TorsoBase
 
@@ -37,8 +38,6 @@ func _ready():
 	test_customization()
 
 func initialize_avatar():
-	# Load default textures or previously saved configuration
-	# For now, let's just ensure all sprites are invisible
 	face_sprite.visible = false
 	clothing_sprite.visible = false
 	hair_sprite.visible = false
@@ -47,69 +46,58 @@ func initialize_avatar():
 	mouth_accessories_sprite.visible = false
 
 func setup_ui():
-	var tab_container = $UIRoot/TabContainer
 	var confirm_button = $UIRoot/ConfirmButton
 	var clear_button = $UIRoot/ClearButton
 	var randomize_button = $UIRoot/RandomizeButton
 
-	if not tab_container:
-		push_error("TabContainer not found")
-		return
-
+	# Load all items first
+	var all_items = []
 	for category in avatar_config.keys():
-		var node_name = category_mapping[category]["node"]
-		# Convert underscore to space for UI elements
-		var ui_name = category.replace("_", " ").capitalize()
-		
-		var tab = tab_container.get_node(ui_name + "Tab")
-		if not tab:
-			push_error("Tab not found for category: " + category + " (looking for: " + ui_name + "Tab)")
-			continue
-		
-		var grid = tab.get_node(ui_name + "Grid")
-		if not grid:
-			push_error("Grid not found for category: " + category + " (looking for: " + ui_name + "Grid)")
-			continue
-
-		# Set up the grid
-		grid.columns = 4  # Adjust the number of columns as needed
-		grid.add_theme_constant_override("h_separation", 10)
-		grid.add_theme_constant_override("v_separation", 10)
-
 		var items = load_items_for_category(category)
-		for item in items:
-			var button = TextureButton.new()
-			var texture = load(item.texture_path)
-			button.texture_normal = texture
-			
-			# Set a fixed size for the button
-			var button_size = Vector2(100, 100)  # Adjust this size as needed
-			button.custom_minimum_size = button_size
-			
-			# Use the correct properties for TextureButton
-			button.ignore_texture_size = true
-			button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
-			
-			button.connect("pressed", Callable(self, "_on_item_selected").bind(category, item.id))
-			grid.add_child(button)
+		all_items.append_array(items)
+	
+	# Populate "All" category
+	var all_list = categories_container.get_node("AllCategory/ItemScroll/ItemList")
+	populate_item_list(all_list, all_items)
+
+	# Populate individual categories
+	for category in avatar_config.keys():
+		var category_name = category.replace("_", "").capitalize() + "Category"
+		var category_node = categories_container.get_node_or_null(category_name)
+		if category_node:
+			var item_list = category_node.get_node("ItemScroll/ItemList")
+			var items = load_items_for_category(category)
+			populate_item_list(item_list, items)
 
 	if confirm_button:
 		confirm_button.connect("pressed", Callable(self, "_on_confirm_pressed"))
-	else:
-		push_error("ConfirmButton not found")
-
 	if clear_button:
 		clear_button.connect("pressed", Callable(self, "_on_clear_pressed"))
-	else:
-		push_error("ClearButton not found")
-
 	if randomize_button:
 		randomize_button.connect("pressed", Callable(self, "_on_randomize_pressed"))
-	else:
-		push_error("RandomizeButton not found")
 
-	# Make sure the UIRoot is visible
-	$UIRoot.visible = true
+func populate_item_list(item_list: HBoxContainer, items: Array):
+	for item in items:
+		var button = TextureButton.new()
+		var texture = load(item.texture_path)
+		button.texture_normal = texture
+		
+		# Set a fixed size for the button
+		var button_size = Vector2(100, 100)
+		button.custom_minimum_size = button_size
+		
+		button.ignore_texture_size = true
+		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+		
+		# Extract category from texture path
+		var category = ""
+		for cat in category_mapping.keys():
+			if item.texture_path.contains(category_mapping[cat].folder):
+				category = cat
+				break
+		
+		button.connect("pressed", Callable(self, "_on_item_selected").bind(category, item.id))
+		item_list.add_child(button)
 
 func load_items_for_category(category: String) -> Array:
 	var items = []
@@ -134,7 +122,6 @@ func load_items_for_category(category: String) -> Array:
 func _on_item_selected(category: String, item_id: String):
 	apply_item(category, item_id)
 
-
 func preview_item(category: String, texture: Texture2D):
 	print("Previewing " + category + " with texture: " + texture.resource_path)
 	var node_name = category_mapping[category]["node"]
@@ -146,7 +133,7 @@ func preview_item(category: String, texture: Texture2D):
 		push_error("Could not find sprite node for category: " + category)
 
 func apply_item(category: String, item_id: String):
-	print("Applying item: ", category, " - ", item_id)  # Debug print
+	print("Applying item: ", category, " - ", item_id)
 	avatar_config[category] = item_id
 	var node_name = category_mapping[category]["node"]
 	var sprite = get_node("AvatarRoot/HeadBase/" + node_name) if category != "clothing" else get_node("AvatarRoot/TorsoBase/Clothing")
@@ -178,7 +165,6 @@ func _on_confirm_pressed():
 	print("Confirm pressed. Avatar config: ", avatar_config)
 	emit_signal("customization_complete", avatar_config)
 
-# Add this method to load a saved configuration
 func load_configuration(config: Dictionary):
 	avatar_config = config
 	for category in avatar_config.keys():

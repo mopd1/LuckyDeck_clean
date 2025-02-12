@@ -19,7 +19,7 @@ func setup(type: String):
 	var pack_data = Packs.PACK_TYPES[type]
 	
 	name_label.text = pack_data.name
-	cost_label.text = str(pack_data.cost) + " Gems"
+	cost_label.text = str(pack_data.cost) + " Flash"
 	cost = pack_data.cost
 	
 	# Load appropriate icon based on pack type
@@ -35,5 +35,5 @@ func _on_buy_button_pressed():
 	else:
 		var message_label = get_node_or_null("/root/PurchaseScene/MessageLabel")
 		if message_label:
-			message_label.text = "Not enough gems!"
+			message_label.text = "Not enough Flash!"
 			message_label.modulate = Color.RED

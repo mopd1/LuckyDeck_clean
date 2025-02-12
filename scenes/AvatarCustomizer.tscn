@@ -49,71 +49,62 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TabContainer" type="TabContainer" parent="UIRoot"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot"]
 custom_minimum_size = Vector2(920, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-current_tab = 0
+offset_left = 950.0
+offset_top = 339.0
+offset_right = 1870.0
+offset_bottom = 986.0
 
-[node name="FaceTab" type="TabBar" parent="UIRoot/TabContainer"]
+[node name="CategoriesContainer" type="VBoxContainer" parent="UIRoot/ScrollContainer"]
+custom_minimum_size = Vector2(920, 0)
 layout_mode = 2
-metadata/_tab_index = 0
 
-[node name="FaceGrid" type="GridContainer" parent="UIRoot/TabContainer/FaceTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ClothingTab" type="TabBar" parent="UIRoot/TabContainer"]
-visible = false
+[node name="AllCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(920, 120)
 layout_mode = 2
-metadata/_tab_index = 1
 
-[node name="ClothingGrid" type="GridContainer" parent="UIRoot/TabContainer/ClothingTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HairTab" type="TabBar" parent="UIRoot/TabContainer"]
-visible = false
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory"]
 layout_mode = 2
-metadata/_tab_index = 2
+text = "All Items"
 
-[node name="HairGrid" type="GridContainer" parent="UIRoot/TabContainer/HairTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HatTab" type="TabBar" parent="UIRoot/TabContainer"]
-visible = false
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory"]
+custom_minimum_size = Vector2(920, 120)
 layout_mode = 2
-metadata/_tab_index = 3
 
-[node name="HatGrid" type="GridContainer" parent="UIRoot/TabContainer/HatTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Ear AccessoriesTab" type="TabBar" parent="UIRoot/TabContainer"]
-visible = false
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory/ItemScroll"]
 layout_mode = 2
-metadata/_tab_index = 4
 
-[node name="Ear AccessoriesGrid" type="GridContainer" parent="UIRoot/TabContainer/Ear AccessoriesTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Mouth AccessoriesTab" type="TabBar" parent="UIRoot/TabContainer"]
-visible = false
+[node name="FaceCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(920, 120)
 layout_mode = 2
-metadata/_tab_index = 5
 
-[node name="Mouth AccessoriesGrid" type="GridContainer" parent="UIRoot/TabContainer/Mouth AccessoriesTab"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory"]
+layout_mode = 2
+text = "Faces"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory"]
+custom_minimum_size = Vector2(920, 120)
+layout_mode = 2
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory/ItemScroll"]
+layout_mode = 2
+
+[node name="HairCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(920, 120)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory"]
+layout_mode = 2
+text = "Hair"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory"]
+custom_minimum_size = Vector2(920, 120)
+layout_mode = 2
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory/ItemScroll"]
+layout_mode = 2
 
 [node name="ConfirmButton" type="Button" parent="UIRoot"]
 custom_minimum_size = Vector2(180, 60)
