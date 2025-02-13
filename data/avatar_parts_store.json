@@ -4,31 +4,46 @@
 	  "id": "face2",
 	  "type": "face",
 	  "rarity": "common",
-	  "image": "res://assets/avatars/face/face2.png"
+	  "image": "res://assets/avatars/face/face2.png",
+	  "rarity_stars": 1,
+	  "trade_value": 100,
+	  "flavour_text": "This is placeholder copy"
 	},
 	{
 	  "id": "hair1",
 	  "type": "hair",
 	  "rarity": "rare",
-	  "image": "res://assets/avatars/hair/hair1.png"
+	  "image": "res://assets/avatars/hair/hair1.png",
+	  "rarity_stars": 5,
+	  "trade_value": 500,
+	  "flavour_text": "This is placeholder copy"
 	},
 	{
 	  "id": "eyes1",
 	  "type": "face",
 	  "rarity": "uncommon",
-	  "image": "res://assets/avatars/eyes/eyes1.png"
+	  "image": "res://assets/avatars/eyes/eyes1.png",
+	  "rarity_stars": 3,
+	  "trade_value": 300,
+	  "flavour_text": "This is placeholder copy"
 	},
 	{
 	  "id": "eyes2",
 	  "type": "face",
 	  "rarity": "uncommon",
-	  "image": "res://assets/avatars/eyes/eyes2.png"
+	  "image": "res://assets/avatars/eyes/eyes2.png",
+	  "rarity_stars": 3,
+	  "trade_value": 300,
+	  "flavour_text": "This is placeholder copy"
 	},
 	{
 	  "id": "eyebrows1",
 	  "type": "face",
 	  "rarity": "common",
-	  "image": "res://assets/avatars/eyes/eyebrows1.png"
+	  "image": "res://assets/avatars/eyes/eyebrows1.png",
+	  "rarity_stars": 1,
+	  "trade_value": 100,
+	  "flavour_text": "This is placeholder copy"
 	}
   ]
 }

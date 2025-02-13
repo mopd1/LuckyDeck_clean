@@ -1,41 +1,24 @@
 extends Control
 
 signal reveal_completed
+signal item_traded(gems_amount: int)
 
 @onready var pack_sprite = $CenterContainer/PopupPanel/PackSprite
-@onready var item_sprite = $CenterContainer/PopupPanel/ItemSprite
-@onready var item_name_label = $CenterContainer/PopupPanel/ItemNameLabel
-@onready var rarity_label = $CenterContainer/PopupPanel/RarityLabel
-@onready var close_button = $CenterContainer/PopupPanel/CloseButton
 @onready var animation_player = $AnimationPlayer
+@onready var item_card = $CenterContainer/PopupPanel/ItemCard
 
 var revealed_item = null
 
 func _ready():
-	close_button.pressed.connect(_on_close_pressed)
-	close_button.hide()  # Hide initially until animation is done
-	
-	# Set initial states
-	item_sprite.modulate.a = 0
-	item_name_label.modulate.a = 0
-	rarity_label.modulate.a = 0
+	item_card.item_added.connect(_on_item_added)
+	item_card.item_traded.connect(_on_item_traded)
+
 
 func reveal_item(pack_type: String, item_data: Dictionary):
 	revealed_item = item_data
 	
-	# Set up item data
-	item_sprite.texture = load(item_data.image)
-	item_name_label.text = item_data.id.capitalize()
-	rarity_label.text = item_data.rarity.capitalize()
-	
-	# Set rarity color
-	match item_data.rarity:
-		"common":
-			rarity_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
-		"uncommon":
-			rarity_label.add_theme_color_override("font_color", Color(0.2, 0.8, 0.2))
-		"rare":
-			rarity_label.add_theme_color_override("font_color", Color(0.2, 0.2, 1.0))
+	# Setup item card
+	item_card.setup(item_data)
 	
 	# Load pack sprite
 	var pack_texture_path = "res://assets/packs/" + pack_type + ".png"
@@ -46,9 +29,8 @@ func reveal_item(pack_type: String, item_data: Dictionary):
 	play_reveal_animation()
 
 func play_reveal_animation():
-	# Create reveal animation sequence
 	var tween = create_tween()
-	tween.set_parallel(false)  # Make animations sequential
+	tween.set_parallel(false)
 	
 	# Pack entrance
 	tween.tween_property(pack_sprite, "scale", Vector2(1.2, 1.2), 0.3)
@@ -59,20 +41,15 @@ func play_reveal_animation():
 	tween.tween_property(pack_sprite, "rotation_degrees", -5, 0.1)
 	tween.tween_property(pack_sprite, "rotation_degrees", 0, 0.1)
 	
-	# Pack fade out and item reveal
+	# Pack fade out and card reveal
 	tween.tween_property(pack_sprite, "modulate:a", 0.0, 0.5)
-	tween.parallel().tween_property(item_sprite, "modulate:a", 1.0, 0.5)
-	tween.parallel().tween_property(item_name_label, "modulate:a", 1.0, 0.5)
-	tween.parallel().tween_property(rarity_label, "modulate:a", 1.0, 0.5)
-	
-	# Show close button after animation
-	tween.tween_callback(func(): close_button.show())
+	tween.parallel().tween_property(item_card, "modulate:a", 1.0, 0.5)
 
-func _on_close_pressed():
-	# Optional exit animation
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.3)
-	tween.tween_callback(func():
-		emit_signal("reveal_completed")
-		queue_free()
-	)
+func _on_item_added():
+	emit_signal("reveal_completed")
+	queue_free()
+
+func _on_item_traded(gems_amount: int):
+	emit_signal("item_traded", gems_amount)
+	emit_signal("reveal_completed")
+	queue_free()

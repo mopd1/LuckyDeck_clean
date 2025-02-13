@@ -1,0 +1,187 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqea3ylppxlok"]
+
+[ext_resource type="Script" path="res://scripts/ItemCard.gd" id="1_4rxkr"]
+[ext_resource type="Theme" uid="uid://dl2xhj3iy1fse" path="res://scenes/ItemCard.tres" id="1_mhru3"]
+[ext_resource type="Texture2D" uid="uid://1dcn74840dbn" path="res://assets/ui/ItemCardBorder.png" id="2_von2c"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="4_omq88"]
+[ext_resource type="Texture2D" uid="uid://dkqr48br0lwke" path="res://assets/ui/ItemCardLine.png" id="5_hulj6"]
+[ext_resource type="Texture2D" uid="uid://t5ubd7r04b8s" path="res://assets/ui/ItemCardCategory.png" id="6_c7ayh"]
+[ext_resource type="Texture2D" uid="uid://br8y2jc1qn74a" path="res://assets/ui/ItemCardDescriptionBorder.png" id="7_a2q8l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rh6it"]
+bg_color = Color(0, 0.270588, 0.258824, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_pg5hc"]
+Label/styles/normal = SubResource("StyleBoxFlat_rh6it")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbrtq"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_rqulw"]
+default_font = ExtResource("4_omq88")
+default_font_size = 12
+Button/styles/normal = SubResource("StyleBoxFlat_vbrtq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tq8r"]
+bg_color = Color(0.462745, 0.368627, 0.262745, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_ojp4d"]
+default_font = ExtResource("4_omq88")
+default_font_size = 12
+Button/styles/normal = SubResource("StyleBoxFlat_0tq8r")
+
+[node name="ItemCard" type="Panel"]
+custom_minimum_size = Vector2(230, 320)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -644.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mhru3")
+script = ExtResource("1_4rxkr")
+
+[node name="CardBorder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 12.0
+offset_right = 222.0
+offset_bottom = 310.0
+texture = ExtResource("2_von2c")
+
+[node name="ItemName" type="Label" parent="."]
+custom_minimum_size = Vector2(69, 17)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 21.0
+offset_right = 92.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_fonts/font = ExtResource("4_omq88")
+theme_override_font_sizes/font_size = 16
+
+[node name="TradeLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(59, 11)
+layout_mode = 0
+offset_left = 109.0
+offset_top = 46.0
+offset_right = 168.0
+offset_bottom = 69.0
+theme = ExtResource("1_mhru3")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 10
+text = "Trade Value"
+
+[node name="TradeValue" type="Label" parent="."]
+custom_minimum_size = Vector2(35, 12)
+layout_mode = 0
+offset_left = 182.0
+offset_top = 45.0
+offset_right = 217.0
+offset_bottom = 59.0
+theme = SubResource("Theme_pg5hc")
+theme_override_colors/font_color = Color(0.996078, 0.992157, 0.933333, 1)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+
+[node name="ItemDescriptionBorder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 160.0
+offset_right = 199.0
+offset_bottom = 239.0
+texture = ExtResource("7_a2q8l")
+
+[node name="Description" type="Label" parent="."]
+custom_minimum_size = Vector2(168, 79)
+layout_mode = 0
+offset_left = 31.0
+offset_top = 160.0
+offset_right = 71.0
+offset_bottom = 183.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+autowrap_mode = 3
+
+[node name="RarityLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(25, 11)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 46.0
+offset_right = 52.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 10
+text = "Rarity"
+
+[node name="RarityStars" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 46.0
+offset_right = 70.0
+offset_bottom = 56.0
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(168, 24)
+layout_mode = 0
+offset_left = 31.0
+offset_top = 260.0
+offset_right = 199.0
+offset_bottom = 284.0
+theme_override_constants/separation = 8
+
+[node name="AddButton" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = SubResource("Theme_rqulw")
+theme_override_colors/font_color = Color(0.996078, 0.992157, 0.933333, 1)
+text = "KEEP"
+
+[node name="TradeButton" type="Button" parent="ButtonContainer"]
+custom_minimum_size = Vector2(80, 24)
+layout_mode = 2
+theme = SubResource("Theme_ojp4d")
+theme_override_colors/font_color = Color(0.996078, 0.992157, 0.933333, 1)
+text = "TRADE"
+
+[node name="ItemLine" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(183, 1)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 41.0
+offset_right = 206.0
+offset_bottom = 42.0
+texture = ExtResource("5_hulj6")
+expand_mode = 1
+
+[node name="ItemCategory" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(19, 19)
+layout_mode = 0
+offset_left = 187.0
+offset_top = 19.0
+offset_right = 206.0
+offset_bottom = 38.0
+texture = ExtResource("6_c7ayh")
+expand_mode = 1
+
+[node name="ItemImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(167, 80)
+layout_mode = 0
+offset_left = 31.0
+offset_top = 75.0
+offset_right = 198.0
+offset_bottom = 135.0
+expand_mode = 1

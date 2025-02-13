@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvw4p2x2s5x0y"]
+[gd_scene load_steps=3 format=3 uid="uid://dvw4p2x2s5x0y"]
 
 [ext_resource type="Script" path="res://scripts/PackRevealPopup.gd" id="1_bw0mf"]
+[ext_resource type="PackedScene" uid="uid://cqea3ylppxlok" path="res://scenes/ItemCard.tscn" id="2_6jtyk"]
 
 [node name="PackRevealPopup" type="Control"]
 layout_mode = 3
@@ -38,39 +39,12 @@ offset_right = 368.0
 offset_bottom = 202.0
 expand_mode = 1
 
-[node name="ItemSprite" type="TextureRect" parent="CenterContainer/PopupPanel"]
-custom_minimum_size = Vector2(360, 202)
-layout_mode = 0
-offset_left = 504.0
-offset_right = 864.0
-offset_bottom = 202.0
-expand_mode = 1
-
-[node name="ItemNameLabel" type="Label" parent="CenterContainer/PopupPanel"]
-custom_minimum_size = Vector2(360, 32)
-layout_mode = 0
-offset_left = 504.0
-offset_top = -100.0
-offset_right = 864.0
-offset_bottom = -68.0
-theme_override_font_sizes/font_size = 12
-
-[node name="RarityLabel" type="Label" parent="CenterContainer/PopupPanel"]
-custom_minimum_size = Vector2(360, 32)
-layout_mode = 0
-offset_left = 504.0
+[node name="ItemCard" parent="CenterContainer/PopupPanel" instance=ExtResource("2_6jtyk")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_left = 540.0
 offset_top = -60.0
-offset_right = 864.0
-offset_bottom = -28.0
-theme_override_font_sizes/font_size = 12
-
-[node name="CloseButton" type="Button" parent="CenterContainer/PopupPanel"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 0
-offset_left = 434.0
-offset_top = 200.0
-offset_right = 492.0
-offset_bottom = 248.0
-text = "CLOSE"
+offset_right = -104.0
+offset_bottom = 58.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
