@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dmktl8s2xu7k1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3gha"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font_size = 10
+Button/styles/normal = SubResource("StyleBoxFlat_l3gha")

@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://hg36t717p0sf"]
+[gd_scene load_steps=8 format=3 uid="uid://hg36t717p0sf"]
 
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_a1qms"]
 [ext_resource type="Script" path="res://scripts/AvatarCustomizer.gd" id="1_rsw8p"]
+[ext_resource type="Theme" uid="uid://c52nu1lu3mvky" path="res://scenes/AvatarCustomizerScroll.tres" id="3_dd0gt"]
+[ext_resource type="Theme" uid="uid://dmktl8s2xu7k1" path="res://scenes/AvatarCustomizerButtons.tres" id="3_f6vnt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kiyeh"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwwjj"]
+bg_color = Color(0, 0.270588, 0.258824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n47rc"]
+bg_color = Color(0.941176, 0.333333, 0.305882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="AvatarCustomizer" type="Control"]
 layout_mode = 3
@@ -14,30 +29,31 @@ theme = ExtResource("1_a1qms")
 script = ExtResource("1_rsw8p")
 
 [node name="AvatarRoot" type="Node2D" parent="."]
+position = Vector2(-160, -40)
+scale = Vector2(1.4, 1.4)
 
 [node name="HeadBase" type="Sprite2D" parent="AvatarRoot"]
-position = Vector2(500, 280)
-scale = Vector2(0.4, 0.4)
+position = Vector2(197, 100)
 
 [node name="Face" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Eyebrows" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Eyes" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Nose" type="Sprite2D" parent="AvatarRoot/HeadBase"]
+
+[node name="Mouth" type="Sprite2D" parent="AvatarRoot/HeadBase"]
 
 [node name="Hair" type="Sprite2D" parent="AvatarRoot/HeadBase"]
 
 [node name="Hat" type="Sprite2D" parent="AvatarRoot/HeadBase"]
-position = Vector2(0, -350)
-scale = Vector2(0.2, 0.2)
 
 [node name="EarAccessories" type="Sprite2D" parent="AvatarRoot/HeadBase"]
-position = Vector2(250, 0)
-scale = Vector2(0.2, 0.2)
 
 [node name="MouthAccessories" type="Sprite2D" parent="AvatarRoot/HeadBase"]
-position = Vector2(-30, 270)
-scale = Vector2(0.2, 0.2)
 
 [node name="TorsoBase" type="Sprite2D" parent="AvatarRoot"]
-position = Vector2(500, 670)
-scale = Vector2(0.75, 0.75)
 
 [node name="Clothing" type="Sprite2D" parent="AvatarRoot/TorsoBase"]
 
@@ -50,84 +66,199 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UIRoot"]
-custom_minimum_size = Vector2(920, 0)
+custom_minimum_size = Vector2(436, 240)
 layout_mode = 0
-offset_left = 950.0
-offset_top = 339.0
-offset_right = 1870.0
-offset_bottom = 986.0
+offset_left = 244.0
+offset_top = 80.0
+offset_right = 444.0
+offset_bottom = 180.0
 
 [node name="CategoriesContainer" type="VBoxContainer" parent="UIRoot/ScrollContainer"]
-custom_minimum_size = Vector2(920, 0)
+custom_minimum_size = Vector2(436, 0)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
 
 [node name="AllCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
 
 [node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory"]
+custom_minimum_size = Vector2(436, 0)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
 text = "All Items"
 
 [node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
 
 [node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/AllCategory/ItemScroll"]
 layout_mode = 2
 
 [node name="FaceCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
 
 [node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory"]
+custom_minimum_size = Vector2(436, 0)
 layout_mode = 2
-text = "Faces"
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
+text = "Face"
 
 [node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
 
 [node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/FaceCategory/ItemScroll"]
 layout_mode = 2
 
 [node name="HairCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
 
 [node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory"]
+custom_minimum_size = Vector2(436, 0)
 layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
 text = "Hair"
 
 [node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory"]
-custom_minimum_size = Vector2(920, 120)
+custom_minimum_size = Vector2(436, 120)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
 
 [node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/HairCategory/ItemScroll"]
 layout_mode = 2
 
+[node name="EyebrowsCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/EyebrowsCategory"]
+custom_minimum_size = Vector2(436, 0)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
+text = "Eyebrows"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/EyebrowsCategory"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/EyebrowsCategory/ItemScroll"]
+layout_mode = 2
+
+[node name="EyesCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/EyesCategory"]
+custom_minimum_size = Vector2(436, 0)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
+text = "Eyes"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/EyesCategory"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/EyesCategory/ItemScroll"]
+layout_mode = 2
+
+[node name="NoseCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/NoseCategory"]
+custom_minimum_size = Vector2(436, 0)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
+text = "Nose"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/NoseCategory"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/NoseCategory/ItemScroll"]
+layout_mode = 2
+
+[node name="MouthCategory" type="VBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+
+[node name="Label" type="Label" parent="UIRoot/ScrollContainer/CategoriesContainer/MouthCategory"]
+custom_minimum_size = Vector2(436, 0)
+layout_mode = 2
+theme = ExtResource("3_dd0gt")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_kiyeh")
+text = "Nose"
+
+[node name="ItemScroll" type="ScrollContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/MouthCategory"]
+custom_minimum_size = Vector2(436, 120)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gwwjj")
+
+[node name="ItemList" type="HBoxContainer" parent="UIRoot/ScrollContainer/CategoriesContainer/MouthCategory/ItemScroll"]
+layout_mode = 2
+
 [node name="ConfirmButton" type="Button" parent="UIRoot"]
-custom_minimum_size = Vector2(180, 60)
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 0
-offset_left = 1080.0
-offset_right = 1260.0
-offset_bottom = 60.0
+offset_left = -150.0
+offset_top = 208.0
+offset_right = -14.0
+offset_bottom = 240.0
+theme = ExtResource("3_f6vnt")
 text = "Confirm"
 
 [node name="ClearButton" type="Button" parent="UIRoot"]
-custom_minimum_size = Vector2(180, 60)
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 0
-offset_left = 1080.0
-offset_top = 120.0
-offset_right = 1260.0
-offset_bottom = 180.0
+offset_left = -150.0
+offset_top = 288.0
+offset_right = -14.0
+offset_bottom = 320.0
+theme = ExtResource("3_f6vnt")
+theme_override_styles/normal = SubResource("StyleBoxFlat_n47rc")
 text = "Clear"
 
 [node name="RandomizeButton" type="Button" parent="UIRoot"]
-custom_minimum_size = Vector2(180, 60)
+custom_minimum_size = Vector2(136, 32)
 layout_mode = 0
-offset_left = 1080.0
-offset_top = 240.0
-offset_right = 1260.0
-offset_bottom = 300.0
+offset_left = -150.0
+offset_top = 248.0
+offset_right = -14.0
+offset_bottom = 280.0
+theme = ExtResource("3_f6vnt")
 text = "Randomize"

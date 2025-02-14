@@ -32,8 +32,11 @@ func setup(data: Dictionary):
 	var star_count = data.get("rarity_stars", RARITY_TO_STARS[data.rarity])
 	_setup_rarity_stars(star_count)
 	
-	trade_value.text = str(data.get("trade_value", 0))
-	description.text = data.get("flavor_text", "")
+	var trade_val = data.get("trade_value", 0)
+	trade_value.text = str(trade_val)
+	
+	var desc = data.get("flavour_text", "")  # Changed from flavor_text to flavour_text
+	description.text = desc
 
 func _setup_rarity_stars(rarity: int):
 	# Clear existing stars
@@ -42,8 +45,10 @@ func _setup_rarity_stars(rarity: int):
 	
 	# Add new stars based on rarity
 	for i in range(rarity):
-		var star = Label.new()
-		star.text = "⭐"
+		var star = TextureRect.new()
+		star.texture = load("res://assets/ui/rarity_star.png")
+		star.custom_minimum_size = Vector2(10, 10)  # Adjust size as needed
+		star.expand_mode = 1  # This corresponds to keep aspect centered
 		rarity_stars.add_child(star)
 
 func _on_add_pressed():

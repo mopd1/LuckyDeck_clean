@@ -293,10 +293,10 @@ vertical_alignment = 1
 [node name="CustomizeAvatarButton" type="Button" parent="PlayerPanel"]
 custom_minimum_size = Vector2(370, 60)
 layout_mode = 0
-offset_left = -5.0
-offset_top = 410.0
-offset_right = 365.0
-offset_bottom = 470.0
+offset_left = 418.0
+offset_top = 194.0
+offset_right = 788.0
+offset_bottom = 254.0
 theme = ExtResource("4_pb4yn")
 text = "Customise Avatar"
 autowrap_mode = 3

@@ -76,10 +76,10 @@ theme_override_font_sizes/font_size = 16
 [node name="TradeLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(59, 11)
 layout_mode = 0
-offset_left = 109.0
-offset_top = 46.0
-offset_right = 168.0
-offset_bottom = 69.0
+offset_left = 23.0
+offset_top = 64.0
+offset_right = 82.0
+offset_bottom = 87.0
 theme = ExtResource("1_mhru3")
 theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_font_sizes/font_size = 10
@@ -88,10 +88,10 @@ text = "Trade Value"
 [node name="TradeValue" type="Label" parent="."]
 custom_minimum_size = Vector2(35, 12)
 layout_mode = 0
-offset_left = 182.0
-offset_top = 45.0
-offset_right = 217.0
-offset_bottom = 59.0
+offset_left = 100.0
+offset_top = 64.0
+offset_right = 135.0
+offset_bottom = 78.0
 theme = SubResource("Theme_pg5hc")
 theme_override_colors/font_color = Color(0.996078, 0.992157, 0.933333, 1)
 theme_override_font_sizes/font_size = 10
@@ -100,20 +100,21 @@ horizontal_alignment = 1
 [node name="ItemDescriptionBorder" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 31.0
-offset_top = 160.0
+offset_top = 165.0
 offset_right = 199.0
-offset_bottom = 239.0
+offset_bottom = 244.0
 texture = ExtResource("7_a2q8l")
 
 [node name="Description" type="Label" parent="."]
-custom_minimum_size = Vector2(168, 79)
+custom_minimum_size = Vector2(160, 73)
 layout_mode = 0
-offset_left = 31.0
-offset_top = 160.0
-offset_right = 71.0
-offset_bottom = 183.0
+offset_left = 35.0
+offset_top = 167.0
+offset_right = 195.0
+offset_bottom = 240.0
 theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
-autowrap_mode = 3
+theme_override_font_sizes/font_size = 10
+autowrap_mode = 2
 
 [node name="RarityLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(25, 11)
@@ -129,10 +130,10 @@ text = "Rarity"
 [node name="RarityStars" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
-offset_left = 60.0
-offset_top = 46.0
-offset_right = 70.0
-offset_bottom = 56.0
+offset_left = 65.0
+offset_top = 48.0
+offset_right = 75.0
+offset_bottom = 58.0
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(168, 24)
@@ -181,7 +182,7 @@ expand_mode = 1
 custom_minimum_size = Vector2(167, 80)
 layout_mode = 0
 offset_left = 31.0
-offset_top = 75.0
+offset_top = 85.0
 offset_right = 198.0
-offset_bottom = 135.0
+offset_bottom = 165.0
 expand_mode = 1

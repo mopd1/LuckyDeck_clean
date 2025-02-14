@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0wlhbu40gfta"
-path="res://.godot/imported/eyebrows1.png-31e806181b58d6fc3c7996a704233193.ctex"
+uid="uid://hox11cloiorx"
+path="res://.godot/imported/BalanceHolder.png-c48fca5744a4518ead67f910a7590f13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/avatars/eyes/eyebrows1.png"
-dest_files=["res://.godot/imported/eyebrows1.png-31e806181b58d6fc3c7996a704233193.ctex"]
+source_file="res://assets/ui/BalanceHolder.png"
+dest_files=["res://.godot/imported/BalanceHolder.png-c48fca5744a4518ead67f910a7590f13.ctex"]
 
 [params]
 

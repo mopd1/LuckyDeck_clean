@@ -20,7 +20,7 @@
 	},
 	{
 	  "id": "eyes1",
-	  "type": "face",
+	  "type": "eyes",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/eyes/eyes1.png",
 	  "rarity_stars": 3,
@@ -29,7 +29,7 @@
 	},
 	{
 	  "id": "eyes2",
-	  "type": "face",
+	  "type": "eyes",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/eyes/eyes2.png",
 	  "rarity_stars": 3,
@@ -37,10 +37,37 @@
 	  "flavour_text": "This is placeholder copy"
 	},
 	{
+	  "id": "nose1",
+	  "type": "nose",
+	  "rarity": "uncommon",
+	  "image": "res://assets/avatars/nose/nose1.png",
+	  "rarity_stars": 3,
+	  "trade_value": 300,
+	  "flavour_text": "This is placeholder copy"
+	},
+	{
+	  "id": "nose2",
+	  "type": "nose",
+	  "rarity": "uncommon",
+	  "image": "res://assets/avatars/nose/nose2.png",
+	  "rarity_stars": 3,
+	  "trade_value": 300,
+	  "flavour_text": "This is placeholder copy"
+	},
+	{
+	  "id": "mouth1",
+	  "type": "mouth",
+	  "rarity": "uncommon",
+	  "image": "res://assets/avatars/mouth/mouth1.png",
+	  "rarity_stars": 3,
+	  "trade_value": 300,
+	  "flavour_text": "This is placeholder copy"
+	},
+	{
 	  "id": "eyebrows1",
-	  "type": "face",
+	  "type": "eyebrows",
 	  "rarity": "common",
-	  "image": "res://assets/avatars/eyes/eyebrows1.png",
+	  "image": "res://assets/avatars/eyebrows/eyebrows1.png",
 	  "rarity_stars": 1,
 	  "trade_value": 100,
 	  "flavour_text": "This is placeholder copy"

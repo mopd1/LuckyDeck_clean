@@ -4,20 +4,28 @@ signal customization_complete(avatar_data)
 
 var category_mapping = {
 	"face": {"node": "Face", "folder": "face"},
-	"clothing": {"node": "Clothing", "folder": "clothing"},
+	"eyebrows": {"node": "Eyebrows", "folder": "eyebrows"},
+	"eyes": {"node": "Eyes", "folder": "eyes"},
+	"nose": {"node": "Nose", "folder": "nose"},
+	"mouth": {"node": "Mouth", "folder": "mouth"},
 	"hair": {"node": "Hair", "folder": "hair"},
-	"hat": {"node": "Hat", "folder": "hat"},
 	"ear_accessories": {"node": "EarAccessories", "folder": "ear_accessories"},
-	"mouth_accessories": {"node": "MouthAccessories", "folder": "mouth_accessories"}
+	"mouth_accessories": {"node": "MouthAccessories", "folder": "mouth_accessories"},
+	"hat": {"node": "Hat", "folder": "hat"},
+	"clothing": {"node": "Clothing", "folder": "clothing"}
 }
 
 var avatar_config = {
 	"face": null,
-	"clothing": null,
+	"eyebrows": null,
+	"eyes": null,
+	"nose": null,
+	"mouth": null,
 	"hair": null,
-	"hat": null,
 	"ear_accessories": null,
-	"mouth_accessories": null
+	"mouth_accessories": null,
+	"hat": null,
+	"clothing": null
 }
 
 @onready var categories_container = $UIRoot/ScrollContainer/CategoriesContainer
@@ -31,6 +39,10 @@ var avatar_config = {
 @onready var hat_sprite = $AvatarRoot/HeadBase/Hat
 @onready var ear_accessories_sprite = $AvatarRoot/HeadBase/EarAccessories
 @onready var mouth_accessories_sprite = $AvatarRoot/HeadBase/MouthAccessories
+@onready var eyebrows_sprite = $AvatarRoot/HeadBase/Eyebrows
+@onready var eyes_sprite = $AvatarRoot/HeadBase/Eyes
+@onready var nose_sprite = $AvatarRoot/HeadBase/Nose
+@onready var mouth_sprite = $AvatarRoot/HeadBase/Mouth
 
 func _ready():
 	initialize_avatar()
@@ -39,11 +51,15 @@ func _ready():
 
 func initialize_avatar():
 	face_sprite.visible = false
-	clothing_sprite.visible = false
+	eyebrows_sprite.visible = false
+	eyes_sprite.visible = false
+	nose_sprite.visible = false
+	mouth_sprite.visible = false
 	hair_sprite.visible = false
-	hat_sprite.visible = false
 	ear_accessories_sprite.visible = false
 	mouth_accessories_sprite.visible = false
+	clothing_sprite.visible = false
+	hat_sprite.visible = false
 
 func setup_ui():
 	var confirm_button = $UIRoot/ConfirmButton

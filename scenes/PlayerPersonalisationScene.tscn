@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://28rvh8ysd778"]
+[gd_scene load_steps=15 format=3 uid="uid://28rvh8ysd778"]
 
 [ext_resource type="Script" path="res://scripts/PlayerPersonalisationScene.gd" id="1_1vx87"]
-[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="2_38lr4"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_8ogv3"]
+[ext_resource type="Texture2D" uid="uid://hox11cloiorx" path="res://assets/ui/BalanceHolder.png" id="3_t5st4"]
+[ext_resource type="Texture2D" uid="uid://cl77r4oi77nth" path="res://assets/ui/FlashHolder.png" id="4_vjh4u"]
+[ext_resource type="Texture2D" uid="uid://i7jeh26tlv7q" path="res://assets/ui/player-avatar-levelbar_reference-full 1.png" id="5_a6rp1"]
+[ext_resource type="Texture2D" uid="uid://dkqr48br0lwke" path="res://assets/ui/ItemCardLine.png" id="6_0q5ym"]
+[ext_resource type="Texture2D" uid="uid://bqwhd8yej0ym8" path="res://assets/ui/EnvelopeIcon.png" id="7_qj1on"]
+[ext_resource type="Texture2D" uid="uid://jj70bsjo27bs" path="res://assets/ui/HoldallIcon.png" id="8_17k0g"]
+[ext_resource type="Texture2D" uid="uid://3w6na71e5etf" path="res://assets/ui/BriefcaseIcon.png" id="9_1i7te"]
+[ext_resource type="Texture2D" uid="uid://c1v384qku7iwq" path="res://assets/ui/InsideTrackButton.png" id="10_fn6kb"]
+
+[sub_resource type="Theme" id="Theme_lc2e3"]
+default_font = ExtResource("1_8ogv3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2vlxl"]
+bg_color = Color(0, 0.270588, 0.258824, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Theme" id="Theme_1borb"]
+Panel/styles/panel = SubResource("StyleBoxFlat_2vlxl")
+
+[sub_resource type="Theme" id="Theme_5rwnk"]
 
 [node name="PlayerPersonalisationScene" type="Control"]
 layout_mode = 3
@@ -10,31 +33,45 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_lc2e3")
 script = ExtResource("1_1vx87")
 
 [node name="Background" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0, 0.462745, 0.505882, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.462745, 0.368627, 0.266667, 1)
 
-[node name="TitleLabel" type="Label" parent="."]
-custom_minimum_size = Vector2(1920, 80)
+[node name="PlayerName" type="Label" parent="."]
+custom_minimum_size = Vector2(122, 48)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme = ExtResource("2_38lr4")
-theme_override_font_sizes/font_size = 60
-text = "PLAYER PERSONALISATION"
-horizontal_alignment = 1
+offset_left = 44.0
+offset_top = 68.0
+offset_right = 166.0
+offset_bottom = 116.0
+text = "Ricky
+Good Times
+Fiesta"
+autowrap_mode = 2
+
+[node name="AvatarPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(230, 320)
+layout_mode = 0
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 422.0
+offset_bottom = 384.0
+theme = SubResource("Theme_1borb")
 
 [node name="AvatarCustomizerContainer" type="Control" parent="."]
-custom_minimum_size = Vector2(1920, 900)
 anchors_preset = 0
-offset_top = 180.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 64.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 visible = false
@@ -98,9 +135,93 @@ ignore_texture_size = true
 stretch_mode = 4
 
 [node name="ReturnButton" type="Button" parent="."]
-custom_minimum_size = Vector2(240, 120)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-offset_right = 8.0
-offset_bottom = 8.0
-theme = ExtResource("2_38lr4")
+offset_right = 61.0
+offset_bottom = 40.0
 text = "Return"
+
+[node name="BalanceHolder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 152.0
+offset_right = 176.0
+offset_bottom = 184.0
+texture = ExtResource("3_t5st4")
+expand_mode = 1
+
+[node name="FlashHolder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 192.0
+offset_right = 176.0
+offset_bottom = 224.0
+texture = ExtResource("4_vjh4u")
+expand_mode = 1
+
+[node name="PlayerLevel" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 232.0
+offset_right = 176.0
+offset_bottom = 264.0
+texture = ExtResource("5_a6rp1")
+expand_mode = 1
+
+[node name="YourBookLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(129, 14)
+layout_mode = 0
+offset_left = 438.0
+offset_top = 36.0
+offset_right = 567.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 20
+text = "Your Book"
+
+[node name="YourBookLine" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(202, 1)
+layout_mode = 0
+offset_left = 438.0
+offset_top = 62.0
+offset_right = 640.0
+offset_bottom = 63.0
+theme = SubResource("Theme_5rwnk")
+texture = ExtResource("6_0q5ym")
+expand_mode = 1
+
+[node name="EnvelopeIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 438.0
+offset_top = 78.0
+offset_right = 543.0
+offset_bottom = 128.0
+texture = ExtResource("7_qj1on")
+
+[node name="HoldallIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 496.0
+offset_top = 78.0
+offset_right = 546.0
+offset_bottom = 128.0
+texture = ExtResource("8_17k0g")
+expand_mode = 1
+
+[node name="BriefcaseIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 554.0
+offset_top = 78.0
+offset_right = 604.0
+offset_bottom = 128.0
+texture = ExtResource("9_1i7te")
+expand_mode = 1
+
+[node name="HoldallIcon3" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 670.0
+offset_top = 78.0
+offset_right = 830.0
+offset_bottom = 128.0
+texture = ExtResource("10_fn6kb")
