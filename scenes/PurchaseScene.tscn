@@ -8,12 +8,20 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aj3up"]
 bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_rkpd1"]
 Label/styles/normal = SubResource("StyleBoxFlat_aj3up")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq2lv"]
 bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_w0u1g"]
 Label/styles/normal = SubResource("StyleBoxFlat_qq2lv")
@@ -67,7 +75,6 @@ text = "Ricky
 Fiesta"
 
 [node name="TopBar" type="Control" parent="."]
-custom_minimum_size = Vector2(1920, 80)
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 240.0

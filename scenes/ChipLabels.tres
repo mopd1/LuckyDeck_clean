@@ -1,13 +1,17 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://bn8qmtgx536mm"]
 
-[ext_resource type="FontFile" uid="uid://8yagqva2u5rj" path="res://assets/fonts/ApercuMonoProBold.ttf" id="1_5vfai"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_ssi4u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4sbo"]
-bg_color = Color(0.505882, 0.396078, 0.262745, 1)
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [resource]
 Label/colors/font_color = Color(0.101961, 0.0784314, 0.137255, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/font_sizes/font_size = 32
-Label/fonts/font = ExtResource("1_5vfai")
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_ssi4u")
 Label/styles/normal = SubResource("StyleBoxFlat_f4sbo")

@@ -3,14 +3,14 @@
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_27gvc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w13y1"]
-bg_color = Color(0.341176, 0.639216, 0.67451, 1)
+bg_color = Color(0.427451, 0.858824, 0.909804, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jui41"]
-bg_color = Color(0.352941, 0.6, 0.6, 1)
+bg_color = Color(0.333333, 0.639216, 0.67451, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8

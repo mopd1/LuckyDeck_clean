@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccrvthber456w"]
+[gd_scene load_steps=9 format=3 uid="uid://ccrvthber456w"]
 
-[ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_47mr5"]
+[ext_resource type="Theme" uid="uid://b23yp6pb7m4id" path="res://GamePanel.tres" id="1_8ydli"]
 [ext_resource type="Script" path="res://scripts/GamePanel.gd" id="1_pd1b7"]
 [ext_resource type="Texture2D" uid="uid://6iy476r73q3d" path="res://assets/backgrounds/game_image.png" id="2_nk45q"]
-[ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="4_6ug2o"]
-[ext_resource type="Theme" uid="uid://bn8qmtgx536mm" path="res://scenes/ChipLabels.tres" id="4_881bx"]
 [ext_resource type="Texture2D" uid="uid://bskqhmhxhh63" path="res://assets/icons/grabber_lobby.png" id="4_h8qh5"]
 
 [sub_resource type="Theme" id="Theme_rk6ef"]
@@ -30,41 +28,41 @@ bg_color = Color(0.913725, 0.290196, 0.266667, 1)
 bg_color = Color(0.980392, 0.945098, 0.603922, 1)
 
 [node name="GamePanel" type="Panel"]
-custom_minimum_size = Vector2(335, 580)
-offset_right = 320.0
-offset_bottom = 580.0
-theme = ExtResource("1_47mr5")
+custom_minimum_size = Vector2(176, 272)
+offset_right = 176.0
+offset_bottom = 272.0
+theme = ExtResource("1_8ydli")
 script = ExtResource("1_pd1b7")
 
 [node name="TitleLabel" type="Label" parent="."]
-custom_minimum_size = Vector2(315, 60)
+custom_minimum_size = Vector2(160, 20)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 210.0
-offset_bottom = 70.0
-theme_override_font_sizes/font_size = 24
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 168.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="GameImage" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(315, 220)
+custom_minimum_size = Vector2(160, 120)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 80.0
-offset_right = 230.0
-offset_bottom = 200.0
+offset_left = 8.0
+offset_top = 86.0
+offset_right = 168.0
+offset_bottom = 206.0
 texture = ExtResource("2_nk45q")
 expand_mode = 1
 
 [node name="StakeSlider" type="HSlider" parent="."]
-custom_minimum_size = Vector2(295, 40)
+custom_minimum_size = Vector2(160, 10)
 layout_mode = 0
-offset_left = 20.0
-offset_top = 320.0
-offset_right = 315.0
-offset_bottom = 360.0
+offset_left = 8.0
+offset_top = 180.0
+offset_right = 168.0
+offset_bottom = 214.0
 theme = SubResource("Theme_rk6ef")
 theme_override_styles/slider = SubResource("StyleBoxFlat_clnsg")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_jtvx2")
@@ -72,25 +70,24 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_pd8mg")
 max_value = 1e+06
 
 [node name="MinBalanceLabel" type="Label" parent="."]
-custom_minimum_size = Vector2(315, 40)
+custom_minimum_size = Vector2(160, 22)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 370.0
-offset_right = 325.0
-offset_bottom = 410.0
-theme = ExtResource("4_881bx")
-theme_override_font_sizes/font_size = 24
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 168.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0.964706, 0.945098, 0.596078, 1)
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="PlayButton" type="Button" parent="."]
-custom_minimum_size = Vector2(315, 120)
+custom_minimum_size = Vector2(160, 50)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 470.0
-offset_right = 310.0
-offset_bottom = 590.0
-theme = ExtResource("4_6ug2o")
+offset_left = 8.0
+offset_top = 214.0
+offset_right = 168.0
+offset_bottom = 264.0
 text = "PLAY"
 autowrap_mode = 3

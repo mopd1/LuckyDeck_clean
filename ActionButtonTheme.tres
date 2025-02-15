@@ -1,29 +1,19 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://5hj6pfvbsvck"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://5hj6pfvbsvck"]
 
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_gktry"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8p8r"]
-bg_color = Color(0.913725, 0.290196, 0.266667, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b54t3"]
-bg_color = Color(0.352941, 0.647059, 0.690196, 1)
-border_width_bottom = 8
-border_color = Color(0.207843, 0.552941, 0.835294, 1)
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+bg_color = Color(0.941176, 0.333333, 0.305882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [resource]
 default_font = ExtResource("1_gktry")
-Button/colors/font_color = Color(0.980392, 0.945098, 0.603922, 1)
-Button/font_sizes/font_size = 40
+default_font_size = 14
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 14
 Button/fonts/font = ExtResource("1_gktry")
-Button/styles/hover = SubResource("StyleBoxFlat_a8p8r")
+Button/styles/hover = null
 Button/styles/normal = SubResource("StyleBoxFlat_b54t3")

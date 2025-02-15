@@ -3,12 +3,11 @@
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_u7yc1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vh2jg"]
-bg_color = Color(0, 0.27451, 0.262745, 1)
-border_width_bottom = 10
-border_color = Color(0.101961, 0.0784314, 0.137255, 1)
-border_blend = true
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p23y"]
 bg_color = Color(0, 0.27451, 0.262745, 1)
@@ -29,7 +28,7 @@ bg_color = Color(0, 0.462745, 0.505882, 1)
 
 [resource]
 default_font = ExtResource("1_u7yc1")
-default_font_size = 32
+default_font_size = 14
 Button/fonts/font = ExtResource("1_u7yc1")
 Button/styles/normal = SubResource("StyleBoxFlat_vh2jg")
 Label/font_sizes/font_size = 24

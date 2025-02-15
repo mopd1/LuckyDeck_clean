@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b23yp6pb7m4id"]
+
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_sbjt0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3lgi"]
+bg_color = Color(0.941176, 0.333333, 0.305882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc2cv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2eeh"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font = ExtResource("1_sbjt0")
+Button/styles/normal = SubResource("StyleBoxFlat_w3lgi")
+Label/styles/normal = SubResource("StyleBoxFlat_xc2cv")
+Panel/styles/panel = SubResource("StyleBoxFlat_i2eeh")

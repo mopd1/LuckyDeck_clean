@@ -55,16 +55,6 @@ func _ready():
 	# Debug: Track initialization sequence
 	print("Debug: MainHub _ready() started")
 	
-	# Initialize shader material
-	shader_material = ShaderMaterial.new()
-	shader_material.shader = preload("res://assets/shaders/panel_background.gdshader")
-	game_area_rect.material = shader_material
-	
-	shader_material.set_shader_parameter("base_color", Color(0.914, 0.29, 0.267, 1.0))
-	shader_material.set_shader_parameter("speed", 1.5)
-	shader_material.set_shader_parameter("scale", 5.0)
-	shader_material.set_shader_parameter("intensity", 0.5)
-	
 	# Check authentication
 	if APIManager.user_token.is_empty():
 		print("Debug: No user token found. Redirecting to login.")

@@ -1,20 +1,13 @@
 [gd_scene format=3 uid="uid://dhyb7q1k4sgv3"]
 
 [node name="AvatarScene" type="Control"]
+custom_minimum_size = Vector2(74, 74)
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 180.0
-offset_bottom = 180.0
-grow_horizontal = 2
-scale = Vector2(0.195, 0.195)
+anchors_preset = 0
 
 [node name="Face" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 
 [node name="Hair" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 
 [node name="Hat" type="Sprite2D" parent="."]
 
@@ -23,4 +16,3 @@ scale = Vector2(0.5, 0.5)
 [node name="Mouth Accessories" type="Sprite2D" parent="."]
 
 [node name="Clothing" type="Sprite2D" parent="."]
-position = Vector2(0, 550)
