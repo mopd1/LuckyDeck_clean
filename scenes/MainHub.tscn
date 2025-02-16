@@ -176,6 +176,7 @@ texture = ExtResource("11_8gii4")
 expand_mode = 1
 
 [node name="TableGamesPanels" type="HBoxContainer" parent="GameSelectionArea"]
+custom_minimum_size = Vector2(728, 272)
 layout_mode = 1
 offset_left = 148.0
 offset_right = 786.0
