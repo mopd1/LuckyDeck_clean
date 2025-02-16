@@ -12,6 +12,6 @@ corner_radius_bottom_left = 8
 [resource]
 Label/colors/font_color = Color(0.101961, 0.0784314, 0.137255, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/font_sizes/font_size = 16
+Label/font_sizes/font_size = 14
 Label/fonts/font = ExtResource("1_ssi4u")
 Label/styles/normal = SubResource("StyleBoxFlat_f4sbo")

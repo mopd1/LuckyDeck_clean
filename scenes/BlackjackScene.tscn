@@ -1,5 +1,6 @@
-[gd_scene load_steps=37 format=3 uid="uid://c53digs1puw8l"]
+[gd_scene load_steps=39 format=3 uid="uid://c53digs1puw8l"]
 
+[ext_resource type="Texture2D" uid="uid://bkntnbcqk57kv" path="res://assets/ui/ChipBalanceBorder.png" id="2_766ov"]
 [ext_resource type="Texture2D" uid="uid://bld0cbn1h6i7c" path="res://assets/icons/undo.png" id="2_scvgi"]
 [ext_resource type="Script" path="res://scripts/BlackjackUI.gd" id="2_urfpf"]
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="3_0lum2"]
@@ -30,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://5plwnj6ujo88" path="res://assets/ui/ExitButton.png" id="18_xqie8"]
 [ext_resource type="Texture2D" uid="uid://drp2fctw4tuhr" path="res://assets/ui/CardShoot.png" id="22_i1uq1"]
 [ext_resource type="Texture2D" uid="uid://cp2ri2ld0kj0n" path="res://assets/ui/BlackjackPlayerPanel.png" id="24_5t7i6"]
+[ext_resource type="Texture2D" uid="uid://bfpx1otnbvkio" path="res://assets/ui/BlackjackPlayerNamePanel.png" id="32_0r5og"]
 
 [sub_resource type="Theme" id="Theme_qq1sv"]
 default_font = ExtResource("4_himo3")
@@ -132,84 +134,86 @@ theme_override_font_sizes/font_size = 14
 
 [node name="DealerCards" type="Control" parent="GameArea/DealerArea"]
 anchors_preset = 0
+offset_top = 41.0
+offset_bottom = 41.0
 
 [node name="DealerCard1" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 37.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard2" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 80.0
-offset_right = 200.0
-offset_bottom = 180.0
+offset_left = 45.0
+offset_right = 82.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard3" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 160.0
-offset_right = 280.0
-offset_bottom = 180.0
+offset_left = 53.0
+offset_right = 90.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard4" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 240.0
-offset_right = 360.0
-offset_bottom = 180.0
+offset_left = 61.0
+offset_right = 98.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard5" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 320.0
-offset_right = 440.0
-offset_bottom = 180.0
+offset_left = 69.0
+offset_right = 106.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard6" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 400.0
-offset_right = 520.0
-offset_bottom = 180.0
+offset_left = 78.0
+offset_right = 115.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard7" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 360.0
-offset_right = 480.0
-offset_bottom = 180.0
+offset_left = 86.0
+offset_right = 123.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard8" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 420.0
-offset_right = 540.0
-offset_bottom = 180.0
+offset_left = 94.0
+offset_right = 131.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard9" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 480.0
-offset_right = 600.0
-offset_bottom = 180.0
+offset_left = 102.0
+offset_right = 139.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="DealerCard10" type="TextureRect" parent="GameArea/DealerArea/DealerCards"]
-custom_minimum_size = Vector2(120, 180)
+custom_minimum_size = Vector2(37, 55)
 layout_mode = 0
-offset_left = 540.0
-offset_right = 660.0
-offset_bottom = 180.0
+offset_left = 110.0
+offset_right = 147.0
+offset_bottom = 55.0
 expand_mode = 1
 
 [node name="PlayerArea" type="Control" parent="GameArea"]
@@ -284,7 +288,6 @@ offset_top = 183.0
 offset_right = 312.0
 offset_bottom = 207.0
 theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
 
 [node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand1"]
 anchors_preset = 0
@@ -463,7 +466,6 @@ offset_top = 183.0
 offset_right = 312.0
 offset_bottom = 207.0
 theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
 
 [node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand2"]
 anchors_preset = 0
@@ -642,7 +644,6 @@ offset_top = 183.0
 offset_right = 312.0
 offset_bottom = 207.0
 theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
 
 [node name="Cards" type="Control" parent="GameArea/PlayerArea/Hand3"]
 anchors_preset = 0
@@ -802,64 +803,68 @@ theme = ExtResource("3_0lum2")
 
 [node name="HitButton" type="TextureButton" parent="GameArea/ActionArea"]
 layout_mode = 0
-offset_left = 641.0
+offset_left = 44.0
 offset_top = 204.0
-offset_right = 721.0
+offset_right = 124.0
 offset_bottom = 284.0
 texture_normal = ExtResource("15_1eus2")
 
 [node name="StandButton" type="TextureButton" parent="GameArea/ActionArea"]
 layout_mode = 0
-offset_left = 741.0
+offset_left = 144.0
 offset_top = 204.0
-offset_right = 821.0
+offset_right = 224.0
 offset_bottom = 284.0
 texture_normal = ExtResource("16_c20cv")
 
 [node name="DoubleButton" type="TextureButton" parent="GameArea/ActionArea"]
 layout_mode = 0
-offset_left = 741.0
+offset_left = 144.0
 offset_top = 294.0
-offset_right = 821.0
+offset_right = 224.0
 offset_bottom = 374.0
 texture_normal = ExtResource("17_u82f6")
 
 [node name="SplitButton" type="TextureButton" parent="GameArea/ActionArea"]
 layout_mode = 0
-offset_left = 641.0
+offset_left = 44.0
 offset_top = 294.0
-offset_right = 721.0
+offset_right = 124.0
 offset_bottom = 374.0
 texture_normal = ExtResource("18_j1ynr")
 
+[node name="PlayerBalanceBorder" type="TextureRect" parent="GameArea"]
+layout_mode = 0
+offset_left = 731.0
+offset_top = 69.0
+offset_right = 863.0
+offset_bottom = 109.0
+texture = ExtResource("2_766ov")
+
 [node name="GameInfo" type="Control" parent="GameArea"]
-custom_minimum_size = Vector2(440, 240)
 anchors_preset = 0
-offset_left = 1080.0
-offset_top = 120.0
-offset_right = 1520.0
-offset_bottom = 480.0
 theme = SubResource("Theme_wvrbj")
 
 [node name="ChipBalance" type="Label" parent="GameArea/GameInfo"]
-custom_minimum_size = Vector2(380, 60)
+custom_minimum_size = Vector2(103, 25)
 layout_mode = 0
-offset_left = 60.0
-offset_top = 30.0
-offset_right = 440.0
-offset_bottom = 90.0
+offset_left = 754.0
+offset_top = 75.0
+offset_right = 857.0
+offset_bottom = 100.0
 theme = ExtResource("8_c0veb")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="CurrentBet" type="Label" parent="GameArea/GameInfo"]
-custom_minimum_size = Vector2(440, 60)
 layout_mode = 0
-offset_top = 120.0
-offset_right = 440.0
-offset_bottom = 180.0
+offset_left = 584.0
+offset_top = 137.0
+offset_right = 847.0
+offset_bottom = 171.0
 theme = ExtResource("8_c0veb")
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -878,6 +883,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="ChipIcon" type="TextureRect" parent="GameArea/GameInfo"]
+visible = false
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 0
 offset_top = 30.0
@@ -915,6 +921,8 @@ texture = ExtResource("17_5md6v")
 transparent_bg = true
 
 [node name="AvatarScene" parent="UIOverlay/AvatarViewport" instance=ExtResource("8_fuxx3")]
+offset_right = 74.0
+offset_bottom = 74.0
 
 [node name="PlayerAvatar" type="TextureRect" parent="UIOverlay"]
 visible = false
@@ -934,10 +942,11 @@ theme = ExtResource("3_0lum2")
 texture_normal = ExtResource("18_xqie8")
 
 [node name="ChallengeProgressButton" parent="." instance=ExtResource("11_ykqu0")]
-offset_left = 1080.0
-offset_top = 30.0
-offset_right = 1870.0
-offset_bottom = 120.0
+custom_minimum_size = Vector2(103, 25)
+offset_left = 731.0
+offset_top = 41.0
+offset_right = 834.0
+offset_bottom = 66.0
 
 [node name="InfoButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(20, 20)
@@ -1003,3 +1012,11 @@ offset_left = 136.0
 offset_right = 320.0
 offset_bottom = 73.0
 texture = ExtResource("22_i1uq1")
+
+[node name="PlayerNameBorder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 97.0
+offset_right = 834.0
+offset_bottom = 137.0
+texture = ExtResource("32_0r5og")
