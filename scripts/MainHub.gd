@@ -26,7 +26,7 @@ signal game_joined(game_data)
 @onready var jackpot_sng_panel = $GameSelectionArea/GamePanels/JackpotSNGPanel
 @onready var mtt_panel = $GameSelectionArea/GamePanels/MTTPanel
 @onready var poker_panels = $GameSelectionArea/GamePanels
-@onready var challenge_button = $ChallengeProgressButton
+@onready var book_button = $BookButton
 @onready var game_area_rect = $GameSelectionArea/ColorRect
 @onready var shader_material: ShaderMaterial
 @onready var game_selection_area = $GameSelectionArea
@@ -101,8 +101,8 @@ func _ready():
 	# Keep all existing connections
 	PlayerData.connect("gem_balance_updated", _on_gem_balance_updated)
 	PlayerData.connect("balance_updated", _on_balance_changed)
-	update_challenge_button()
-	PlayerData.connect("challenge_points_updated", _on_challenge_points_updated)
+	update_book_button()
+	PlayerData.connect("action_points_updated", _on_action_points_updated)
 	GameJoiner.connect("game_joined", _on_game_joined)
 	GameJoiner.connect("join_failed", _on_join_failed)
 	
@@ -117,10 +117,10 @@ func _ready():
 	$GameSelectionArea/GameTypeButtons/PokerButton.pressed.connect(_on_poker_button_pressed)
 	poker_test_button.pressed.connect(_on_poker_test_button_pressed)
 	
-	# Initialize challenge button
-	if challenge_button:
-		challenge_button.pressed.connect(_on_challenge_button_pressed)
-		update_challenge_button()
+	# Initialize book button
+	if book_button:
+		book_button.pressed.connect(_on_book_button_pressed)
+		update_book_button()
 	
 	# Connect to JackpotSNGManager signals
 	if not JackpotSNGManager.is_connected("game_ready", _on_jackpot_sng_game_ready):
@@ -385,19 +385,19 @@ func update_gem_balance_display():
 func _on_gem_balance_updated(new_balance):
 	update_gem_balance_display()
 
-func initialize_challenge_button():
-	update_challenge_button()
-	challenge_button.pressed.connect(_on_challenge_button_pressed)
+func initialize_book_button():
+	update_book_button()
+	book_button.pressed.connect(_on_book_button_pressed)
 
-func update_challenge_button():
-	if challenge_button:
-		challenge_button.update_progress_display()
+func update_book_button():
+	if book_button:
+		book_button.update_progress_display()
 
-func _on_challenge_points_updated(_points):
-	update_challenge_button()
+func _on_book_points_updated(_points):
+	update_book_button()
 
-func _on_challenge_button_pressed():
-	SceneManager.goto_scene("res://scenes/ChallengeScene.tscn")
+func _on_book_button_pressed():
+	SceneManager.goto_scene("res://scenes/BookScene.tscn")
 
 func initialize_game_type_selection():
 	game_type_selection.clear()
@@ -669,3 +669,6 @@ func _on_friends_button_pressed():
 
 func _on_poker_test_button_pressed():
 	SceneManager.goto_scene("res://scenes/PokerTestScene.tscn")
+
+func _on_action_points_updated(_points):
+	book_button.update_progress_display()

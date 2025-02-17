@@ -16,8 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://biabjtmd03jjt" path="res://assets/backgrounds/mtt_win.png" id="11_8gii4"]
 [ext_resource type="PackedScene" uid="uid://dxutx12jcfnoq" path="res://scenes/TableGamePanel.tscn" id="11_d7isi"]
 [ext_resource type="Texture2D" uid="uid://ebxpcx8h4mpn" path="res://assets/ui/AvatarPanelBorder.png" id="13_lfw53"]
-[ext_resource type="PackedScene" uid="uid://bd7yqjyx5bo82" path="res://scenes/ChallengeProgressButton.tscn" id="14_43skb"]
 [ext_resource type="Texture2D" uid="uid://bkntnbcqk57kv" path="res://assets/ui/ChipBalanceBorder.png" id="14_e6dde"]
+[ext_resource type="PackedScene" uid="uid://bqybiqexsjp8u" path="res://scenes/BookButton.tscn" id="15_pe52p"]
 [ext_resource type="Texture2D" uid="uid://b6mrvhlo4ocop" path="res://assets/backgrounds/50sale.png" id="18_mlnvp"]
 
 [sub_resource type="Theme" id="Theme_xfsp1"]
@@ -304,6 +304,10 @@ offset_right = 272.0
 offset_bottom = 33.0
 texture = ExtResource("14_e6dde")
 
+[node name="BookButton" parent="PlayerPanel2" instance=ExtResource("15_pe52p")]
+offset_left = 278.0
+offset_right = 410.0
+
 [node name="ProfileDisplay" type="Control" parent="."]
 anchors_preset = 0
 
@@ -393,13 +397,6 @@ offset_top = 195.0
 offset_right = 820.0
 offset_bottom = 220.0
 theme = SubResource("Theme_aq7gp")
-
-[node name="ChallengeProgressButton" parent="." instance=ExtResource("14_43skb")]
-layout_mode = 0
-offset_left = 698.0
-offset_top = 64.0
-offset_right = 830.0
-offset_bottom = 96.0
 
 [node name="PokerTestButton" type="Button" parent="."]
 custom_minimum_size = Vector2(200, 60)

@@ -7,7 +7,7 @@ const FREE_CHIPS_AMOUNT = 100000
 const FREE_CHIPS_COOLDOWN = 4 * 60 * 60 # 4 hours in seconds
 
 # Existing signals
-signal challenge_points_updated(new_points)
+signal action_points_updated(new_points)
 signal gem_balance_updated(new_balance)
 signal avatar_updated(new_avatar_id)
 signal balance_updated(new_balance)
@@ -23,6 +23,7 @@ var player_data = {
 	"total_balance": 0,  # Will be updated from server but maintains compatibility
 	"table_balance": 0,
 	"challenge_points": 0,
+	"action_points": 0,
 	"gems": 0,
 	"last_free_chips_claim": 0,
 	"owned_avatar_parts": [],
@@ -73,6 +74,12 @@ func _on_user_data_received(data):
 		if old_balance != data.chips:
 			emit_signal("balance_updated", player_data["total_balance"])
 
+	if data.has("action_points"):
+		var old_points = player_data["action_points"]
+		player_data["action_points"] = data.action_points
+		if old_points != data.action_points:
+			emit_signal("action_points_updated", player_data["action_points"])
+
 # Modified balance methods
 func get_balance() -> int:
 	if not is_balance_initialized:
@@ -110,8 +117,22 @@ func has_sufficient_balance(required_amount: int) -> bool:
 
 # ALL EXISTING METHODS REMAIN UNCHANGED BELOW
 func update_challenge_points(points_to_add):
+	# Update both for backwards compatibility
 	player_data["challenge_points"] += points_to_add
+	player_data["action_points"] += points_to_add
 	emit_signal("challenge_points_updated", player_data["challenge_points"])
+	emit_signal("action_points_updated", player_data["action_points"])
+
+func update_action_points(points_to_add):
+	player_data["action_points"] += points_to_add
+	emit_signal("action_points_updated", player_data["action_points"])
+
+func get_action_points() -> int:
+	return player_data["action_points"]
+
+func set_action_points(points: int):
+	player_data["action_points"] = points
+	emit_signal("action_points_updated", player_data["action_points"])
 
 func set_table_balance(balance):
 	player_data["table_balance"] = balance

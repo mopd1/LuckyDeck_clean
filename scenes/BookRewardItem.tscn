@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://r1salhoob70l"]
+
+[ext_resource type="Script" path="res://scripts/BookRewardItem.gd" id="1_5rgp1"]
+
+[node name="BookRewardItem" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5rgp1")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PointsRequired" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RewardsContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChipsContainer" type="HBoxContainer" parent="RewardsContainer"]
+layout_mode = 2
+
+[node name="ChipsIcon" type="TextureRect" parent="RewardsContainer/ChipsContainer"]
+layout_mode = 2
+
+[node name="ChipsLabel" type="Label" parent="RewardsContainer/ChipsContainer"]
+layout_mode = 2
+
+[node name="GemsContainer" type="HBoxContainer" parent="RewardsContainer"]
+layout_mode = 2
+
+[node name="GemsIcon" type="TextureRect" parent="RewardsContainer/GemsContainer"]
+layout_mode = 2
+
+[node name="GemsLabel" type="Label" parent="RewardsContainer/GemsContainer"]
+layout_mode = 2
+
+[node name="StatusIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LockOverlay" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

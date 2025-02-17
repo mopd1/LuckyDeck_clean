@@ -10,6 +10,7 @@ func goto_scene(path):
 	call_deferred("_deferred_goto_scene", path)
 
 func _deferred_goto_scene(path):
+	print("Transitioning to scene: ", path)
 	current_scene.free()
 	var new_scene = load(path).instantiate()
 	get_tree().root.add_child(new_scene)
@@ -45,3 +46,7 @@ func go_to_user_profile_scene():
 
 func go_to_friend_system():
 	goto_scene("res://scenes/FriendSystemScene.tscn")
+
+func go_to_book_scene():
+	print("Navigating to Book scene")
+	goto_scene("res://scenes/BookScene.tscn")
