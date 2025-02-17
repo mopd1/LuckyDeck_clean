@@ -28,7 +28,7 @@ bg_color = Color(0, 0.462745, 0.505882, 1)
 
 [resource]
 default_font = ExtResource("1_u7yc1")
-default_font_size = 14
+default_font_size = 10
 Button/fonts/font = ExtResource("1_u7yc1")
 Button/styles/normal = SubResource("StyleBoxFlat_vh2jg")
 Label/font_sizes/font_size = 24

@@ -11,7 +11,7 @@ corner_radius_bottom_left = 8
 
 [resource]
 default_font = ExtResource("1_gktry")
-default_font_size = 14
+default_font_size = 12
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 14
 Button/fonts/font = ExtResource("1_gktry")

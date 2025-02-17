@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://xio7rhp28drd"]
+[gd_scene load_steps=5 format=3 uid="uid://xio7rhp28drd"]
 
 [ext_resource type="Script" path="res://scripts/BookScene.gd" id="1_1f3gg"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_6vl5i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq7qx"]
+bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_5pxi1"]
+default_font = ExtResource("1_6vl5i")
+Button/styles/normal = SubResource("StyleBoxFlat_wq7qx")
 
 [node name="BookScene" type="Control"]
 layout_mode = 3
@@ -9,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_5pxi1")
 script = ExtResource("1_1f3gg")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -21,26 +34,36 @@ grow_vertical = 2
 color = Color(0, 0.270588, 0.258824, 1)
 
 [node name="HeaderContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
 
 [node name="ReturnButton" type="Button" parent="HeaderContainer"]
+custom_minimum_size = Vector2(90, 49)
 layout_mode = 2
+text = "Return"
 
 [node name="TitleLabel" type="Label" parent="HeaderContainer"]
 layout_mode = 2
+text = "The Book"
 
 [node name="ActionPointsLabel" type="Label" parent="HeaderContainer"]
+custom_minimum_size = Vector2(90, 49)
 layout_mode = 2
 
 [node name="PurchaseInsideTrackButton" type="Button" parent="HeaderContainer"]
 layout_mode = 2
+text = "Get the Inside Track"
 
 [node name="StoryContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 196)
 layout_mode = 0
+offset_top = 57.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 97.0
 
 [node name="StoryActsBox" type="HBoxContainer" parent="StoryContainer"]
 layout_mode = 2
@@ -61,12 +84,16 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="RewardsContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 0
+offset_top = 262.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 302.0
 
 [node name="StandardTrackBox" type="HBoxContainer" parent="RewardsContainer"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
 [node name="InsideTrackBox" type="HBoxContainer" parent="RewardsContainer"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2

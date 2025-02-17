@@ -34,7 +34,7 @@ var players = []
 var current_player_index = -1
 var last_bet_amount: int = 0
 
-@onready var challenge_progress = get_node_or_null("../ChallengeProgressButton")
+@onready var book_progress = get_node_or_null("../BookButton")
 @onready var action_ui = get_node_or_null("../ActionUI")
 @onready var hand_strength_label = get_node_or_null("../HandStrengthLabel")
 @onready var winner_popup = get_node_or_null("../WinnerPopup") as ColorRect:
@@ -86,10 +86,10 @@ func _ready():
 		action_ui.setup(self)
 		update_action_ui()
 
-	# Connect to challenge points updated signal
-	PlayerData.connect("challenge_points_updated", _on_challenge_points_updated)
+	# Connect to book points updated signal
+	PlayerData.connect("book_points_updated", _on_book_points_updated)
 
-	_update_challenge_points_display()
+	_update_book_points_display()
 
 	return_to_lobby_button.pressed.connect(_on_return_to_lobby_pressed)
 
@@ -309,11 +309,11 @@ func get_player_chips() -> int:
 		return table_data.players[seat_index].chips
 	return 0
 
-func award_challenge_points(is_winner: bool):
+func award_book_points(is_winner: bool):
 	var points = current_stake  # 1 point per hand * big blind
 	if is_winner:
 		points += current_stake * 10  # 10 additional points for winning * big blind
-	PlayerData.update_challenge_points(points)
+	PlayerData.update_book_points(points)
 
 func _on_return_to_lobby_pressed():
 	# Calculate final profit/loss
@@ -342,16 +342,16 @@ func _on_lobby_return_balance_updated(success: bool, message: String):
 func return_to_lobby():
 	SceneManager.goto_scene("res://scenes/MainHub.tscn")
 
-# Challenge system handlers
-func _on_challenge_points_updated(_points):
-	_update_challenge_points_display()
+# book system handlers
+func _on_book_points_updated(_points):
+	_update_book_points_display()
 
-func _update_challenge_points_display():
-	if challenge_progress:
-		challenge_progress.update_progress_display()
+func _update_book_points_display():
+	if book_progress:
+		book_progress.update_progress_display()
 
-func _on_challenge_button_pressed():
-	SceneManager.goto_scene("res://scenes/ChallengeScene.tscn")
+func _on_book_button_pressed():
+	SceneManager.goto_scene("res://scenes/bookScene.tscn")
 
 # Add these methods to GameManager.gd
 
@@ -364,7 +364,7 @@ func _verify_required_nodes() -> bool:
 	}
 	
 	var optional_nodes = {
-		"ChallengeProgressButton": challenge_progress,
+		"bookProgressButton": book_progress,
 		"PotChipDisplay": pot_chip_display
 	}
 
@@ -498,10 +498,10 @@ func _on_hand_completed(completed_table_id: String, winner_info: Dictionary):
 	print("DEBUG: Starting chip animation")
 	collect_pot_to_winner(winner_index)
 	
-	# If this player won, award challenge points
+	# If this player won, award book points
 	if winner_index == seat_index:
-		print("DEBUG: Awarding winner challenge points")
-		award_challenge_points(true)
+		print("DEBUG: Awarding winner book points")
+		award_book_points(true)
 	else:
-		print("DEBUG: Awarding participant challenge points")
-		award_challenge_points(false)
+		print("DEBUG: Awarding participant book points")
+		award_book_points(false)

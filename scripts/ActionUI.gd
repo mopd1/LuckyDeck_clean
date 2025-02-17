@@ -1,5 +1,5 @@
 # ActionUI.gd
-extends HBoxContainer
+extends Control
 
 signal fold_pressed
 signal check_call_pressed
