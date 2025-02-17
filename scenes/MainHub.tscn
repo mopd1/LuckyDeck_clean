@@ -251,6 +251,17 @@ theme = ExtResource("4_pb4yn")
 text = "Edit Profile"
 autowrap_mode = 3
 
+[node name="DailyActionButton" type="Button" parent="PlayerPanel"]
+custom_minimum_size = Vector2(132, 32)
+layout_mode = 0
+offset_left = -140.0
+offset_top = 40.0
+offset_right = -8.0
+offset_bottom = 72.0
+theme = ExtResource("4_pb4yn")
+text = "Daily Action"
+autowrap_mode = 3
+
 [node name="UserProfileButton" type="Button" parent="PlayerPanel"]
 visible = false
 custom_minimum_size = Vector2(400, 60)
@@ -406,3 +417,5 @@ offset_top = 960.0
 offset_right = 164.0
 offset_bottom = 990.0
 text = "Poker Test"
+
+[connection signal="pressed" from="PlayerPanel/DailyActionButton" to="." method="_on_daily_action_button_pressed"]

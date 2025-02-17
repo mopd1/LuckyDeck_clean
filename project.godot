@@ -32,6 +32,7 @@ SportsBettingManager="*res://scripts/SportsBettingManager.gd"
 BetManager="*res://scripts/BetManager.gd"
 BlackjackManager="*res://scripts/BlackjackManager.gd"
 JackpotSNGManager="*res://scripts/JackpotSNGManager.gd"
+DailyActionManager="*res://scripts/DailyActionManager.gd"
 BookManager="*res://scripts/BookManager.gd"
 ChallengesManager="*res://scripts/challenges/ChallengesManager.gd"
 

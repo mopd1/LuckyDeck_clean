@@ -26,7 +26,8 @@ signal game_joined(game_data)
 @onready var jackpot_sng_panel = $GameSelectionArea/GamePanels/JackpotSNGPanel
 @onready var mtt_panel = $GameSelectionArea/GamePanels/MTTPanel
 @onready var poker_panels = $GameSelectionArea/GamePanels
-@onready var book_button = $BookButton
+@onready var book_button = $PlayerPanel2/BookButton
+@onready var daily_action_button = $PlayerPanel/DailyActionButton
 @onready var game_area_rect = $GameSelectionArea/ColorRect
 @onready var shader_material: ShaderMaterial
 @onready var game_selection_area = $GameSelectionArea
@@ -672,3 +673,7 @@ func _on_poker_test_button_pressed():
 
 func _on_action_points_updated(_points):
 	book_button.update_progress_display()
+
+
+func _on_daily_action_button_pressed() -> void:
+	SceneManager.goto_scene("res://scenes/DailyAction.tscn")

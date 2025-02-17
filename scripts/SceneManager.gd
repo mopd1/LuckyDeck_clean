@@ -50,3 +50,6 @@ func go_to_friend_system():
 func go_to_book_scene():
 	print("Navigating to Book scene")
 	goto_scene("res://scenes/BookScene.tscn")
+
+func go_to_daily_action_scene():
+	goto_scene("res://scenes/DailyAction.tscn")

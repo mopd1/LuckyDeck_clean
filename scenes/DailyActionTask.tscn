@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqxr34sakaos7"]
+
+[ext_resource type="Script" path="res://scripts/DailyActionTask.gd" id="1_f3o6u"]
+
+[node name="DailyActionTask" type="PanelContainer"]
+custom_minimum_size = Vector2(648, 31)
+offset_right = 648.0
+offset_bottom = 31.0
+script = ExtResource("1_f3o6u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(648, 31)
+layout_mode = 2
+
+[node name="TaskName" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(216, 30)
+layout_mode = 2
+
+[node name="TaskDescription" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(267, 0)
+layout_mode = 2
+
+[node name="ActionPoints" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
+custom_minimum_size = Vector2(102, 0)
+layout_mode = 2
