@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bs4w6cknxuc3"]
+[gd_scene load_steps=33 format=3 uid="uid://bs4w6cknxuc3"]
 
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_yk4l7"]
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="2_2n16t"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dtfjqwhwmtl0u" path="res://scenes/PotChipDisplay.tscn" id="20_rbrap"]
 [ext_resource type="Texture2D" uid="uid://bplephmnbtsbq" path="res://assets/ui/PokerTableUI/PokerTableSurface.png" id="21_t31r1"]
 [ext_resource type="Texture2D" uid="uid://ba2xck1wg8op7" path="res://assets/ui/PokerTableUI/PokerTableWoodBorder.png" id="22_lhljp"]
+[ext_resource type="Texture2D" uid="uid://behia0g3iwi75" path="res://assets/ui/PokerTableUI/raise-bar-background 1.png" id="24_gwglu"]
 [ext_resource type="Texture2D" uid="uid://bqh3rg3i66m88" path="res://assets/ui/PokerTableUI/RaiseBarGrabber.png" id="24_ye770"]
 
 [sub_resource type="Theme" id="Theme_e33w3"]
@@ -36,21 +37,16 @@ bg_color = Color(0.913725, 0.290196, 0.266667, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7nkd"]
 bg_color = Color(0.913725, 0.290196, 0.266667, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yw1c"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.980392, 0.945098, 0.603922, 1)
-border_width_left = 15
-border_width_right = 15
-border_color = Color(0.980392, 0.945098, 0.603922, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1vgl7"]
+texture = ExtResource("24_gwglu")
+expand_margin_left = 10.0
+expand_margin_right = 10.0
 
 [sub_resource type="Theme" id="Theme_ei1b7"]
 VSlider/icons/grabber = null
 VSlider/styles/grabber_area = SubResource("StyleBoxFlat_uwkpu")
 VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_m7nkd")
-VSlider/styles/slider = SubResource("StyleBoxFlat_7yw1c")
+VSlider/styles/slider = SubResource("StyleBoxTexture_1vgl7")
 
 [node name="MainScene" type="Control"]
 layout_mode = 3

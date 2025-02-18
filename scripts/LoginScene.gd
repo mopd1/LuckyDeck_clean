@@ -4,12 +4,12 @@ const JavaScript = preload("res://addons/javascript.gd")
 
 var javascript_enabled := false
 
-@onready var username_input = $VBoxContainer/UsernameInput
-@onready var password_input = $VBoxContainer/PasswordInput
-@onready var login_button = $VBoxContainer/LoginButton
-@onready var signup_button = $VBoxContainer/SignupButton
-@onready var google_button = $VBoxContainer/GoogleSignInButton
-@onready var error_label = $VBoxContainer/ErrorLabel
+@onready var username_input = $UsernameInput
+@onready var password_input = $PasswordInput
+@onready var login_button = $LoginButton
+@onready var signup_button = $SignupButton
+@onready var google_button = $GoogleSignInButton
+@onready var error_label = $ErrorLabel
 
 func _ready():
 	# Check for JavaScript availability
@@ -21,8 +21,8 @@ func _ready():
 	google_button.pressed.connect(_on_google_signin_pressed)
 	
 	# Get references to your LineEdit nodes
-	var username_input = $VBoxContainer/UsernameInput
-	var password_input = $VBoxContainer/PasswordInput
+	var username_input = $UsernameInput
+	var password_input = $PasswordInput
 	
 	# Username input optimization
 	username_input.selecting_enabled = true

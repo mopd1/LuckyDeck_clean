@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://makgt2ae88hv"]
+[gd_scene load_steps=8 format=3 uid="uid://makgt2ae88hv"]
 
 [ext_resource type="Script" path="res://scripts/DailyAction.gd" id="1_oyqbv"]
 [ext_resource type="Texture2D" uid="uid://ds6pkvmtuuwiv" path="res://assets/ui/DailyActionUI/DailyActionBorder.png" id="2_qd775"]
 [ext_resource type="Texture2D" uid="uid://c5e0ba6oqm5dm" path="res://assets/ui/DailyActionUI/SpeechBubble.png" id="3_g7ihf"]
 [ext_resource type="PackedScene" uid="uid://dhyb7q1k4sgv3" path="res://scenes/AvatarScene.tscn" id="3_wn5es"]
 [ext_resource type="Texture2D" uid="uid://qjphkb8xnblh" path="res://assets/ui/DailyActionUI/“Get on with your jobs and keep your nose clean, gabiche!”.png" id="4_pd04s"]
+[ext_resource type="PackedScene" uid="uid://cqxr34sakaos7" path="res://scenes/DailyActionTask.tscn" id="6_vgw1a"]
 
 [sub_resource type="Theme" id="Theme_m08y2"]
 
@@ -42,8 +43,8 @@ custom_minimum_size = Vector2(840, 370)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 56.0
-offset_bottom = 56.0
+offset_right = 856.0
+offset_bottom = 386.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -56,10 +57,14 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="AvatarViewport" type="SubViewport" parent="MarginContainer/VBoxContainer/HeaderPanel/HBoxContainer"]
+transparent_bg = true
 
 [node name="AvatarScene" parent="MarginContainer/VBoxContainer/HeaderPanel/HBoxContainer/AvatarViewport" instance=ExtResource("3_wn5es")]
 custom_minimum_size = Vector2(180, 280)
-scale = Vector2(0.2, 0.2)
+offset_left = 40.0
+offset_top = 50.0
+offset_right = 220.0
+offset_bottom = 330.0
 
 [node name="AvatarDisplay" type="TextureRect" parent="MarginContainer/VBoxContainer/HeaderPanel/HBoxContainer"]
 clip_contents = true
@@ -92,5 +97,29 @@ offset_right = 460.0
 offset_bottom = 15.0
 text = "Daily Action"
 
+[node name="ReturnButton" type="Button" parent="MarginContainer/VBoxContainer/HeaderPanel/HBoxContainer"]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 8.0
+offset_right = 821.0
+offset_bottom = 39.0
+text = "Return"
+
 [node name="TasksContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(840, 250)
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DailyActionTask1" parent="MarginContainer/VBoxContainer/TasksContainer" instance=ExtResource("6_vgw1a")]
+layout_mode = 2
+
+[node name="DailyActionTask2" parent="MarginContainer/VBoxContainer/TasksContainer" instance=ExtResource("6_vgw1a")]
+layout_mode = 2
+
+[node name="DailyActionTask3" parent="MarginContainer/VBoxContainer/TasksContainer" instance=ExtResource("6_vgw1a")]
+layout_mode = 2
+
+[node name="DailyActionTask4" parent="MarginContainer/VBoxContainer/TasksContainer" instance=ExtResource("6_vgw1a")]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HeaderPanel/HBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]

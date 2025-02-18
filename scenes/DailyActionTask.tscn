@@ -1,29 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqxr34sakaos7"]
+[gd_scene load_steps=3 format=3 uid="uid://cqxr34sakaos7"]
 
 [ext_resource type="Script" path="res://scripts/DailyActionTask.gd" id="1_f3o6u"]
+[ext_resource type="Theme" uid="uid://5lg7l83wpkvd" path="res://scenes/DailyActionTask.tres" id="1_kd7ym"]
 
 [node name="DailyActionTask" type="PanelContainer"]
 custom_minimum_size = Vector2(648, 31)
 offset_right = 648.0
 offset_bottom = 31.0
+theme = ExtResource("1_kd7ym")
 script = ExtResource("1_f3o6u")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(648, 31)
 layout_mode = 2
+alignment = 1
 
 [node name="TaskName" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(216, 30)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 10
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="TaskDescription" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(267, 0)
+custom_minimum_size = Vector2(330, 30)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 10
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="ActionPoints" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(90, 30)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_font_sizes/font_size = 10
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
-custom_minimum_size = Vector2(102, 0)
+custom_minimum_size = Vector2(102, 30)
 layout_mode = 2

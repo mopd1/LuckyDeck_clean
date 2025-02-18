@@ -1,16 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://rptxvdf1jo1l"]
+[gd_scene load_steps=11 format=3 uid="uid://rptxvdf1jo1l"]
 
 [ext_resource type="Script" path="res://scripts/LoginScene.gd" id="1_38g6x"]
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="1_fjken"]
 [ext_resource type="Texture2D" uid="uid://secpphupvrbw" path="res://assets/backgrounds/login_logo.png" id="2_q522x"]
 [ext_resource type="PackedScene" uid="uid://cc72s2xkijchj" path="res://scenes/GoogleSignInButton.tscn" id="4_pcist"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftm1v"]
-bg_color = Color(0.101961, 0.0784314, 0.137255, 1)
-
-[sub_resource type="Theme" id="Theme_p2qxl"]
-default_font_size = 32
-Label/styles/normal = SubResource("StyleBoxFlat_ftm1v")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hh5yl"]
 bg_color = Color(0.352941, 0.647059, 0.690196, 1)
@@ -63,54 +56,56 @@ grow_vertical = 2
 texture = ExtResource("2_q522x")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -360.0
-offset_top = -206.0
-offset_right = 360.0
-offset_bottom = 206.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="UsernameInput" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(380, 40)
 layout_mode = 2
-theme = SubResource("Theme_p2qxl")
-text = "Sign-up or Login"
-horizontal_alignment = 1
-
-[node name="UsernameInput" type="LineEdit" parent="VBoxContainer"]
-custom_minimum_size = Vector2(720, 60)
-layout_mode = 2
+offset_left = 247.0
+offset_top = 81.0
+offset_right = 627.0
+offset_bottom = 121.0
 theme = SubResource("Theme_h6bty")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="PasswordInput" type="LineEdit" parent="VBoxContainer"]
-custom_minimum_size = Vector2(720, 60)
+[node name="PasswordInput" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(380, 40)
 layout_mode = 2
+offset_left = 247.0
+offset_top = 141.0
+offset_right = 627.0
+offset_bottom = 181.0
 theme = SubResource("Theme_yhpy5")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
-[node name="LoginButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(720, 60)
+[node name="LoginButton" type="Button" parent="."]
+custom_minimum_size = Vector2(185, 40)
 layout_mode = 2
-text = "Login"
+offset_left = 247.0
+offset_top = 231.0
+offset_right = 432.0
+offset_bottom = 271.0
+text = "Sign In"
 
-[node name="SignupButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(120, 60)
+[node name="SignupButton" type="Button" parent="."]
+custom_minimum_size = Vector2(185, 40)
 layout_mode = 2
+offset_left = 442.0
+offset_top = 231.0
+offset_right = 627.0
+offset_bottom = 271.0
 text = "Signup"
 
-[node name="GoogleSignInButton" parent="VBoxContainer" instance=ExtResource("4_pcist")]
+[node name="GoogleSignInButton" parent="." instance=ExtResource("4_pcist")]
+custom_minimum_size = Vector2(185, 40)
 layout_mode = 2
+offset_left = 247.0
+offset_top = 281.0
+offset_right = 432.0
+offset_bottom = 321.0
 
-[node name="ErrorLabel" type="Label" parent="VBoxContainer"]
+[node name="ErrorLabel" type="Label" parent="."]
 layout_mode = 2
+offset_top = 185.0
+offset_right = 874.0
+offset_bottom = 217.0
 theme = SubResource("Theme_wvxwd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_07w0a")
