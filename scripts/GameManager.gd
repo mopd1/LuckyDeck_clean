@@ -406,12 +406,12 @@ func move_dealer_button(new_position: int):
 		return
 
 	var dealer_button_positions = {
-		0: Vector2(780, 675),   # Bottom center (You)
-		1: Vector2(300, 680),   # Bottom left
-		2: Vector2(280, 240),   # Top left
-		3: Vector2(720, 220),   # Top center
-		4: Vector2(1140, 300),  # Top right
-		5: Vector2(1080, 680)   # Bottom right
+		0: Vector2(280, 310),   # Bottom center (You)
+		1: Vector2(150, 270),   # Bottom left
+		2: Vector2(150, 90),   # Top left
+		3: Vector2(280, 48),   # Top center
+		4: Vector2(570, 80),  # Top right
+		5: Vector2(1080, 680)   # Not in the game
 	}
 
 	var target_position = dealer_button_positions[new_position]

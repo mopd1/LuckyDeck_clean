@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdo6yju18xia2"
-path="res://.godot/imported/Hamburger_icon.png-4ec5b56d42faf250127191ade366ed41.ctex"
+uid="uid://cvbngby2jk66y"
+path="res://.godot/imported/NotificationIcon.png-3af503654ac78d5da31aca238e8b894a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/Hamburger_icon.png"
-dest_files=["res://.godot/imported/Hamburger_icon.png-4ec5b56d42faf250127191ade366ed41.ctex"]
+source_file="res://assets/ui/NotificationIcon.png"
+dest_files=["res://.godot/imported/NotificationIcon.png-3af503654ac78d5da31aca238e8b894a.ctex"]
 
 [params]
 

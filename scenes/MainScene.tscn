@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bs4w6cknxuc3"]
+[gd_scene load_steps=32 format=3 uid="uid://bs4w6cknxuc3"]
 
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_yk4l7"]
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="2_2n16t"]
@@ -12,7 +12,6 @@
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="7_krkxb"]
 [ext_resource type="Theme" uid="uid://5hj6pfvbsvck" path="res://ActionButtonTheme.tres" id="8_d8q51"]
 [ext_resource type="Theme" uid="uid://c5i23lajnkrcf" path="res://scenes/TablePanels.tres" id="8_mo4it"]
-[ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="8_tmb2x"]
 [ext_resource type="PackedScene" uid="uid://7yecnsfsjmov" path="res://scenes/ChipStackDisplay.tscn" id="9_msske"]
 [ext_resource type="Texture2D" uid="uid://ebxpcx8h4mpn" path="res://assets/ui/AvatarPanelBorder.png" id="10_5g7l1"]
 [ext_resource type="Texture2D" uid="uid://b3d2c5di3jkgq" path="res://assets/ui/PokerTableUI/AvatarBackground.png" id="10_vywew"]
@@ -128,11 +127,10 @@ stretch_mode = 4
 [node name="HandStrengthLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(220, 55)
 layout_mode = 0
-offset_left = 288.0
+offset_left = 256.0
 offset_top = 230.0
-offset_right = 343.0
+offset_right = 476.0
 offset_bottom = 285.0
-theme_override_fonts/font = ExtResource("8_tmb2x")
 theme_override_font_sizes/font_size = 10
 autowrap_mode = 3
 
@@ -237,9 +235,9 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(174, 10)
 layout_mode = 1
 offset_left = 299.0
-offset_top = 332.0
+offset_top = 322.0
 offset_right = 473.0
-offset_bottom = 342.0
+offset_bottom = 332.0
 show_percentage = false
 
 [node name="NamePanel" type="TextureRect" parent="Players/Player1/Panel"]
@@ -276,9 +274,9 @@ expand_mode = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
 offset_left = 346.0
-offset_top = 273.0
+offset_top = 288.0
 offset_right = 426.0
-offset_bottom = 353.0
+offset_bottom = 368.0
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player1/Cards"]
@@ -401,10 +399,10 @@ expand_mode = 1
 [node name="Cards" type="HBoxContainer" parent="Players/Player2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
-offset_left = 346.0
-offset_top = 273.0
-offset_right = 426.0
-offset_bottom = 353.0
+offset_left = 336.0
+offset_top = 288.0
+offset_right = 416.0
+offset_bottom = 368.0
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player2/Cards"]
@@ -527,10 +525,10 @@ expand_mode = 1
 [node name="Cards" type="HBoxContainer" parent="Players/Player3"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
-offset_left = 346.0
-offset_top = 273.0
-offset_right = 426.0
-offset_bottom = 353.0
+offset_left = 336.0
+offset_top = 287.0
+offset_right = 416.0
+offset_bottom = 367.0
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player3/Cards"]
@@ -653,10 +651,10 @@ expand_mode = 1
 [node name="Cards" type="HBoxContainer" parent="Players/Player5"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
-offset_left = 346.0
-offset_top = 273.0
-offset_right = 426.0
-offset_bottom = 353.0
+offset_left = 336.0
+offset_top = 288.0
+offset_right = 416.0
+offset_bottom = 368.0
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player5/Cards"]
@@ -777,10 +775,10 @@ expand_mode = 1
 [node name="Cards" type="HBoxContainer" parent="Players/Player4"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
-offset_left = 346.0
-offset_top = 273.0
-offset_right = 426.0
-offset_bottom = 353.0
+offset_left = 336.0
+offset_top = 287.0
+offset_right = 416.0
+offset_bottom = 367.0
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player4/Cards"]
@@ -798,22 +796,23 @@ stretch_mode = 4
 [node name="Pot" type="Control" parent="."]
 custom_minimum_size = Vector2(120, 55)
 anchors_preset = 0
-offset_left = 481.0
+offset_left = 500.0
 offset_top = 167.0
-offset_right = 536.0
+offset_right = 620.0
 offset_bottom = 222.0
 
 [node name="PotLabel" type="Label" parent="Pot"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-offset_top = 32.0
-offset_right = 1.0
-offset_bottom = 57.0
+offset_top = 59.0
+offset_right = 120.0
+offset_bottom = 84.0
 theme_override_font_sizes/font_size = 10
 autowrap_mode = 3
 
 [node name="PotChipDisplay" parent="Pot" instance=ExtResource("20_rbrap")]
-scale = Vector2(0.3, 0.3)
+position = Vector2(13, 30)
+scale = Vector2(0.15, 0.15)
 script = ExtResource("14_xfeto")
 
 [node name="DealerButton" type="TextureRect" parent="."]

@@ -10,6 +10,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [resource]
+default_font_size = 10
 Label/colors/font_color = Color(0.101961, 0.0784314, 0.137255, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 14
