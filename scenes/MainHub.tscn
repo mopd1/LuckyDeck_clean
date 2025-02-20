@@ -220,11 +220,12 @@ texture = ExtResource("13_lfw53")
 
 [node name="AvatarDisplay" type="TextureRect" parent="PlayerPanel"]
 clip_contents = true
-custom_minimum_size = Vector2(74, 74)
+custom_minimum_size = Vector2(96, 74)
 layout_mode = 0
-offset_left = 2.0
-offset_right = 162.0
-offset_bottom = 160.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 192.0
+offset_bottom = 192.0
 expand_mode = 1
 stretch_mode = 6
 

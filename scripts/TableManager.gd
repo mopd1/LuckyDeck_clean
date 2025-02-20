@@ -1037,6 +1037,12 @@ func handle_showdown(table: Dictionary) -> void:
 		
 		# Then award pot
 		award_pot_to_player(table, winner_index)
+		
+		# Update server balance for human player
+		var winner = table.players[winner_index]
+		if winner != null and not winner.get("is_bot", false):
+			APIManager.update_server_balance(winner.chips)
+			
 		prepare_next_hand(table)
 		return
 	
@@ -1056,6 +1062,11 @@ func handle_showdown(table: Dictionary) -> void:
 			print("DEBUG: Emitting winner info")
 			emit_signal("hand_completed", table.id, winner_info)
 			award_pot_to_player(table, winner_index, share)
+			
+			# Update server balance for human winners
+			var winner = table.players[winner_index]
+			if winner != null and not winner.get("is_bot", false):
+				APIManager.update_server_balance(winner.chips)
 	
 	prepare_next_hand(table)
 

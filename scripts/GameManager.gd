@@ -318,16 +318,19 @@ func award_book_points(is_winner: bool):
 func _on_return_to_lobby_pressed():
 	# Calculate final profit/loss
 	var final_chips = get_player_chips()
-	var profit_loss = final_chips - initial_stack
 	var final_total_balance = PlayerData.get_balance() + final_chips
-
-	# Update PlayerData
+	
+	print("Debug: Updating final balance:")
+	print("- Final chips:", final_chips)
+	print("- Final total balance:", final_total_balance)
+	
+	# Update PlayerData first
 	PlayerData.player_data["total_balance"] = final_total_balance
-
-	# Update server with final balance
+	
+	# Update server with final balance and wait for completion
 	APIManager.update_server_balance(final_total_balance)
 	APIManager.connect("balance_update_completed", _on_lobby_return_balance_updated, CONNECT_ONE_SHOT)
-
+	
 	# Remove player from table
 	TableManager.remove_player(table_id, seat_index)
 
@@ -336,7 +339,8 @@ func _on_lobby_return_balance_updated(success: bool, message: String):
 		print("Debug: Balance updated successfully before lobby return")
 	else:
 		print("Debug: Failed to update balance before lobby return:", message)
-
+		# You might want to show an error message to the user here
+	
 	SceneManager.goto_scene("res://scenes/MainHub.tscn")
 
 func return_to_lobby():
@@ -460,48 +464,31 @@ func collect_pot_to_winner(winner_index: int):
 			pot_chip_display.visible = false
 
 func _on_hand_completed(completed_table_id: String, winner_info: Dictionary):
-	print("DEBUG: Hand completed signal received")
-	print("- Completed table ID: ", completed_table_id)
-	print("- Current table ID: ", table_id)
-	
 	if completed_table_id != table_id:
-		print("DEBUG: Table ID mismatch, ignoring")
 		return
-	
+		
 	var winner_index = winner_info.winner_index
 	var hand_description = winner_info.hand_description
 	var pot_amount = winner_info.pot_amount
 	
-	print("DEBUG: Winner info:")
-	print("- Winner index: ", winner_index)
-	print("- Hand description: ", hand_description)
-	print("- Pot amount: ", pot_amount)
-	print("- Table data: ", table_data)
-	
-	# Show winner popup
+	# Show winner popup and animate chips
 	if winner_popup:
-		print("DEBUG: Winner popup found")
 		if table_data.players and winner_index < table_data.players.size():
 			var winner = table_data.players[winner_index]
 			if winner:
 				var winner_name = winner.name
-				print("DEBUG: Showing winner popup for: ", winner_name)
 				winner_popup.show_winner(winner_name, hand_description, pot_amount)
-			else:
-				print("ERROR: Winner data is null for index ", winner_index)
-		else:
-			print("ERROR: Invalid winner index or no players in table data")
-	else:
-		print("ERROR: Winner popup not found")
+				
+				# If this is our player, update server balance
+				if winner_index == seat_index:
+					var current_chips = get_player_chips()
+					APIManager.update_server_balance(current_chips)
 	
 	# Animate chips to winner
-	print("DEBUG: Starting chip animation")
 	collect_pot_to_winner(winner_index)
 	
-	# If this player won, award book points
+	# Award book points
 	if winner_index == seat_index:
-		print("DEBUG: Awarding winner book points")
 		award_book_points(true)
 	else:
-		print("DEBUG: Awarding participant book points")
 		award_book_points(false)

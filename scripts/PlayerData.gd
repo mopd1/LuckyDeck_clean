@@ -134,6 +134,10 @@ func set_action_points(points: int):
 	player_data["action_points"] = points
 	emit_signal("action_points_updated", player_data["action_points"])
 
+func update_book_points(points: int):
+	# Update action points which seem to be used instead of book points
+	update_action_points(points)
+
 func set_table_balance(balance):
 	player_data["table_balance"] = balance
 

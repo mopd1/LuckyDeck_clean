@@ -59,7 +59,7 @@ layout_mode = 2
 text = "Get the Inside Track"
 
 [node name="StoryContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(0, 196)
+custom_minimum_size = Vector2(874, 196)
 layout_mode = 0
 offset_top = 57.0
 offset_right = 40.0
@@ -84,7 +84,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="RewardsContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(0, 128)
+custom_minimum_size = Vector2(874, 128)
 layout_mode = 0
 offset_top = 262.0
 offset_right = 40.0

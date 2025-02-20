@@ -29,6 +29,9 @@ var is_processing_queue = false
 var last_request_time = 0.0
 var min_request_interval = 1.0  # Minimum time between requests in seconds
 var rate_limit_reset_time = 0.0
+var rate_limit_remaining = 20
+var rate_limit_window = 900.0
+var last_login_attempt = 0.0
 
 func _ready():
 	api_url = ConfigManager.api_url
@@ -45,6 +48,46 @@ func _on_request_completed(result, response_code, headers, body):
 		return
 		
 	ConfigManager.log("API request successful", "debug")
+
+func _update_rate_limits(headers: PackedStringArray) -> void:
+	for header in headers:
+		if header.begins_with("RateLimit-Reset:"):
+			var reset_time = int(header.split(":")[1].strip_edges())
+			rate_limit_reset_time = Time.get_unix_time_from_system() + reset_time
+		elif header.begins_with("RateLimit-Remaining:"):
+			rate_limit_remaining = int(header.split(":")[1].strip_edges())
+		elif header.begins_with("RateLimit-Policy:"):
+			var policy = header.split(":")[1].strip_edges()
+			var window = policy.split(";")[1].split("=")[1]
+			rate_limit_window = float(window)
+	
+	print("Rate limit updated - Remaining: %d, Reset in: %d seconds" % 
+		  [rate_limit_remaining, rate_limit_reset_time - Time.get_unix_time_from_system()])
+
+func can_attempt_login() -> Dictionary:
+	var current_time = Time.get_unix_time_from_system()
+	
+	# If we're rate limited
+	if current_time < rate_limit_reset_time:
+		var wait_time = rate_limit_reset_time - current_time
+		var minutes = floor(wait_time / 60)
+		var seconds = int(wait_time) % 60
+		return {
+			"can_login": false,
+			"message": "Please wait %d:%02d before trying again" % [minutes, seconds]
+		}
+	
+	# If we have attempts remaining
+	if rate_limit_remaining > 0:
+		return {
+			"can_login": true,
+			"message": ""
+		}
+	
+	return {
+		"can_login": false,
+		"message": "No login attempts remaining. Please try again later."
+	}
 
 func login(username: String, password: String) -> void:
 	var request_id = Time.get_unix_time_from_system()
@@ -413,14 +456,15 @@ func update_server_balance(new_balance: int):
 	
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
 	var body = JSON.stringify({
-		"chips": new_balance
+		"balance": new_balance
 	})
 	
 	print("Debug: Sending balance update request")
 	print("Debug: Request body:", body)
+	print("Debug: Request URL:", api_url + "/balance/update-chips")  # Added for debugging
 	
 	var error = http_request.request(
-		api_url + "/auth/update-chips",
+		api_url + "/balance/update-chips",  # This matches the route in authRoutes.js
 		headers,
 		HTTPClient.METHOD_PUT,
 		body
