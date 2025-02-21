@@ -1,30 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqybiqexsjp8u"]
+[gd_scene load_steps=3 format=3 uid="uid://bqybiqexsjp8u"]
 
 [ext_resource type="Script" path="res://scripts/BookButton.gd" id="1_abnhl"]
+
+[sub_resource type="Theme" id="Theme_dssfr"]
+default_font_size = 10
 
 [node name="BookButton" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 132.0
-offset_bottom = 32.0
+offset_right = 230.0
+offset_bottom = 20.0
+theme = SubResource("Theme_dssfr")
 script = ExtResource("1_abnhl")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 132.0
-offset_bottom = 32.0
+offset_right = 230.0
+offset_bottom = 20.0
 
 [node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
 layout_mode = 2
 
 [node name="BookIcon" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="ActionPointsLabel" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 230.0
+offset_bottom = 20.0
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

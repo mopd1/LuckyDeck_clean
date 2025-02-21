@@ -242,7 +242,7 @@ func setup_game_panels():
 		print("Debug: Found panel: " + panel_name)
 	
 	# Setup each panel
-	panels["nl_holdem"].set_game_type("NL Hold'em Cash Game", true)
+	panels["nl_holdem"].set_game_type("NL Holdem Cash Game", true)
 	panels["nl_holdem"].play_pressed.connect(_on_game_panel_play_pressed)
 	
 	panels["pl_omaha"].set_game_type("PL Omaha Cash Game", false)

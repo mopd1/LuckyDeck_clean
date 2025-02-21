@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c53digs1puw8l"]
+[gd_scene load_steps=40 format=3 uid="uid://c53digs1puw8l"]
 
 [ext_resource type="Texture2D" uid="uid://bkntnbcqk57kv" path="res://assets/ui/ChipBalanceBorder.png" id="2_766ov"]
 [ext_resource type="Texture2D" uid="uid://bld0cbn1h6i7c" path="res://assets/icons/undo.png" id="2_scvgi"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://drp2fctw4tuhr" path="res://assets/ui/CardShoot.png" id="22_i1uq1"]
 [ext_resource type="Texture2D" uid="uid://cp2ri2ld0kj0n" path="res://assets/ui/BlackjackPlayerPanel.png" id="24_5t7i6"]
 [ext_resource type="Texture2D" uid="uid://bfpx1otnbvkio" path="res://assets/ui/BlackjackPlayerNamePanel.png" id="32_0r5og"]
+[ext_resource type="Texture2D" uid="uid://c4e7yfmf5yi6i" path="res://assets/ui/BlackjackRules.png" id="33_kgnra"]
 
 [sub_resource type="Theme" id="Theme_qq1sv"]
 default_font = ExtResource("4_himo3")
@@ -75,11 +76,11 @@ offset_right = 768.0
 offset_bottom = 480.0
 
 [node name="UndoButton" type="TextureButton" parent="BlackjackUI"]
-custom_minimum_size = Vector2(20, 20)
-offset_left = 44.0
+custom_minimum_size = Vector2(30, 30)
+offset_left = 66.0
 offset_top = 72.0
-offset_right = 64.0
-offset_bottom = 92.0
+offset_right = 96.0
+offset_bottom = 102.0
 texture_normal = ExtResource("2_scvgi")
 ignore_texture_size = true
 stretch_mode = 0
@@ -264,19 +265,19 @@ offset_bottom = 272.0
 texture = ExtResource("4_1er2k")
 
 [node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand1"]
-custom_minimum_size = Vector2(60, 40)
+custom_minimum_size = Vector2(60, 20)
 anchors_preset = 0
-offset_left = 288.0
+offset_left = 264.0
 offset_top = 310.0
-offset_right = 348.0
-offset_bottom = 350.0
+offset_right = 364.0
+offset_bottom = 330.0
 script = ExtResource("5_pi5m0")
 
 [node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand1/StreakMeterContainer"]
-custom_minimum_size = Vector2(60, 30)
+custom_minimum_size = Vector2(100, 20)
 layout_mode = 0
 offset_right = 60.0
-offset_bottom = 30.0
+offset_bottom = 20.0
 theme = SubResource("Theme_fl6v3")
 theme_override_fonts/font = ExtResource("3_vk83k")
 theme_override_font_sizes/font_size = 12
@@ -442,19 +443,19 @@ offset_bottom = 272.0
 texture = ExtResource("4_1er2k")
 
 [node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand2"]
-custom_minimum_size = Vector2(60, 40)
+custom_minimum_size = Vector2(100, 20)
 anchors_preset = 0
-offset_left = 288.0
+offset_left = 262.0
 offset_top = 310.0
-offset_right = 348.0
-offset_bottom = 350.0
+offset_right = 362.0
+offset_bottom = 330.0
 script = ExtResource("5_pi5m0")
 
 [node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand2/StreakMeterContainer"]
-custom_minimum_size = Vector2(60, 30)
+custom_minimum_size = Vector2(100, 20)
 layout_mode = 0
-offset_right = 60.0
-offset_bottom = 30.0
+offset_right = 100.0
+offset_bottom = 20.0
 theme = SubResource("Theme_fl6v3")
 theme_override_fonts/font = ExtResource("3_vk83k")
 theme_override_font_sizes/font_size = 12
@@ -620,19 +621,19 @@ offset_bottom = 272.0
 texture = ExtResource("4_1er2k")
 
 [node name="StreakMeterContainer" type="Control" parent="GameArea/PlayerArea/Hand3"]
-custom_minimum_size = Vector2(60, 40)
+custom_minimum_size = Vector2(100, 20)
 anchors_preset = 0
-offset_left = 288.0
+offset_left = 260.0
 offset_top = 310.0
-offset_right = 348.0
-offset_bottom = 350.0
+offset_right = 360.0
+offset_bottom = 330.0
 script = ExtResource("5_pi5m0")
 
 [node name="ProgressBar" type="ProgressBar" parent="GameArea/PlayerArea/Hand3/StreakMeterContainer"]
-custom_minimum_size = Vector2(60, 30)
+custom_minimum_size = Vector2(100, 20)
 layout_mode = 0
-offset_right = 60.0
-offset_bottom = 30.0
+offset_right = 100.0
+offset_bottom = 20.0
 theme = SubResource("Theme_fl6v3")
 theme_override_fonts/font = ExtResource("3_vk83k")
 theme_override_font_sizes/font_size = 12
@@ -859,9 +860,9 @@ autowrap_mode = 3
 
 [node name="CurrentBet" type="Label" parent="GameArea/GameInfo"]
 layout_mode = 0
-offset_left = 584.0
+offset_left = 611.0
 offset_top = 137.0
-offset_right = 847.0
+offset_right = 874.0
 offset_bottom = 171.0
 theme = ExtResource("8_c0veb")
 theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
@@ -949,7 +950,7 @@ offset_right = 834.0
 offset_bottom = 66.0
 
 [node name="InfoButton" type="TextureButton" parent="."]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 72.0
@@ -1020,3 +1021,11 @@ offset_top = 97.0
 offset_right = 834.0
 offset_bottom = 137.0
 texture = ExtResource("32_0r5og")
+
+[node name="BlackjackRules" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 305.0
+offset_top = 137.0
+offset_right = 568.0
+offset_bottom = 177.0
+texture = ExtResource("33_kgnra")

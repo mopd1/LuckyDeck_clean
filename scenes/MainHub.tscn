@@ -86,9 +86,9 @@ offset_bottom = 382.0
 
 [node name="GameTypeButtons" type="HBoxContainer" parent="GameSelectionArea"]
 custom_minimum_size = Vector2(132, 0)
-layout_mode = 0
+layout_mode = 2
 offset_top = -46.0
-offset_right = 420.0
+offset_right = 416.0
 offset_bottom = -14.0
 theme_override_constants/separation = 10
 
@@ -115,7 +115,7 @@ text = "Sports Betting"
 
 [node name="GamePanels" type="HBoxContainer" parent="GameSelectionArea"]
 custom_minimum_size = Vector2(638, 0)
-layout_mode = 1
+layout_mode = 2
 offset_right = 728.0
 offset_bottom = 272.0
 theme_override_constants/separation = 8
@@ -184,7 +184,7 @@ expand_mode = 1
 
 [node name="TableGamesPanels" type="HBoxContainer" parent="GameSelectionArea"]
 custom_minimum_size = Vector2(728, 272)
-layout_mode = 1
+layout_mode = 2
 offset_right = 728.0
 offset_bottom = 272.0
 
@@ -199,15 +199,11 @@ layout_mode = 2
 
 [node name="GameTypeSelection" type="OptionButton" parent="GameSelectionArea"]
 visible = false
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 20.0
+layout_mode = 2
 
 [node name="StakeSelection" type="OptionButton" parent="GameSelectionArea"]
 visible = false
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 20.0
+layout_mode = 2
 
 [node name="PlayerPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(230, 320)
@@ -334,6 +330,7 @@ texture = ExtResource("14_e6dde")
 expand_mode = 1
 
 [node name="BookButton" parent="PlayerPanel2" instance=ExtResource("15_pe52p")]
+visible = false
 custom_minimum_size = Vector2(230, 20)
 offset_left = 44.0
 offset_top = 64.0
