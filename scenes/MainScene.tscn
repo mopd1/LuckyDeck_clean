@@ -206,23 +206,24 @@ expand_mode = 1
 
 [node name="AvatarViewport" type="SubViewport" parent="Players/Player1/Panel"]
 transparent_bg = true
-size = Vector2i(180, 280)
+size = Vector2i(128, 128)
 
 [node name="AvatarScene" parent="Players/Player1/Panel/AvatarViewport" instance=ExtResource("6_5d3nm")]
-custom_minimum_size = Vector2(180, 240)
-offset_top = 90.0
-offset_right = 180.0
-offset_bottom = 330.0
-scale = Vector2(0.2, 0.2)
+custom_minimum_size = Vector2(80, 80)
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 120.0
+offset_bottom = 120.0
+scale = Vector2(0.75, 0.75)
 
 [node name="AvatarDisplay" type="TextureRect" parent="Players/Player1/Panel"]
 clip_contents = true
-custom_minimum_size = Vector2(110, 110)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 1
-offset_left = 331.0
-offset_top = 265.0
-offset_right = 441.0
-offset_bottom = 375.0
+offset_left = 346.0
+offset_top = 270.0
+offset_right = 426.0
+offset_bottom = 350.0
 theme = ExtResource("8_mo4it")
 
 [node name="NameLabel" type="Label" parent="Players/Player1/Panel"]

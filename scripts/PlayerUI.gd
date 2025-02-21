@@ -19,6 +19,7 @@ const PLAYER_BET_OFFSETS = {
 	4: Vector2(-720, -480)    # Bottom right
 }
 
+var avatar_layers = ["face", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
 var player_index: int
 
 func _ready():
@@ -89,6 +90,16 @@ func update_display(player_data, is_current_player: bool, show_cards: bool):
 	if timer_bar:
 		timer_bar.visible = is_current_player
 	
+	# Update avatar from player_data instead of PlayerData singleton
+	if player_data.has("avatar_data") and not player_data.get("is_bot", false):
+		var avatar_scene = avatar_viewport.get_node("AvatarScene")
+		if avatar_scene:
+			_update_avatar_scene(avatar_scene, player_data.avatar_data)
+			avatar.texture = avatar_viewport.get_texture()
+	else:
+		# Hide avatar for bots or if no avatar data
+		avatar.visible = false
+	
 	if player_data.folded:
 		card1.texture = null
 		card2.texture = null
@@ -100,7 +111,7 @@ func update_display(player_data, is_current_player: bool, show_cards: bool):
 		card1.texture = load("res://assets/cards/card_back.png")
 		card2.texture = load("res://assets/cards/card_back.png")
 
-		# Add visual indicator for bot players
+	# Add visual indicator for bot players
 	if player_data.get("is_bot", false):
 		name_label.add_theme_color_override("font_color", Color(0.7, 0.9, 1.0))  # Light blue for bots
 	else:
@@ -161,22 +172,37 @@ func _update_avatar():
 		push_error("AvatarScene not found in AvatarViewport")
 
 func _update_avatar_scene(avatar_scene, avatar_data):
-	for part in ["face", "eyebrows", "eyes", "nose", "mouth", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]:
-		var sprite = avatar_scene.get_node_or_null(part.capitalize())
+	if not avatar_data:
+		print("Debug: No avatar data provided")
+		return
+		
+	print("Debug: Starting avatar update with data:", avatar_data)
+	
+	for layer in avatar_layers:
+		var layer_name = layer.replace("_", " ").capitalize()
+		var sprite = avatar_scene.get_node_or_null(layer_name)
+		
 		if sprite:
-			if avatar_data.get(part):
-				var texture_path = "res://assets/avatars/" + part + "/" + avatar_data[part] + ".png"
+			print("Debug: Processing layer:", layer)
+			var part_id = avatar_data.get(layer)
+			print("Debug: Part ID for", layer, ":", part_id)
+			
+			if part_id != null and part_id != "<null>":
+				var texture_path = "res://assets/avatars/" + layer + "/" + str(part_id) + ".png"
+				print("Debug: Attempting to load texture:", texture_path)
 				var texture = load(texture_path)
 				if texture:
+					print("Debug: Successfully loaded texture for", layer)
 					sprite.texture = texture
 					sprite.visible = true
 				else:
-					push_error("Failed to load texture for " + part + ": " + texture_path)
+					push_error("Failed to load texture: " + texture_path)
 					sprite.visible = false
 			else:
+				print("Debug: No texture for", layer, ", hiding sprite")
 				sprite.visible = false
 		else:
-			push_warning(part.capitalize() + " node not found in AvatarScene")
+			push_warning("Node not found: " + layer_name)
 
 func clear_cards():
 	card1.texture = null

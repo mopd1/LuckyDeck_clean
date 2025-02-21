@@ -89,7 +89,9 @@ func join_game(player_data: Dictionary, game_type: String, stake: int) -> void:
 		"time_bank": 30.0,
 		"avatar_data": PlayerData.get_avatar_data()
 	}
-	
+	print("\nDebug: Setting up player data for table")
+	print("Debug: Player name:", table_player_data.name)
+	print("Debug: Avatar data:", table_player_data.avatar_data)
 	print("Debug: Finding optimal table...")
 	# Find optimal table
 	var table = TableManager.find_optimal_table(stake_int, table_player_data)
