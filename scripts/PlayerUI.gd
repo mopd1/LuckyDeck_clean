@@ -50,9 +50,9 @@ func _ready():
 	timer_bar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	timer_bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	
-	if panel:
-		timer_bar.custom_minimum_size.x = panel.size.x
-		timer_bar.position.y = 0
+	#if panel:
+		#timer_bar.custom_minimum_size.x = panel.size.x
+		#timer_bar.position.y = 0
 
 func update_timer_display(progress: float, is_warning: bool):
 	if !timer_bar:

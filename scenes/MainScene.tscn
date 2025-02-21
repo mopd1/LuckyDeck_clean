@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bs4w6cknxuc3"]
+[gd_scene load_steps=37 format=3 uid="uid://bs4w6cknxuc3"]
 
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_yk4l7"]
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="2_2n16t"]
@@ -29,6 +29,21 @@
 
 [sub_resource type="Theme" id="Theme_e33w3"]
 default_font = ExtResource("1_yk4l7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qj3l"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f7jh"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uafyq"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1kus"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbeb2"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uwkpu"]
 bg_color = Color(0.913725, 0.290196, 0.266667, 1)
@@ -166,8 +181,8 @@ layout_mode = 0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player1/Panel" instance=ExtResource("9_msske")]
-position = Vector2(180, -60)
-scale = Vector2(0.3, 0.3)
+position = Vector2(460, 300)
+scale = Vector2(0.15, 0.15)
 
 [node name="AvatarBackground" type="TextureRect" parent="Players/Player1/Panel"]
 custom_minimum_size = Vector2(105, 105)
@@ -211,13 +226,16 @@ offset_bottom = 375.0
 theme = ExtResource("8_mo4it")
 
 [node name="NameLabel" type="Label" parent="Players/Player1/Panel"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(140, 10)
 layout_mode = 0
-offset_top = 210.0
-offset_right = 180.0
-offset_bottom = 240.0
+offset_left = 316.0
+offset_top = 350.0
+offset_right = 456.0
+offset_bottom = 367.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_fonts/font = ExtResource("1_yk4l7")
 theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_6qj3l")
 horizontal_alignment = 1
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player1/Panel"]
@@ -232,12 +250,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player1/Panel"]
-custom_minimum_size = Vector2(174, 10)
+custom_minimum_size = Vector2(160, 10)
 layout_mode = 1
-offset_left = 299.0
-offset_top = 322.0
-offset_right = 473.0
-offset_bottom = 332.0
+offset_left = 306.0
+offset_top = 331.0
+offset_right = 466.0
+offset_bottom = 341.0
 show_percentage = false
 
 [node name="NamePanel" type="TextureRect" parent="Players/Player1/Panel"]
@@ -304,8 +322,8 @@ layout_mode = 0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player2/Panel" instance=ExtResource("9_msske")]
-position = Vector2(180, -60)
-scale = Vector2(0.3, 0.3)
+position = Vector2(470, 320)
+scale = Vector2(0.15, 0.15)
 
 [node name="AvatarBackground" type="TextureRect" parent="Players/Player2/Panel"]
 custom_minimum_size = Vector2(88, 88)
@@ -349,13 +367,16 @@ offset_bottom = 353.0
 theme = ExtResource("8_mo4it")
 
 [node name="NameLabel" type="Label" parent="Players/Player2/Panel"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(140, 17)
 layout_mode = 0
-offset_top = 210.0
-offset_right = 180.0
-offset_bottom = 240.0
+offset_left = 317.0
+offset_top = 351.0
+offset_right = 457.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_fonts/font = ExtResource("1_yk4l7")
 theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_7f7jh")
 horizontal_alignment = 1
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player2/Panel"]
@@ -370,10 +391,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player2/Panel"]
-custom_minimum_size = Vector2(80, 20)
+custom_minimum_size = Vector2(160, 10)
 layout_mode = 1
-offset_right = 80.0
-offset_bottom = 20.0
+offset_left = 306.0
+offset_top = 332.0
+offset_right = 466.0
+offset_bottom = 342.0
 show_percentage = false
 
 [node name="NamePanel" type="TextureRect" parent="Players/Player2/Panel"]
@@ -430,8 +453,8 @@ layout_mode = 0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player3/Panel" instance=ExtResource("9_msske")]
-position = Vector2(180, -60)
-scale = Vector2(0.3, 0.3)
+position = Vector2(420, 390)
+scale = Vector2(0.15, 0.15)
 
 [node name="AvatarBackground" type="TextureRect" parent="Players/Player3/Panel"]
 custom_minimum_size = Vector2(88, 88)
@@ -475,13 +498,16 @@ offset_bottom = 375.0
 theme = ExtResource("8_mo4it")
 
 [node name="NameLabel" type="Label" parent="Players/Player3/Panel"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(140, 17)
 layout_mode = 0
-offset_top = 210.0
-offset_right = 180.0
-offset_bottom = 240.0
+offset_left = 316.0
+offset_top = 351.0
+offset_right = 456.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_fonts/font = ExtResource("1_yk4l7")
 theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_uafyq")
 horizontal_alignment = 1
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player3/Panel"]
@@ -496,10 +522,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player3/Panel"]
-custom_minimum_size = Vector2(80, 20)
+custom_minimum_size = Vector2(160, 10)
 layout_mode = 1
-offset_right = 80.0
-offset_bottom = 20.0
+offset_left = 306.0
+offset_top = 331.0
+offset_right = 466.0
+offset_bottom = 341.0
 show_percentage = false
 
 [node name="NamePanel" type="TextureRect" parent="Players/Player3/Panel"]
@@ -543,132 +571,6 @@ layout_mode = 2
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Player5" type="Control" parent="Players"]
-anchors_preset = 0
-offset_left = 280.0
-offset_top = -210.0
-offset_right = 280.0
-offset_bottom = -210.0
-script = ExtResource("2_2n16t")
-
-[node name="Panel" type="Panel" parent="Players/Player5"]
-layout_mode = 0
-theme = ExtResource("5_sdmxq")
-
-[node name="ChipStackDisplay" parent="Players/Player5/Panel" instance=ExtResource("9_msske")]
-position = Vector2(180, -60)
-scale = Vector2(0.3, 0.3)
-
-[node name="AvatarBackground" type="TextureRect" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 0
-offset_left = 331.0
-offset_top = 265.0
-offset_right = 419.0
-offset_bottom = 353.0
-texture = ExtResource("10_vywew")
-expand_mode = 1
-
-[node name="AvatarBorder" type="TextureRect" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 0
-offset_left = 331.0
-offset_top = 265.0
-offset_right = 419.0
-offset_bottom = 353.0
-texture = ExtResource("10_5g7l1")
-expand_mode = 1
-
-[node name="AvatarViewport" type="SubViewport" parent="Players/Player5/Panel"]
-transparent_bg = true
-size = Vector2i(180, 280)
-
-[node name="AvatarScene" parent="Players/Player5/Panel/AvatarViewport" instance=ExtResource("6_5d3nm")]
-custom_minimum_size = Vector2(180, 240)
-offset_top = 90.0
-offset_right = 180.0
-offset_bottom = 330.0
-scale = Vector2(0.2, 0.2)
-
-[node name="AvatarDisplay" type="TextureRect" parent="Players/Player5/Panel"]
-clip_contents = true
-custom_minimum_size = Vector2(110, 110)
-layout_mode = 1
-offset_left = 331.0
-offset_top = 265.0
-offset_right = 441.0
-offset_bottom = 375.0
-theme = ExtResource("8_mo4it")
-
-[node name="NameLabel" type="Label" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 0
-offset_top = 210.0
-offset_right = 180.0
-offset_bottom = 240.0
-theme_override_fonts/font = ExtResource("1_yk4l7")
-theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-
-[node name="ChipCountLabel" type="Label" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(60, 17)
-layout_mode = 0
-offset_left = 323.0
-offset_top = 374.0
-offset_right = 383.0
-offset_bottom = 391.0
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TimerBar" type="ProgressBar" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(80, 20)
-layout_mode = 1
-offset_right = 80.0
-offset_bottom = 20.0
-show_percentage = false
-
-[node name="NamePanel" type="TextureRect" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(174, 34)
-layout_mode = 0
-offset_left = 299.0
-offset_top = 341.0
-offset_right = 473.0
-offset_bottom = 375.0
-texture = ExtResource("13_t8b8a")
-expand_mode = 1
-
-[node name="ChipCountBar" type="TextureRect" parent="Players/Player5/Panel"]
-custom_minimum_size = Vector2(77, 19)
-layout_mode = 0
-offset_left = 309.0
-offset_top = 374.0
-offset_right = 386.0
-offset_bottom = 393.0
-texture = ExtResource("14_jx1aq")
-expand_mode = 1
-
-[node name="Cards" type="HBoxContainer" parent="Players/Player5"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 1
-offset_left = 336.0
-offset_top = 288.0
-offset_right = 416.0
-offset_bottom = 368.0
-alignment = 1
-
-[node name="Card1" type="TextureRect" parent="Players/Player5/Cards"]
-custom_minimum_size = Vector2(37, 55)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Card2" type="TextureRect" parent="Players/Player5/Cards"]
-custom_minimum_size = Vector2(37, 55)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 4
-
 [node name="Player4" type="Control" parent="Players"]
 anchors_preset = 0
 offset_top = -260.0
@@ -680,8 +582,8 @@ layout_mode = 0
 theme = ExtResource("5_sdmxq")
 
 [node name="ChipStackDisplay" parent="Players/Player4/Panel" instance=ExtResource("9_msske")]
-position = Vector2(180, -60)
-scale = Vector2(0.3, 0.3)
+position = Vector2(420, 385)
+scale = Vector2(0.15, 0.15)
 
 [node name="AvatarBackground" type="TextureRect" parent="Players/Player4/Panel"]
 custom_minimum_size = Vector2(88, 88)
@@ -725,13 +627,16 @@ offset_bottom = 375.0
 theme = ExtResource("8_mo4it")
 
 [node name="NameLabel" type="Label" parent="Players/Player4/Panel"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(140, 17)
 layout_mode = 0
-offset_top = 210.0
-offset_right = 180.0
-offset_bottom = 240.0
+offset_left = 316.0
+offset_top = 351.0
+offset_right = 456.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_fonts/font = ExtResource("1_yk4l7")
 theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_d1kus")
 horizontal_alignment = 1
 
 [node name="ChipCountLabel" type="Label" parent="Players/Player4/Panel"]
@@ -746,10 +651,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerBar" type="ProgressBar" parent="Players/Player4/Panel"]
-custom_minimum_size = Vector2(80, 20)
+custom_minimum_size = Vector2(160, 10)
 layout_mode = 1
-offset_right = 80.0
-offset_bottom = 20.0
+offset_left = 307.0
+offset_top = 332.0
+offset_right = 467.0
+offset_bottom = 342.0
 show_percentage = false
 
 [node name="NamePanel" type="TextureRect" parent="Players/Player4/Panel"]
@@ -788,6 +695,137 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Card2" type="TextureRect" parent="Players/Player4/Cards"]
+custom_minimum_size = Vector2(37, 55)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Player5" type="Control" parent="Players"]
+anchors_preset = 0
+offset_left = 280.0
+offset_top = -210.0
+offset_right = 280.0
+offset_bottom = -210.0
+script = ExtResource("2_2n16t")
+
+[node name="Panel" type="Panel" parent="Players/Player5"]
+layout_mode = 0
+theme = ExtResource("5_sdmxq")
+
+[node name="ChipStackDisplay" parent="Players/Player5/Panel" instance=ExtResource("9_msske")]
+position = Vector2(300, 320)
+scale = Vector2(0.15, 0.15)
+
+[node name="AvatarBackground" type="TextureRect" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 331.0
+offset_top = 265.0
+offset_right = 419.0
+offset_bottom = 353.0
+texture = ExtResource("10_vywew")
+expand_mode = 1
+
+[node name="AvatarBorder" type="TextureRect" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 331.0
+offset_top = 265.0
+offset_right = 419.0
+offset_bottom = 353.0
+texture = ExtResource("10_5g7l1")
+expand_mode = 1
+
+[node name="AvatarViewport" type="SubViewport" parent="Players/Player5/Panel"]
+transparent_bg = true
+size = Vector2i(180, 280)
+
+[node name="AvatarScene" parent="Players/Player5/Panel/AvatarViewport" instance=ExtResource("6_5d3nm")]
+custom_minimum_size = Vector2(180, 240)
+offset_top = 90.0
+offset_right = 180.0
+offset_bottom = 330.0
+scale = Vector2(0.2, 0.2)
+
+[node name="AvatarDisplay" type="TextureRect" parent="Players/Player5/Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 1
+offset_left = 331.0
+offset_top = 265.0
+offset_right = 441.0
+offset_bottom = 375.0
+theme = ExtResource("8_mo4it")
+
+[node name="NameLabel" type="Label" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(140, 17)
+layout_mode = 0
+offset_left = 316.0
+offset_top = 352.0
+offset_right = 456.0
+offset_bottom = 369.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_fonts/font = ExtResource("1_yk4l7")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_tbeb2")
+horizontal_alignment = 1
+
+[node name="ChipCountLabel" type="Label" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(60, 17)
+layout_mode = 0
+offset_left = 323.0
+offset_top = 374.0
+offset_right = 383.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerBar" type="ProgressBar" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 1
+offset_left = 308.0
+offset_top = 331.0
+offset_right = 468.0
+offset_bottom = 341.0
+show_percentage = false
+
+[node name="NamePanel" type="TextureRect" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(174, 34)
+layout_mode = 0
+offset_left = 299.0
+offset_top = 341.0
+offset_right = 473.0
+offset_bottom = 375.0
+texture = ExtResource("13_t8b8a")
+expand_mode = 1
+
+[node name="ChipCountBar" type="TextureRect" parent="Players/Player5/Panel"]
+custom_minimum_size = Vector2(77, 19)
+layout_mode = 0
+offset_left = 309.0
+offset_top = 374.0
+offset_right = 386.0
+offset_bottom = 393.0
+texture = ExtResource("14_jx1aq")
+expand_mode = 1
+
+[node name="Cards" type="HBoxContainer" parent="Players/Player5"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+offset_left = 336.0
+offset_top = 288.0
+offset_right = 416.0
+offset_bottom = 368.0
+alignment = 1
+
+[node name="Card1" type="TextureRect" parent="Players/Player5/Cards"]
+custom_minimum_size = Vector2(37, 55)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Card2" type="TextureRect" parent="Players/Player5/Cards"]
 custom_minimum_size = Vector2(37, 55)
 layout_mode = 2
 expand_mode = 1
@@ -836,18 +874,11 @@ script = ExtResource("3_gh18n")
 [node name="ActionButtons" type="HBoxContainer" parent="ActionUI"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-offset_left = -30.0
-offset_right = 500.0
-offset_bottom = 60.0
+offset_left = 50.0
+offset_top = 15.0
+offset_right = 294.0
+offset_bottom = 59.0
 theme_override_constants/separation = 8
-
-[node name="BetAmount" type="SpinBox" parent="ActionUI/ActionButtons"]
-custom_minimum_size = Vector2(76, 44)
-layout_mode = 2
-theme = ExtResource("11_xotbv")
-step = 500.0
-rounded = true
-alignment = 1
 
 [node name="FoldButton" type="Button" parent="ActionUI/ActionButtons"]
 custom_minimum_size = Vector2(76, 44)
@@ -870,33 +901,47 @@ text = "Raise"
 text_overrun_behavior = 3
 autowrap_mode = 3
 
-[node name="BetControl" type="VBoxContainer" parent="ActionUI"]
+[node name="BetControl" type="Control" parent="ActionUI"]
 custom_minimum_size = Vector2(20, 202)
 layout_mode = 2
+anchors_preset = 0
 offset_left = 228.0
-offset_top = -230.0
-offset_right = 294.0
-offset_bottom = -28.0
-alignment = 2
+offset_top = -211.0
+offset_right = 374.0
+offset_bottom = 39.0
 
 [node name="BetSlider" type="VSlider" parent="ActionUI/BetControl"]
 custom_minimum_size = Vector2(20, 202)
 layout_mode = 2
+offset_right = 66.0
+offset_bottom = 202.0
 theme = SubResource("Theme_ei1b7")
 theme_override_icons/grabber = ExtResource("24_ye770")
 theme_override_icons/grabber_highlight = ExtResource("24_ye770")
 step = 500.0
 rounded = true
 
+[node name="BetAmount" type="SpinBox" parent="ActionUI/BetControl"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+offset_left = -70.0
+offset_top = 154.0
+offset_right = 0.9375
+offset_bottom = 198.0
+theme = ExtResource("11_xotbv")
+step = 500.0
+rounded = true
+alignment = 1
+
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("3_7l7kt")
 
 [node name="BookButton" parent="." instance=ExtResource("19_85r61")]
-custom_minimum_size = Vector2(77, 19)
-offset_left = 386.0
-offset_top = 374.0
-offset_right = 463.0
-offset_bottom = 393.0
+custom_minimum_size = Vector2(60, 14)
+offset_left = 400.0
+offset_top = 376.0
+offset_right = 460.0
+offset_bottom = 386.0
 
 [node name="ReturnToLobbyButton" type="Button" parent="."]
 custom_minimum_size = Vector2(30, 30)

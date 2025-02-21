@@ -334,10 +334,11 @@ texture = ExtResource("14_e6dde")
 expand_mode = 1
 
 [node name="BookButton" parent="PlayerPanel2" instance=ExtResource("15_pe52p")]
-offset_left = 93.0
+custom_minimum_size = Vector2(230, 20)
+offset_left = 44.0
 offset_top = 64.0
-offset_right = 225.0
-offset_bottom = 96.0
+offset_right = 274.0
+offset_bottom = 84.0
 
 [node name="ProfileDisplay" type="Control" parent="."]
 anchors_preset = 0

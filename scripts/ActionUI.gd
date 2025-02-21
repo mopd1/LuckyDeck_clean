@@ -14,9 +14,9 @@ func _ready():
 	$ActionButtons/RaiseButton.pressed.connect(_on_raise_pressed)
 	
 	$BetControl/BetSlider.value_changed.connect(_on_bet_changed)
-	$ActionButtons/BetAmount.value_changed.connect(_on_bet_changed)
+	$BetControl/BetAmount.value_changed.connect(_on_bet_changed)
 	
-	var bet_amount = $ActionButtons/BetAmount
+	var bet_amount = $BetControl/BetAmount
 	if bet_amount:
 		# Get the internal LineEdit for the SpinBox
 		var line_edit = bet_amount.get_line_edit()
@@ -64,7 +64,7 @@ func _on_raise_pressed():
 	emit_signal("raise_pressed")
 
 func get_bet_amount() -> int:
-	return $ActionButtons/BetAmount.value
+	return $BetControl/BetAmount.value
 
 func update_bet_limits(min_bet, max_bet, default_bet_amount = -1):
 	print("DEBUG: Updating bet limits")
@@ -77,22 +77,22 @@ func update_bet_limits(min_bet, max_bet, default_bet_amount = -1):
 
 	$BetControl/BetSlider.min_value = min_bet
 	$BetControl/BetSlider.max_value = max_bet
-	$ActionButtons/BetAmount.min_value = min_bet
-	$ActionButtons/BetAmount.max_value = max_bet
+	$BetControl/BetAmount.min_value = min_bet
+	$BetControl/BetAmount.max_value = max_bet
 
 	# If min_bet equals max_bet, disable the controls
 	var bet_controls_disabled = min_bet == max_bet
 	$BetControl/BetSlider.editable = not bet_controls_disabled
-	$ActionButtons/BetAmount.editable = not bet_controls_disabled
+	$BetControl/BetAmount.editable = not bet_controls_disabled
 
 	# Set the default bet amount
 	if default_bet_amount == -1:
-		var current_value = $ActionButtons/BetAmount.value
-		$ActionButtons/BetAmount.value = clamp(current_value, min_bet, max_bet)
+		var current_value = $BetControl/BetAmount.value
+		$BetControl/BetAmount.value = clamp(current_value, min_bet, max_bet)
 	else:
-		$ActionButtons/BetAmount.value = clamp(default_bet_amount, min_bet, max_bet)
+		$BetControl/BetAmount.value = clamp(default_bet_amount, min_bet, max_bet)
 
-	_on_bet_changed($ActionButtons/BetAmount.value)
+	_on_bet_changed($BetControl/BetAmount.value)
 
 func _on_bet_changed(value):
 	print("DEBUG: _on_bet_changed called with value:", value)
@@ -103,7 +103,7 @@ func _on_bet_changed(value):
 	is_updating = true
 
 	$BetControl/BetSlider.value = value
-	$ActionButtons/BetAmount.value = value
+	$BetControl/BetAmount.value = value
 
 	if game_manager and game_manager.players:
 		var current_player = game_manager.players[game_manager.current_player_index]
@@ -122,7 +122,7 @@ func _on_bet_changed(value):
 
 func set_bet_amount(amount):
 	is_updating = true
-	$ActionButtons/BetAmount.value = amount
+	$BetControl/BetAmount.value = amount
 	$BetControl/BetSlider.value = amount
 	is_updating = false
 
