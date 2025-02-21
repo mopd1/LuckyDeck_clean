@@ -25,7 +25,7 @@ func _ready():
 
 func setup(data: Dictionary):
 	item_data = data
-	item_name.text = data.id.capitalize()
+	item_name.text = data.get("display_name", data.id.capitalize())
 	item_image.texture = load(data.image)
 	
 	# Handle both old and new rarity formats

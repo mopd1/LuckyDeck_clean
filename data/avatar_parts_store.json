@@ -2,75 +2,83 @@
   "parts": [
 	{
 	  "id": "face2",
+	  "display_name": "Old Leather",
 	  "type": "face",
 	  "rarity": "common",
 	  "image": "res://assets/avatars/face/face2.png",
 	  "rarity_stars": 1,
 	  "trade_value": 100,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "Ooof Madone! Years of reflecting the sun straight off an aluminium sheet have done a number on you."
 	},
 	{
 	  "id": "hair1",
+	  "display_name": "Salt n Pepa",
 	  "type": "hair",
 	  "rarity": "rare",
 	  "image": "res://assets/avatars/hair/hair1.png",
 	  "rarity_stars": 5,
 	  "trade_value": 500,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "You might be losing a bit at the front but those wings are looking regal, my friend."
 	},
 	{
 	  "id": "eyes1",
+	  "display_name": "Lazy Blues",
 	  "type": "eyes",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/eyes/eyes1.png",
 	  "rarity_stars": 3,
 	  "trade_value": 300,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "You’ve seen some things... Reaganomics, the advent of the ‘light’ cigarette and the compact disc all through your lazy baby blues."
 	},
 	{
 	  "id": "eyes2",
+	  "display_name": "Sparklers",
 	  "type": "eyes",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/eyes/eyes2.png",
 	  "rarity_stars": 3,
 	  "trade_value": 300,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "Heartbreaker with a twinkle in your eye, that's what you are."
 	},
 	{
 	  "id": "nose1",
+	  "display_name": "Boxer's Bill",
 	  "type": "nose",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/nose/nose1.png",
 	  "rarity_stars": 3,
 	  "trade_value": 300,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "Like someone smashed you with a brick"
 	},
 	{
 	  "id": "nose2",
+	  "display_name": "Little Honker",
 	  "type": "nose",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/nose/nose2.png",
 	  "rarity_stars": 3,
 	  "trade_value": 300,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "The kids at school had a more unkind name for it."
 	},
 	{
 	  "id": "mouth1",
+	  "display_name": "Pretty Moosh",
 	  "type": "mouth",
 	  "rarity": "uncommon",
 	  "image": "res://assets/avatars/mouth/mouth1.png",
 	  "rarity_stars": 3,
 	  "trade_value": 300,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "Give us a kiss, big boy."
 	},
 	{
 	  "id": "eyebrows1",
+	  "display_name": "Dead Caterpillars",
 	  "type": "eyebrows",
 	  "rarity": "common",
 	  "image": "res://assets/avatars/eyebrows/eyebrows1.png",
 	  "rarity_stars": 1,
 	  "trade_value": 100,
-	  "flavour_text": "This is placeholder copy"
+	  "flavour_text": "With every new hair comes added wisdom."
 	}
   ]
 }
