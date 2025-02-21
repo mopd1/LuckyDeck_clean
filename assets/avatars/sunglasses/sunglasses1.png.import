@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duww8knibg2jl"
-path="res://.godot/imported/sunglasses2.png-18c601258b1167c93a1b101b9def17be.ctex"
+uid="uid://de4jhkgumpad"
+path="res://.godot/imported/sunglasses1.png-49c2cc14d28bbfa574fd0afe74b520c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/avatars/eyes/sunglasses2.png"
-dest_files=["res://.godot/imported/sunglasses2.png-18c601258b1167c93a1b101b9def17be.ctex"]
+source_file="res://assets/avatars/sunglasses/sunglasses1.png"
+dest_files=["res://.godot/imported/sunglasses1.png-49c2cc14d28bbfa574fd0afe74b520c2.ctex"]
 
 [params]
 

@@ -19,7 +19,7 @@ const PLAYER_BET_OFFSETS = {
 	4: Vector2(-720, -480)    # Bottom right
 }
 
-var avatar_layers = ["face", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
+var avatar_layers = ["face", "sunglasses", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
 var player_index: int
 
 func _ready():

@@ -21,6 +21,16 @@
 	  "flavour_text": "You might be losing a bit at the front but those wings are looking regal, my friend."
 	},
 	{
+	  "id": "sunglasses1",
+	  "display_name": "The Old Classics",
+	  "type": "sunglasses",
+	  "rarity": "rare",
+	  "image": "res://assets/avatars/sunglasses/sunglasses1.png",
+	  "rarity_stars": 5,
+	  "trade_value": 500,
+	  "flavour_text": "Don't leave the house without them."
+	},
+	{
 	  "id": "eyes1",
 	  "display_name": "Lazy Blues",
 	  "type": "eyes",

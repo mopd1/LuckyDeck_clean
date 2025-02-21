@@ -10,7 +10,7 @@ extends Control
 @onready var task3 = $MarginContainer/VBoxContainer/TasksContainer/DailyActionTask3
 @onready var task4 = $MarginContainer/VBoxContainer/TasksContainer/DailyActionTask4
 
-var avatar_layers = ["face", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]
+var avatar_layers = ["face", "sunglasses", "eyes", "eyebrows", "mouth", "nose", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]
 var task_instances = []  # Store references to task instances
 var tasks = []  # To hold references to all tasks
 

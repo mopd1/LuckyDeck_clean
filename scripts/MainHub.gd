@@ -47,7 +47,7 @@ var JackpotSNGManager = preload("res://scripts/JackpotSNGManager.gd").new()
 var current_tooltip = null
 var tooltip_timer: Timer
 
-var avatar_layers = ["face", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
+var avatar_layers = ["face", "sunglasses", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
 var player_data = {
 	"name": "Player1",
 	"total_balance": 10000,

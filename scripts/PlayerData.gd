@@ -29,6 +29,7 @@ var player_data = {
 	"owned_avatar_parts": [],
 	"avatar_data": {
 		"face": null,
+		"sunglasses": null,
 		"eyebrows": null,
 		"eyes": null,
 		"nose": null,

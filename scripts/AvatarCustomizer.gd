@@ -4,6 +4,7 @@ signal customization_complete(avatar_data)
 
 var category_mapping = {
 	"face": {"node": "Face", "folder": "face"},
+	"sunglasses": {"node": "Sunglasses", "folder": "sunglasses"},
 	"eyebrows": {"node": "Eyebrows", "folder": "eyebrows"},
 	"eyes": {"node": "Eyes", "folder": "eyes"},
 	"nose": {"node": "Nose", "folder": "nose"},
@@ -17,6 +18,7 @@ var category_mapping = {
 
 var avatar_config = {
 	"face": null,
+	"sunglasses": null,
 	"eyebrows": null,
 	"eyes": null,
 	"nose": null,
@@ -43,14 +45,15 @@ var avatar_config = {
 @onready var eyes_sprite = $AvatarRoot/HeadBase/Eyes
 @onready var nose_sprite = $AvatarRoot/HeadBase/Nose
 @onready var mouth_sprite = $AvatarRoot/HeadBase/Mouth
+@onready var sunglasses_sprite = $AvatarRoot/HeadBase/Sunglasses
 
 func _ready():
 	initialize_avatar()
 	setup_ui()
-	test_customization()
 
 func initialize_avatar():
 	face_sprite.visible = false
+	sunglasses_sprite.visible = false
 	eyebrows_sprite.visible = false
 	eyes_sprite.visible = false
 	nose_sprite.visible = false
