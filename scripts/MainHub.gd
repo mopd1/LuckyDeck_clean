@@ -3,6 +3,10 @@ extends Control
 
 signal game_joined(game_data)
 
+const GAME_TYPE_MAPPING = {
+	"NL Holdem Cash Game": "NL Hold'em Cash Game"
+}
+
 @onready var profile_display = $ProfileDisplay
 @onready var avatar_button = $ProfileDisplay/AvatarButton
 @onready var player_name_label = $PlayerPanel/PlayerName
@@ -43,7 +47,7 @@ var JackpotSNGManager = preload("res://scripts/JackpotSNGManager.gd").new()
 var current_tooltip = null
 var tooltip_timer: Timer
 
-var avatar_layers = ["face", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]
+var avatar_layers = ["face", "eyebrows", "eyes", "nose", "mouth", "hair", "hat", "ear_accessories", "mouth_accessories", "clothing"]
 var player_data = {
 	"name": "Player1",
 	"total_balance": 10000,
@@ -270,26 +274,27 @@ func _on_jackpot_sng_start_game_requested(stake: int):
 	print("Debug: Starting game with AI players")
 	_trigger_test_game_start(stake)
 
-func _on_game_panel_play_pressed(game_type: String, stake: int):
+func _on_game_panel_play_pressed(display_game_type: String, stake: int):
 	print("Debug: Game panel play pressed")
-	print("Debug: Game type:", game_type)
+	print("Debug: Display game type:", display_game_type)
 	print("Debug: Stake:", stake)
 	print("Debug: Available stakes:", GameJoiner.AVAILABLE_STAKES)
 	print("Debug: Available game types:", GameJoiner.available_game_types.keys())
 	
-	# Make sure we're using the exact game type string
-	if game_type == "NL Hold'em Cash Game":
+	# Convert display game type to internal game type
+	var internal_game_type = GAME_TYPE_MAPPING.get(display_game_type, display_game_type)
+	print("Debug: Mapped to internal game type:", internal_game_type)
+	
+	# Check if we have a valid game type
+	if internal_game_type in GameJoiner.available_game_types:
 		print("Debug: Attempting to join game")
-		print("Debug: Using game type:", game_type)  # Should be exact match
+		print("Debug: Using game type:", internal_game_type)
 		print("Debug: Using stake:", stake)
 		
 		var player_data = {"name": "Player1"}
-		# Create game_type variable for clarity
-		var joiner_game_type = "NL Hold'em Cash Game"
-		print("Debug: Calling join_game with type:", joiner_game_type)
-		GameJoiner.join_game(player_data, joiner_game_type, stake)
+		GameJoiner.join_game(player_data, internal_game_type, stake)
 	else:
-		push_error("Unknown game type: " + game_type)
+		push_error("Unknown game type: " + display_game_type + " (internal: " + internal_game_type + ")")
 
 func _on_jackpot_sng_play_pressed(game_type: String, stake: int):
 	print("Debug: Starting Jackpot SNG registration for stake:", stake)

@@ -161,7 +161,7 @@ func _update_avatar():
 		push_error("AvatarScene not found in AvatarViewport")
 
 func _update_avatar_scene(avatar_scene, avatar_data):
-	for part in ["face", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]:
+	for part in ["face", "eyebrows", "eyes", "nose", "mouth", "clothing", "hair", "hat", "ear_accessories", "mouth_accessories"]:
 		var sprite = avatar_scene.get_node_or_null(part.capitalize())
 		if sprite:
 			if avatar_data.get(part):

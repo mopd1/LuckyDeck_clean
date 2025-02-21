@@ -7,6 +7,14 @@ anchors_preset = 0
 
 [node name="Face" type="Sprite2D" parent="."]
 
+[node name="Eyebrows" type="Sprite2D" parent="."]
+
+[node name="Eyes" type="Sprite2D" parent="."]
+
+[node name="Nose" type="Sprite2D" parent="."]
+
+[node name="Mouth" type="Sprite2D" parent="."]
+
 [node name="Hair" type="Sprite2D" parent="."]
 
 [node name="Hat" type="Sprite2D" parent="."]
