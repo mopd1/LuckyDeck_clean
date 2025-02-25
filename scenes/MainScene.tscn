@@ -552,12 +552,13 @@ texture = ExtResource("14_jx1aq")
 expand_mode = 1
 
 [node name="Cards" type="HBoxContainer" parent="Players/Player3"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
-offset_left = 336.0
-offset_top = 287.0
-offset_right = 416.0
-offset_bottom = 367.0
+offset_left = 415.0
+offset_top = 302.0
+offset_right = 493.0
+offset_bottom = 357.0
+scale = Vector2(0.7, 0.7)
 alignment = 1
 
 [node name="Card1" type="TextureRect" parent="Players/Player3/Cards"]

@@ -41,6 +41,7 @@ const GAME_TYPE_MAPPING = {
 @onready var table_games_button = $GameSelectionArea/GameTypeButtons/TableGamesButton
 @onready var sports_betting_button = $GameSelectionArea/GameTypeButtons/SportsBettingButton
 @onready var poker_test_button = $PokerTestButton
+@onready var edit_name_button = $PlayerPanel/EditNameButton
 
 var tooltip_scene = preload("res://scenes/Tooltip.tscn")
 var JackpotSNGManager = preload("res://scripts/JackpotSNGManager.gd").new()
@@ -70,6 +71,15 @@ func _ready():
 	if not APIManager.is_connected("user_data_received", _on_user_data_received):
 		APIManager.connect("user_data_received", _on_user_data_received)
 		print("Debug: Connected to user_data_received signal")
+	
+	# Connect to profile update signal
+	if not APIManager.is_connected("profile_update_completed", _on_profile_update_completed):
+		APIManager.connect("profile_update_completed", _on_profile_update_completed)
+	
+	# Connect to player name update signal
+	if not PlayerData.is_connected("player_name_updated", _on_player_name_updated):
+		PlayerData.connect("player_name_updated", _on_player_name_updated)
+		print("Debug: Connected to player_name_updated signal")
 	
 	# Connect to PlayerData signals
 	if not PlayerData.is_connected("balance_updated", _on_balance_updated):
@@ -172,6 +182,13 @@ func _on_user_data_received(data):
 		push_error("Received invalid user data type")
 		return
 	
+	# Check for player name and update if available
+	if data.has("name"):
+		print("Debug: Updating player name to:", data.name)
+		PlayerData.player_data["name"] = data.name
+		if player_name_label:
+			player_name_label.text = data.name
+	
 	# Check for both "balance" and "chips" fields for compatibility
 	var balance = null
 	if data.has("balance"):
@@ -226,6 +243,8 @@ func initialize_ui():
 	initialize_game_type_selection()
 	initialize_stake_selection()
 	play_button.disabled = true
+
+	initialize_player_name_edit()
 
 func setup_game_panels():
 	print("Debug: Setting up game panels...")
@@ -358,10 +377,83 @@ func set_player_data(data):
 func update_profile_display():
 	if player_name_label:
 		player_name_label.text = PlayerData.player_data["name"]
+		# If it's a LineEdit, make sure it's not editable by default
+		if player_name_label is LineEdit:
+			player_name_label.editable = false
 	if chip_balance_display:
 		chip_balance_display.text = str(PlayerData.player_data["total_balance"])
-	if gem_balance_display:  # New block
+	if gem_balance_display:
 		gem_balance_display.text = str(PlayerData.player_data["gems"])
+
+func initialize_player_name_edit() -> void:
+	# Set up the LineEdit
+	if player_name_label and player_name_label is LineEdit:
+		# Connect edit button (assuming you added one called edit_name_button)
+		var edit_name_button = $PlayerPanel/EditNameButton  # Adjust path as needed
+		if edit_name_button:
+			edit_name_button.pressed.connect(_on_edit_name_button_pressed)
+		
+		# Connect text submission event
+		player_name_label.text_submitted.connect(_on_player_name_submitted)
+		
+		# Connect focus loss event to end editing
+		player_name_label.focus_exited.connect(_on_player_name_focus_exited)
+
+func _on_player_name_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
+		# Make the LineEdit editable on double-click
+		if player_name_label and player_name_label is LineEdit:
+			player_name_label.editable = true
+			player_name_label.grab_focus()
+			player_name_label.select_all()
+
+func _on_player_name_submitted(new_text: String) -> void:
+	# Called when Enter is pressed in the LineEdit
+	if player_name_label and player_name_label is LineEdit:
+		submit_player_name_change(new_text)
+
+func _on_player_name_focus_exited() -> void:
+	# Called when the LineEdit loses focus
+	if player_name_label and player_name_label is LineEdit:
+		if player_name_label.editable:
+			submit_player_name_change(player_name_label.text)
+			player_name_label.editable = false
+
+func submit_player_name_change(new_name: String) -> void:
+	# Don't update if name is empty or unchanged
+	if new_name.strip_edges().is_empty() or new_name == PlayerData.player_data["name"]:
+		# Reset to current name
+		player_name_label.text = PlayerData.player_data["name"]
+		player_name_label.editable = false
+		return
+	
+	# Update locally using PlayerData setter
+	var old_name = PlayerData.player_data["name"]
+	if PlayerData.set_player_name(new_name):
+		# Send to server
+		print("Debug: Submitting name change from '%s' to '%s'" % [old_name, new_name])
+		APIManager.update_user_profile({"name": new_name})
+	
+	# Disable editing while we wait for server confirmation
+	player_name_label.editable = false
+
+func _on_profile_update_completed(success: bool, message: String) -> void:
+	print("Debug: Profile update %s: %s" % ["succeeded" if success else "failed", message])
+	
+	if not success:
+		# If update failed, revert to the previous name
+		APIManager.get_user_data() # Refresh data from server
+		OS.alert("Could not update name: " + message, "Update Failed")
+		
+	# Always update display to show current data
+	update_profile_display()
+
+func _on_player_name_updated(new_name: String) -> void:
+	print("Debug: Player name updated to: %s" % new_name)
+	
+	# Update the display
+	if player_name_label:
+		player_name_label.text = new_name
 
 func _on_balance_updated(new_balance: int):
 	update_chip_balance_display()
@@ -679,6 +771,11 @@ func _on_poker_test_button_pressed():
 func _on_action_points_updated(_points):
 	book_button.update_progress_display()
 
-
 func _on_daily_action_button_pressed() -> void:
 	SceneManager.goto_scene("res://scenes/DailyAction.tscn")
+
+func _on_edit_name_button_pressed() -> void:
+	if player_name_label and player_name_label is LineEdit:
+		player_name_label.editable = true
+		player_name_label.grab_focus()
+		player_name_label.select_all()

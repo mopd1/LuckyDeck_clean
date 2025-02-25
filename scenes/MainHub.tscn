@@ -31,8 +31,10 @@ default_font = ExtResource("1_s3xu5")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fah8o"]
 bg_color = Color(0.0392157, 0.0156863, 0.129412, 1)
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="Theme" id="Theme_yv0ju"]
 
@@ -233,7 +235,7 @@ offset_bottom = 144.0
 expand_mode = 1
 stretch_mode = 6
 
-[node name="PlayerName" type="Label" parent="PlayerPanel"]
+[node name="PlayerName" type="LineEdit" parent="PlayerPanel"]
 custom_minimum_size = Vector2(174, 34)
 layout_mode = 0
 offset_left = 15.0
@@ -244,8 +246,9 @@ theme = ExtResource("5_utarw")
 theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
 theme_override_fonts/font = ExtResource("1_s3xu5")
 text = "Player 1"
-horizontal_alignment = 1
-vertical_alignment = 1
+alignment = 1
+max_length = 20
+editable = false
 
 [node name="CustomizeAvatarButton" type="Button" parent="PlayerPanel"]
 custom_minimum_size = Vector2(132, 32)
@@ -278,6 +281,15 @@ offset_right = 360.0
 offset_bottom = 820.0
 theme = ExtResource("4_pb4yn")
 text = "User Settings"
+
+[node name="EditNameButton" type="Button" parent="PlayerPanel"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 207.0
+offset_right = 49.0
+offset_bottom = 241.0
+text = "Edit"
 
 [node name="PlayerPanel2" type="Panel" parent="."]
 layout_mode = 0
@@ -378,6 +390,7 @@ theme = ExtResource("4_yfthd")
 text = "GET CHIPS"
 
 [node name="EngagementFeaturesButton" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

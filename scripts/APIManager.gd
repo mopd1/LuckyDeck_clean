@@ -33,6 +33,17 @@ var rate_limit_remaining = 20
 var rate_limit_window = 900.0
 var last_login_attempt = 0.0
 
+func get_correct_api_url(endpoint: String) -> String:
+	var base = api_url.strip_edges().trim_suffix("/")
+	if base.ends_with("/api"):
+		base = base.trim_suffix("/api")
+	
+	# Make sure endpoint starts with a slash
+	if not endpoint.begins_with("/"):
+		endpoint = "/" + endpoint
+	
+	return base + "/api" + endpoint
+
 func _ready():
 	api_url = ConfigManager.api_url
 	print("APIManager initialized with URL: ", api_url)
@@ -93,11 +104,9 @@ func login(username: String, password: String) -> void:
 	var request_id = Time.get_unix_time_from_system()
 	print("Debug: Starting login request %d" % request_id)
 	
-	var base_url = api_url.strip_edges().trim_suffix("/")  # Remove any trailing slash
-	var login_endpoint = "/auth/login"
-	var full_url = base_url + login_endpoint
+	var full_url = get_correct_api_url("/auth/login")
 	
-	print("Debug - Base URL: ", base_url)
+	print("Debug - Base URL: ", api_url)
 	print("Debug - Full URL: ", full_url)
 	
 	var http_request = HTTPRequest.new()
@@ -211,12 +220,7 @@ func login_with_google_token(token: String):
 	
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({"token": token})
-	var error = http_request.request(
-		api_url + "/auth/google/mobile",
-		headers,
-		HTTPClient.METHOD_POST,
-		body
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 
 func _on_google_token_login_completed(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
@@ -237,7 +241,12 @@ func get_user_data():
 	http_request.connect("request_completed", Callable(self, "_on_get_user_data_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(api_url + "/auth/user", headers, HTTPClient.METHOD_GET)
+	
+	# Updated URL to include the /api prefix
+	var url = api_url + "/api/auth/user"
+	print("Debug: Getting user data from URL: " + url)
+	
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -277,7 +286,7 @@ func refresh_auth_token():
 
 	var body = JSON.stringify({"refreshToken": refresh_token})
 	var headers = ["Content-Type: application/json"]
-	var error = http_request.request(api_url + "/auth/refresh-token", headers, HTTPClient.METHOD_POST, body)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -300,7 +309,7 @@ func logout():
 	http_request.connect("request_completed", Callable(self, "_on_logout_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(api_url + "/auth/logout", headers, HTTPClient.METHOD_POST)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -326,7 +335,12 @@ func update_user_profile(update_data: Dictionary):
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
 	var body = JSON.stringify(update_data)
-	var error = http_request.request(api_url + "/auth/update-profile", headers, HTTPClient.METHOD_PUT, body)
+	
+	# Updated URL to include the /api prefix
+	var url = api_url + "/api/auth/update-profile"
+	print("Debug: Sending profile update to URL: " + url)
+	
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -358,7 +372,7 @@ func verify_email(verification_token: String):
 
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({"token": verification_token})
-	var error = http_request.request(api_url + "/auth/verify-email", headers, HTTPClient.METHOD_POST, body)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -402,11 +416,8 @@ func purchase_package(package_data: Dictionary):
 		"price": package_data["price"]
 	})
 	
-	var error = http_request.request(api_url + "/store/purchase-package", 
-								   headers, 
-								   HTTPClient.METHOD_POST, 
-								   body)
-								   
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	   
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		emit_signal("package_purchase_completed", false, {"message": "HTTP request failed."})
@@ -461,14 +472,9 @@ func update_server_balance(new_balance: int):
 	
 	print("Debug: Sending balance update request")
 	print("Debug: Request body:", body)
-	print("Debug: Request URL:", api_url + "/balance/update-chips")  # Added for debugging
+	print("Debug: Request URL:", api_url + "/api/balance/update-chips")  
 	
-	var error = http_request.request(
-		api_url + "/balance/update-chips",  # This matches the route in authRoutes.js
-		headers,
-		HTTPClient.METHOD_PUT,
-		body
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 
 func _on_balance_update_completed(result, response_code: int, headers, body: PackedByteArray):
 	print("Debug: Balance update response received")
@@ -510,11 +516,7 @@ func search_users(query: String):
 	]
 	
 	# Remove the extra 'api/' from the path
-	var error = http_request.request(
-		api_url + "/friends/search?query=" + query.uri_encode(),
-		headers,
-		HTTPClient.METHOD_GET
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -562,12 +564,7 @@ func send_friend_request(friend_id: int) -> void:
 	
 	print("Sending friend request with body:", body)  # Debug print
 	
-	var error = http_request.request(
-		api_url + "/friends/request",
-		headers,
-		HTTPClient.METHOD_POST,
-		body
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -605,7 +602,7 @@ func get_user_friends():
 	http_request.connect("request_completed", Callable(self, "_on_get_user_friends_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(api_url + "/friends/list", headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -636,11 +633,7 @@ func get_pending_friend_requests():
 		"Authorization: Bearer " + user_token
 	]
 
-	var error = http_request.request(
-		api_url + "/friends/pending",
-		headers,
-		HTTPClient.METHOD_GET
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -680,12 +673,7 @@ func respond_to_friend_request(request_id: int, status: String):
 		"Authorization: Bearer " + user_token
 	]
 	var body = JSON.stringify({"status": status})
-	var error = http_request.request(
-		api_url + "/friends/request/" + str(request_id),
-		headers,
-		HTTPClient.METHOD_PUT,
-		body
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -732,12 +720,7 @@ func send_message(receiver_id: int, content: String):
 		"receiverId": receiver_id,
 		"content": content
 	})
-	var error = http_request.request(
-		api_url + "/friends/message",
-		headers,
-		HTTPClient.METHOD_POST,
-		body
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -768,11 +751,7 @@ func get_chat_history(friend_id: int, page: int = 1):
 		"Content-Type: application/json",
 		"Authorization: Bearer " + user_token
 	]
-	var error = http_request.request(
-		api_url + "/friends/messages/" + str(friend_id) + "?page=" + str(page),
-		headers,
-		HTTPClient.METHOD_GET
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -803,11 +782,7 @@ func mark_messages_as_read(friend_id: int):
 		"Content-Type: application/json",
 		"Authorization: Bearer " + user_token
 	]
-	var error = http_request.request(
-		api_url + "/friends/messages/read/" + str(friend_id),
-		headers,
-		HTTPClient.METHOD_PUT
-	)
+	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -826,7 +801,7 @@ func _on_mark_messages_read_completed(result, response_code, headers, body):
 
 func test_endpoints():
 	print("Debug: Testing API endpoints")
-	# Remove the extra 'api/' from the test paths
+	
 	var test_endpoints = [
 		"/user/update-chips",
 		"/user/update-balance",
@@ -842,7 +817,7 @@ func test_endpoints():
 		)
 		
 		var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-		print("Debug: Testing endpoint:", api_url + endpoint)
+		print("Debug: Testing endpoint:", get_correct_api_url(endpoint))
 		
 		# Try both GET and PUT methods
 		for method in [HTTPClient.METHOD_GET, HTTPClient.METHOD_PUT]:
@@ -854,10 +829,11 @@ func test_endpoints():
 			if method == HTTPClient.METHOD_PUT:
 				body = JSON.stringify({
 					"chips": 220000,
-					"user_id": user_data.get("id", null)  # Include user ID if we have it
+					"user_id": user_data.get("id", null)
 				})
 			
-			var error = http_request.request(api_url + endpoint, headers, method, body if method == HTTPClient.METHOD_PUT else "")
+			var url = get_correct_api_url(endpoint)
+			var error = http_request.request(url, headers, method, body if method == HTTPClient.METHOD_PUT else "")
 			
 			if error != OK:
 				print("Debug: Error testing %s %s: %s" % [method_name, endpoint, error])

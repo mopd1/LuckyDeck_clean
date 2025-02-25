@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bd7yqjyx5bo82"]
+[gd_scene load_steps=6 format=3 uid="uid://bd7yqjyx5bo82"]
 
 [ext_resource type="Script" path="res://scripts/ChallengeProgressButton.gd" id="1_8uqba"]
 [ext_resource type="Texture2D" uid="uid://cciuavpguq06w" path="res://assets/icons/tier_1.png" id="2_etjtr"]
 [ext_resource type="FontFile" uid="uid://cxfqy12gmgcfg" path="res://assets/fonts/ApercuMonoProRegular.ttf" id="3_nv2mm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpn3w"]
+
+[sub_resource type="Theme" id="Theme_8dn8j"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_vpn3w")
+ProgressBar/styles/fill = null
 
 [node name="ChallengeProgressButton" type="Control"]
 custom_minimum_size = Vector2(230, 20)
@@ -12,6 +18,7 @@ offset_right = 230.0
 offset_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = SubResource("Theme_8dn8j")
 script = ExtResource("1_8uqba")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

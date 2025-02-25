@@ -14,6 +14,7 @@ signal balance_updated(new_balance)
 signal package_purchase_completed(success, data)
 # New signal for balance initialization
 signal balance_initialized
+signal player_name_updated(new_name)
 
 # Existing variables
 var avatar_data = {}
@@ -56,6 +57,15 @@ func _ready():
 # New server sync handler
 func _on_user_data_received(data):
 	print("Debug: PlayerData received user data update:", data)
+	
+	# Handle player name updates
+	if data.has("name"):
+		var old_name = player_data["name"]
+		player_data["name"] = data.name
+		
+		if old_name != data.name:
+			print("Debug: Player name updated from server:", data.name)
+			emit_signal("player_name_updated", data.name)
 	if data.has("balance"):
 		var old_balance = player_data["total_balance"]
 		player_data["total_balance"] = data.balance
@@ -119,6 +129,19 @@ func update_total_balance(change: int):
 # New helper method
 func has_sufficient_balance(required_amount: int) -> bool:
 	return get_balance() >= required_amount
+
+func set_player_name(new_name: String) -> bool:
+	if new_name.strip_edges().is_empty():
+		return false
+		
+	var old_name = player_data["name"]
+	player_data["name"] = new_name
+	
+	# Only emit the signal if the name actually changed
+	if old_name != new_name:
+		emit_signal("player_name_updated", new_name)
+		
+	return true
 
 # ALL EXISTING METHODS REMAIN UNCHANGED BELOW
 func update_challenge_points(points_to_add):
