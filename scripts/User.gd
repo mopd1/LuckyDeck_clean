@@ -27,6 +27,13 @@ func handle_login_success(response_data: Dictionary):
 		current_user_id = response_data.user.id
 		user_data = response_data.user
 		
+		if response_data.user.has("display_name") and response_data.user.display_name != null:
+			PlayerData.player_data["name"] = response_data.user.display_name
+		elif response_data.user.has("name") and response_data.user.name != null:
+			PlayerData.player_data["name"] = response_data.user.name
+		else:
+			PlayerData.player_data["name"] = response_data.user.username
+		
 		# Initialize PlayerData with user data if available
 		# Check for both "balance" and "chips" fields
 		if response_data.user.has("balance"):

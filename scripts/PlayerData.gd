@@ -20,7 +20,7 @@ signal player_name_updated(new_name)
 var avatar_data = {}
 var player_data = {
 	"version": CURRENT_DATA_VERSION,
-	"name": "Player1",
+	"name": "",
 	"total_balance": 0,  # Will be updated from server but maintains compatibility
 	"table_balance": 0,
 	"challenge_points": 0,
@@ -59,13 +59,15 @@ func _on_user_data_received(data):
 	print("Debug: PlayerData received user data update:", data)
 	
 	# Handle player name updates
-	if data.has("name"):
+	if data.has("display_name") and data["display_name"] != null:
 		var old_name = player_data["name"]
-		player_data["name"] = data.name
+		player_data["name"] = data["display_name"]
 		
-		if old_name != data.name:
-			print("Debug: Player name updated from server:", data.name)
-			emit_signal("player_name_updated", data.name)
+		print("Debug: Display name from server:", data["display_name"])
+		
+		if old_name != data["display_name"]:
+			print("Debug: Player name updated from server display_name:", data["display_name"])
+			emit_signal("player_name_updated", data["display_name"])
 	if data.has("balance"):
 		var old_balance = player_data["total_balance"]
 		player_data["total_balance"] = data.balance

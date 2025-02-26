@@ -183,11 +183,11 @@ func _on_user_data_received(data):
 		return
 	
 	# Check for player name and update if available
-	if data.has("name"):
-		print("Debug: Updating player name to:", data.name)
-		PlayerData.player_data["name"] = data.name
+	if data.has("display_name") and data["display_name"] != null:
+		print("Debug: Updating player name to:", data.display_name)
+		PlayerData.player_data["name"] = data.display_name
 		if player_name_label:
-			player_name_label.text = data.name
+			player_name_label.text = data.display_name
 	
 	# Check for both "balance" and "chips" fields for compatibility
 	var balance = null
@@ -376,10 +376,11 @@ func set_player_data(data):
 
 func update_profile_display():
 	if player_name_label:
-		player_name_label.text = PlayerData.player_data["name"]
-		# If it's a LineEdit, make sure it's not editable by default
-		if player_name_label is LineEdit:
-			player_name_label.editable = false
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+			
+		player_name_label.text = display_name
 	if chip_balance_display:
 		chip_balance_display.text = str(PlayerData.player_data["total_balance"])
 	if gem_balance_display:
@@ -427,26 +428,25 @@ func submit_player_name_change(new_name: String) -> void:
 		player_name_label.editable = false
 		return
 	
-	# Update locally using PlayerData setter
+	# Update locally using PlayerData's setter
 	var old_name = PlayerData.player_data["name"]
 	if PlayerData.set_player_name(new_name):
-		# Send to server
+		# Send to server using the new function signature
 		print("Debug: Submitting name change from '%s' to '%s'" % [old_name, new_name])
-		APIManager.update_user_profile({"name": new_name})
+		APIManager.update_user_profile(new_name)
 	
 	# Disable editing while we wait for server confirmation
 	player_name_label.editable = false
 
+
 func _on_profile_update_completed(success: bool, message: String) -> void:
 	print("Debug: Profile update %s: %s" % ["succeeded" if success else "failed", message])
 	
-	if not success:
-		# If update failed, revert to the previous name
-		APIManager.get_user_data() # Refresh data from server
+	if success:
+		# Force refresh user data
+		APIManager.get_user_data()
+	else:
 		OS.alert("Could not update name: " + message, "Update Failed")
-		
-	# Always update display to show current data
-	update_profile_display()
 
 func _on_player_name_updated(new_name: String) -> void:
 	print("Debug: Player name updated to: %s" % new_name)

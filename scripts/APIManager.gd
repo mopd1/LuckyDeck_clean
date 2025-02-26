@@ -34,15 +34,23 @@ var rate_limit_window = 900.0
 var last_login_attempt = 0.0
 
 func get_correct_api_url(endpoint: String) -> String:
-	var base = api_url.strip_edges().trim_suffix("/")
+	# Remove /api from the base URL if it exists
+	var base = api_url.strip_edges()
 	if base.ends_with("/api"):
 		base = base.trim_suffix("/api")
+	base = base.trim_suffix("/")  # Remove any trailing slash
 	
-	# Make sure endpoint starts with a slash
+	# Make sure endpoint starts with a slash and doesn't have duplicate /api prefix
 	if not endpoint.begins_with("/"):
 		endpoint = "/" + endpoint
 	
-	return base + "/api" + endpoint
+	# If the endpoint already includes /api/, remove it to prevent duplication
+	if endpoint.begins_with("/api/"):
+		endpoint = endpoint.substr(4)  # Remove the /api prefix
+	
+	var final_url = base + "/api" + endpoint
+	print("Debug: Constructed URL: base=%s, endpoint=%s, final=%s" % [base, endpoint, final_url])
+	return final_url
 
 func _ready():
 	api_url = ConfigManager.api_url
@@ -185,6 +193,20 @@ func _on_login_request_completed(result: int, response_code: int, headers: Packe
 		else:
 			user_token = json.get("token", "")
 			refresh_token = json.get("refreshToken", "")
+			
+			# Make sure user data has display_name
+			if json.has("user") and json.user is Dictionary:
+				# If server sends name or display_name, use it
+				if json.user.has("display_name"):
+					json.user["name"] = json.user["display_name"]
+				elif json.user.has("name"):
+					# Some servers might send 'name' directly
+					# Keep it to ensure compatibility
+					pass
+				else:
+					# If no name/display_name provided, use username as fallback
+					json.user["name"] = json.user["username"]
+			
 			User.handle_login_success(json)
 			emit_signal("login_completed", true, "Login successful")
 	else:
@@ -220,7 +242,12 @@ func login_with_google_token(token: String):
 	
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({"token": token})
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/auth/google/mobile"),
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
 
 func _on_google_token_login_completed(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
@@ -242,11 +269,10 @@ func get_user_data():
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
 	
-	# Updated URL to include the /api prefix
-	var url = api_url + "/api/auth/user"
+	var url = get_correct_api_url("/auth/user")
 	print("Debug: Getting user data from URL: " + url)
 	
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(url, headers, HTTPClient.METHOD_GET)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -286,7 +312,7 @@ func refresh_auth_token():
 
 	var body = JSON.stringify({"refreshToken": refresh_token})
 	var headers = ["Content-Type: application/json"]
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(get_correct_api_url("/auth/refresh-token"), headers, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -309,7 +335,7 @@ func logout():
 	http_request.connect("request_completed", Callable(self, "_on_logout_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(get_correct_api_url("/auth/logout"), headers, HTTPClient.METHOD_POST)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -324,31 +350,100 @@ func _on_logout_completed(result, response_code, headers, body):
 	if http_request:
 		http_request.queue_free()
 
-func update_user_profile(update_data: Dictionary):
+func update_user_profile(new_name: String):
+	# Check if the user has a valid token
 	if user_token.is_empty():
 		push_error("No user token available. Please login first.")
 		return
 
+	# Create an HTTPRequest node and connect the completion signal
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.connect("request_completed", Callable(self, "_on_update_profile_completed"))
 
-	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var body = JSON.stringify(update_data)
-	
-	# Updated URL to include the /api prefix
-	var url = api_url + "/api/auth/update-profile"
-	print("Debug: Sending profile update to URL: " + url)
-	
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	# Set up headers (JSON and Authorization)
+	var headers = [
+		"Content-Type: application/json",
+		"Authorization: Bearer " + user_token
+	]
+
+	# The server expects a "name" key in the JSON body
+	var body_dict = {
+		"name": new_name
+	}
+	var body = JSON.stringify(body_dict)
+
+	# We now call the dedicated /auth/update-profile route
+	var url = get_correct_api_url("/auth/update-profile")
+	print("Debug: Sending profile update to /auth/update-profile with body: " + body)
+
+	var error = http_request.request(url, headers, HTTPClient.METHOD_PUT, body)
 	if error != OK:
+		print("Debug: HTTP request error code: " + str(error))
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
 
-func _on_update_profile_completed(result, response_code, headers, body):
+func _on_update_profile_completed(
+	result: int,
+	response_code: int,
+	headers: PackedStringArray,
+	body: PackedByteArray
+):
 	var http_request = get_node_or_null("HTTPRequest")
 	var response_text = body.get_string_from_utf8()
-	print("Profile update response: ", response_text)  # Debug print
+	print("Profile update response:", response_text)
+
+	var json = JSON.parse_string(response_text)
+	if json == null:
+		print("Failed to parse JSON response")
+		emit_signal("profile_update_completed", false, "Failed to parse server response")
+
+	elif response_code == 200:
+		print("Debug: Profile update succeeded")
+
+		# The server typically returns the updated user fields at the root
+		user_data = json  # Store the entire user object
+		emit_signal("user_data_received", user_data)  
+		emit_signal("profile_update_completed", true, "Profile updated successfully")
+
+		# Optionally re-fetch user data from /auth/user to confirm everything
+		get_user_data()
+
+	else:
+		var error_message = "Failed to update profile"
+		if json is Dictionary and json.has("message"):
+			error_message = json["message"]
+
+		print("Debug: Profile update failed: " + error_message)
+		emit_signal("profile_update_completed", false, error_message)
+
+	if http_request:
+		http_request.queue_free()
+
+
+func _try_post_update_profile(update_data: Dictionary):
+	if update_data == null or user_token.is_empty():
+		return
+		
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.connect("request_completed", Callable(self, "_on_post_update_profile_completed"))
+
+	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
+	var body = JSON.stringify(update_data)
+	
+	print("Debug: Trying POST method for profile update")
+	
+	var url = get_correct_api_url("/auth/update-profile")
+	var error = http_request.request(url, headers, HTTPClient.METHOD_POST, body)
+	if error != OK:
+		print("Debug: POST HTTP request error code: " + str(error))
+		http_request.queue_free()
+
+func _on_post_update_profile_completed(result, response_code, headers, body):
+	var http_request = get_node_or_null("HTTPRequest")
+	var response_text = body.get_string_from_utf8()
+	print("POST profile update response: ", response_text)
 	
 	var json = JSON.parse_string(response_text)
 	if json == null:
@@ -356,6 +451,8 @@ func _on_update_profile_completed(result, response_code, headers, body):
 		emit_signal("profile_update_completed", false, "Failed to parse server response")
 	elif response_code == 200:
 		emit_signal("profile_update_completed", true, "Profile updated successfully")
+		# Refresh user data after successful update
+		get_user_data()
 	else:
 		var error_message = "Failed to update profile"
 		if json is Dictionary and json.has("message"):
@@ -372,7 +469,7 @@ func verify_email(verification_token: String):
 
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify({"token": verification_token})
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(get_correct_api_url("/auth/verify-email"), headers, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -416,7 +513,12 @@ func purchase_package(package_data: Dictionary):
 		"price": package_data["price"]
 	})
 	
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/store/purchase-package"),
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
 	   
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -474,7 +576,12 @@ func update_server_balance(new_balance: int):
 	print("Debug: Request body:", body)
 	print("Debug: Request URL:", api_url + "/api/balance/update-chips")  
 	
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/balance/update-chips"),
+		headers,
+		HTTPClient.METHOD_PUT,
+		body
+	)
 
 func _on_balance_update_completed(result, response_code: int, headers, body: PackedByteArray):
 	print("Debug: Balance update response received")
@@ -515,8 +622,11 @@ func search_users(query: String):
 		"Authorization: Bearer " + user_token
 	]
 	
-	# Remove the extra 'api/' from the path
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/search") + "?query=" + query.uri_encode(),
+		headers,
+		HTTPClient.METHOD_GET
+	)
 	
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -564,7 +674,12 @@ func send_friend_request(friend_id: int) -> void:
 	
 	print("Sending friend request with body:", body)  # Debug print
 	
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/request"),
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
 	
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -602,7 +717,11 @@ func get_user_friends():
 	http_request.connect("request_completed", Callable(self, "_on_get_user_friends_completed"))
 
 	var headers = ["Content-Type: application/json", "Authorization: Bearer " + user_token]
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/list"),
+		headers,
+		HTTPClient.METHOD_GET
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -633,7 +752,11 @@ func get_pending_friend_requests():
 		"Authorization: Bearer " + user_token
 	]
 
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/pending"),
+		headers,
+		HTTPClient.METHOD_GET
+	)
 
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -673,7 +796,12 @@ func respond_to_friend_request(request_id: int, status: String):
 		"Authorization: Bearer " + user_token
 	]
 	var body = JSON.stringify({"status": status})
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/request/" + str(request_id)),
+		headers,
+		HTTPClient.METHOD_PUT,
+		body
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -720,7 +848,12 @@ func send_message(receiver_id: int, content: String):
 		"receiverId": receiver_id,
 		"content": content
 	})
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/message"),
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -751,7 +884,11 @@ func get_chat_history(friend_id: int, page: int = 1):
 		"Content-Type: application/json",
 		"Authorization: Bearer " + user_token
 	]
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/messages/" + str(friend_id) + "?page=" + str(page)),
+		headers,
+		HTTPClient.METHOD_GET
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
@@ -782,7 +919,11 @@ func mark_messages_as_read(friend_id: int):
 		"Content-Type: application/json",
 		"Authorization: Bearer " + user_token
 	]
-	var error = http_request.request(get_correct_api_url("/auth/user"), headers, HTTPClient.METHOD_GET)
+	var error = http_request.request(
+		get_correct_api_url("/friends/messages/read/" + str(friend_id)),
+		headers,
+		HTTPClient.METHOD_PUT
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		http_request.queue_free()
