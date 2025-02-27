@@ -1,11 +1,13 @@
 extends Panel
 
 signal pack_bought(pack_type)
+signal info_button_pressed(pack_type)
 
 @onready var name_label = $NameLabel
 @onready var cost_label = $CostLabel
 @onready var buy_button = $BuyButton
 @onready var icon = $Icon
+@onready var info_button = $InfoButton
 
 var pack_type: String
 var cost: int
@@ -13,6 +15,10 @@ var cost: int
 func _ready():
 	if not buy_button.pressed.is_connected(_on_buy_button_pressed):
 		buy_button.pressed.connect(_on_buy_button_pressed)
+	
+	# Connect the info button signal
+	if not info_button.pressed.is_connected(_on_info_button_pressed):
+		info_button.pressed.connect(_on_info_button_pressed)
 
 func setup(type: String):
 	pack_type = type
@@ -37,3 +43,6 @@ func _on_buy_button_pressed():
 		if message_label:
 			message_label.text = "Not enough Flash!"
 			message_label.modulate = Color.RED
+
+func _on_info_button_pressed():
+	emit_signal("info_button_pressed", pack_type)

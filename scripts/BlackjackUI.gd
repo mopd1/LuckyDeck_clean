@@ -49,6 +49,7 @@ const MAX_HANDS = 3
 @onready var avatar_viewport = $"../UIOverlay/AvatarViewport"
 @onready var avatar_scene = avatar_viewport.get_node_or_null("AvatarScene")
 @onready var player_avatar = $"../UIOverlay/PlayerAvatar"
+@onready var player_name_label = $"../NameLabel"
 
 # Betting Controls Management
 var bet_controls = {
@@ -222,6 +223,8 @@ func _initialize_ui() -> void:
 	# Update avatar if available
 	if PlayerData.is_balance_initialized:
 		_update_player_avatar()
+	
+	update_player_name()
 
 	# Initialize streak meters
 	for meter in streak_meters:
@@ -233,6 +236,18 @@ func _initialize_ui() -> void:
 			meter.reset_streak()
 	
 	_update_chip_balance()
+
+func update_player_name() -> void:
+	if player_name_label:
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+		
+		player_name_label.text = display_name
+
+func _on_player_name_updated(new_name: String) -> void:
+	if player_name_label:
+		player_name_label.text = new_name
 
 func _update_chip_balance() -> void:
 	if PlayerData.is_balance_initialized:
@@ -280,6 +295,7 @@ func _connect_signals() -> void:
 	# Connect PlayerData signals
 	PlayerData.connect("avatar_updated", _on_avatar_updated)
 	PlayerData.connect("challenge_points_updated", _on_challenge_points_updated)
+	PlayerData.connect("player_name_updated", _on_player_name_updated)
 
 func _setup_betting_controls() -> void:
 	for hand_index in bet_controls.keys():

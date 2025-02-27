@@ -43,6 +43,7 @@ var last_bet_amount: int = 0
 		print("DEBUG: winner_popup assigned: ", value != null)
 @onready var return_to_lobby_button = get_node_or_null("../ReturnToLobbyButton")
 @onready var pot_chip_display = get_node("../Pot/PotChipDisplay")
+@onready var player_name_label = $"../Players/Player1/Panel/NameLabel"
 
 func _ready():
 	print("DEBUG: Winner popup node check:")
@@ -90,6 +91,13 @@ func _ready():
 	PlayerData.connect("book_points_updated", _on_book_points_updated)
 
 	_update_book_points_display()
+
+	# Connect to player name updates
+	if not PlayerData.is_connected("player_name_updated", _on_player_name_updated):
+		PlayerData.connect("player_name_updated", _on_player_name_updated)
+
+	# Initialize player name display
+	update_player_name()
 
 	return_to_lobby_button.pressed.connect(_on_return_to_lobby_pressed)
 
@@ -492,3 +500,15 @@ func _on_hand_completed(completed_table_id: String, winner_info: Dictionary):
 		award_book_points(true)
 	else:
 		award_book_points(false)
+
+func update_player_name():
+	if player_name_label:
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+		
+		player_name_label.text = display_name
+
+func _on_player_name_updated(new_name):
+	if player_name_label:
+		player_name_label.text = new_name

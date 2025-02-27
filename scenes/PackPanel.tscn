@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqp4yx3ccu3lm"]
+[gd_scene load_steps=6 format=3 uid="uid://bqp4yx3ccu3lm"]
 
 [ext_resource type="Script" path="res://scripts/PackPanel.gd" id="1_f2f8d"]
 [ext_resource type="Theme" uid="uid://djcbejm0sa73g" path="res://scenes/PackPanel.tres" id="1_lw424"]
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="2_pi6wd"]
 [ext_resource type="Texture2D" uid="uid://cddbv7vp1srwx" path="res://assets/ui/PackLabel.png" id="4_62lqv"]
+[ext_resource type="Texture2D" uid="uid://cvt5rqwii1gs8" path="res://assets/ui/InfoButton.png" id="5_ta5j5"]
 
 [node name="PackPanel" type="Panel"]
 custom_minimum_size = Vector2(240, 100)
@@ -71,3 +72,12 @@ theme_override_font_sizes/font_size = 10
 text = "Pack"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="InfoButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 0
+offset_left = 210.0
+offset_top = 8.0
+offset_right = 232.0
+offset_bottom = 30.0
+texture_normal = ExtResource("5_ta5j5")

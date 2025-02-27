@@ -10,6 +10,7 @@ extends Control
 @onready var panel = $Panel
 @onready var chip_stack_display = $Panel/ChipStackDisplay
 
+
 # Define offsets from the panel's center
 const PLAYER_BET_OFFSETS = {
 	0: Vector2(200, -240),    # Bottom player (You) - above panel
@@ -23,8 +24,19 @@ var avatar_layers = ["face", "sunglasses", "eyebrows", "eyes", "nose", "mouth", 
 var player_index: int
 
 func _ready():
+	print("PlayerUI initialized with player_index:", player_index)
 	PlayerData.connect("avatar_updated", _on_avatar_updated)
 	_update_avatar()
+	
+	# Add these lines
+	PlayerData.connect("player_name_updated", _on_player_name_updated)
+	
+	# Initialize name label with player's current name
+	if name_label:
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+		name_label.text = display_name
 	
 	# Initialize timer bar
 	if timer_bar:
@@ -77,7 +89,23 @@ func hide_timer():
 		timer_bar.value = 1 
 
 func update_display(player_data, is_current_player: bool, show_cards: bool):
-	name_label.text = player_data.name
+	# First store the current name from the label (if any)
+	var current_label_text = name_label.text
+	
+	# For the main player (player_index 0), always use PlayerData's name
+	if player_index == 0:
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+		name_label.text = display_name
+		
+		# Add a debug statement to confirm we're setting the name
+		print("PlayerUI: Setting main player name to: ", display_name)
+	else:
+		# For other players, use the name provided by the game
+		name_label.text = player_data.name
+	
+	# Rest of the function continues as before
 	chip_count_label.text = Utilities.format_number(player_data.chips)
 	
 	# Update bet display if player has an active bet
@@ -116,6 +144,10 @@ func update_display(player_data, is_current_player: bool, show_cards: bool):
 		name_label.add_theme_color_override("font_color", Color(0.7, 0.9, 1.0))  # Light blue for bots
 	else:
 		name_label.remove_theme_color_override("font_color")
+		
+	# Debug print if the name changed
+	if current_label_text != name_label.text:
+		print("PlayerUI: Name changed from '%s' to '%s'" % [current_label_text, name_label.text])
 
 func display_bet(amount: int):
 	if not chip_stack_display:
@@ -203,6 +235,10 @@ func _update_avatar_scene(avatar_scene, avatar_data):
 				sprite.visible = false
 		else:
 			push_warning("Node not found: " + layer_name)
+
+func _on_player_name_updated(new_name):
+	if name_label:
+		name_label.text = new_name
 
 func clear_cards():
 	card1.texture = null

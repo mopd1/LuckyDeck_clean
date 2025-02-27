@@ -107,7 +107,7 @@ offset_left = 256.0
 offset_top = 167.0
 offset_right = 481.0
 offset_bottom = 222.0
-theme_override_constants/separation = 8
+theme_override_constants/separation = 2
 
 [node name="Card1" type="TextureRect" parent="CommunityCards"]
 custom_minimum_size = Vector2(37, 55)
@@ -226,19 +226,6 @@ offset_right = 426.0
 offset_bottom = 350.0
 theme = ExtResource("8_mo4it")
 
-[node name="NameLabel" type="Label" parent="Players/Player1/Panel"]
-custom_minimum_size = Vector2(140, 10)
-layout_mode = 0
-offset_left = 316.0
-offset_top = 350.0
-offset_right = 456.0
-offset_bottom = 367.0
-theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
-theme_override_fonts/font = ExtResource("1_yk4l7")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_6qj3l")
-horizontal_alignment = 1
-
 [node name="ChipCountLabel" type="Label" parent="Players/Player1/Panel"]
 custom_minimum_size = Vector2(60, 17)
 layout_mode = 0
@@ -268,6 +255,20 @@ offset_right = 473.0
 offset_bottom = 375.0
 texture = ExtResource("13_t8b8a")
 expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="Players/Player1/Panel"]
+custom_minimum_size = Vector2(140, 10)
+layout_mode = 0
+offset_left = 316.0
+offset_top = 350.0
+offset_right = 456.0
+offset_bottom = 367.0
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_fonts/font = ExtResource("1_yk4l7")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_6qj3l")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ChipCountBar" type="TextureRect" parent="Players/Player1/Panel"]
 custom_minimum_size = Vector2(77, 19)

@@ -1,0 +1,357 @@
+[gd_scene load_steps=20 format=3 uid="uid://dgvs54o5y0c3a"]
+
+[ext_resource type="Texture2D" uid="uid://c1rdedmp5fhoe" path="res://assets/ui/PackPopupBorder.png" id="1_cuaht"]
+[ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="1_vjxxq"]
+[ext_resource type="Script" path="res://scripts/PackPanelPopup.gd" id="2_0jaob"]
+[ext_resource type="Texture2D" uid="uid://qvf5drfgrcga" path="res://assets/ui/CloseButton.png" id="2_rteb2"]
+[ext_resource type="Texture2D" uid="uid://dt7sfm661a42" path="res://assets/ui/CloseButtonBorder.png" id="3_fmur1"]
+[ext_resource type="Texture2D" uid="uid://bty8ue00x82ev" path="res://assets/ui/PackPopupSubPanel.png" id="5_ku3j6"]
+[ext_resource type="Texture2D" uid="uid://d0wx0q3qn22f7" path="res://assets/packs/Envelope109x98.png" id="6_gbwd8"]
+[ext_resource type="Texture2D" uid="uid://d1j1vdh6tl2rp" path="res://assets/packs/Holdall126x140.png" id="7_ho4d1"]
+[ext_resource type="Texture2D" uid="uid://d0n4nfmavibgg" path="res://assets/packs/Briefcase134x149.png" id="8_ppsff"]
+[ext_resource type="Texture2D" uid="uid://6314x275mrcn" path="res://assets/ui/PackPopup/20 chance of ultra rare item.png" id="9_ldshd"]
+[ext_resource type="Texture2D" uid="uid://cmbb2ta3mbf33" path="res://assets/ui/PackPopup/1 item per Brown Envelope.png" id="10_5ijth"]
+[ext_resource type="Texture2D" uid="uid://c5q0vu4lxqa7p" path="res://assets/ui/PackPopup/Pack1Button.png" id="11_6846r"]
+[ext_resource type="Texture2D" uid="uid://oun57csxb74t" path="res://assets/ui/PackPopup/Pack2Button.png" id="12_ptklm"]
+[ext_resource type="Texture2D" uid="uid://ckumxnnyaroql" path="res://assets/ui/PackPopup/Pack3Button.png" id="13_0e283"]
+
+[sub_resource type="Theme" id="Theme_xc8au"]
+default_font = ExtResource("1_vjxxq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqsd"]
+bg_color = Color(0, 0.270588, 0.258824, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_7yb66"]
+Panel/styles/panel = SubResource("StyleBoxFlat_7mqsd")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scgk7"]
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
+
+[sub_resource type="Theme" id="Theme_ury1g"]
+default_font_size = 1
+Label/styles/normal = SubResource("StyleBoxFlat_scgk7")
+
+[node name="PackPanelPopup" type="Control"]
+custom_minimum_size = Vector2(722, 320)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xc8au")
+script = ExtResource("2_0jaob")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.419608, 0.419608, 0.419608, 0.807843)
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(722, 320)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -361.0
+offset_top = -160.0
+offset_right = 361.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7yb66")
+
+[node name="Border" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 706.0
+offset_bottom = 288.0
+texture = ExtResource("1_cuaht")
+
+[node name="CloseButtonBorder" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 0
+offset_left = 668.0
+offset_top = 8.0
+offset_right = 690.0
+offset_bottom = 30.0
+texture = ExtResource("3_fmur1")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 674.0
+offset_top = 14.0
+offset_right = 684.0
+offset_bottom = 24.0
+texture_normal = ExtResource("2_rteb2")
+ignore_texture_size = true
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 2.0
+offset_right = 484.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 20
+text = "Unlock NEW & RARE"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 28.0
+offset_right = 569.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "Items / Characters / Accessories / Chips / Flash & more..."
+horizontal_alignment = 1
+
+[node name="PackPanel1" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 55.0
+offset_right = 246.0
+offset_bottom = 263.0
+texture = ExtResource("5_ku3j6")
+
+[node name="PackPanel2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 55.0
+offset_right = 468.0
+offset_bottom = 263.0
+texture = ExtResource("5_ku3j6")
+
+[node name="PackPanel3" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 55.0
+offset_right = 690.0
+offset_bottom = 263.0
+texture = ExtResource("5_ku3j6")
+
+[node name="PackLabel1" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 65.0
+offset_right = 220.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Brown Envelope"
+horizontal_alignment = 1
+
+[node name="PackLabel2" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 65.0
+offset_right = 398.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Holdall"
+horizontal_alignment = 1
+
+[node name="PackLabel3" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 65.0
+offset_right = 630.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 16
+text = "Briefcase"
+horizontal_alignment = 1
+
+[node name="PackImage1" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 96.0
+offset_right = 199.0
+offset_bottom = 194.0
+texture = ExtResource("6_gbwd8")
+
+[node name="PackImage2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 46.0
+offset_right = 425.0
+offset_bottom = 186.0
+texture = ExtResource("7_ho4d1")
+
+[node name="PackImage3" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 42.0
+offset_right = 651.0
+offset_bottom = 191.0
+texture = ExtResource("8_ppsff")
+
+[node name="Pack1InfoLabel1" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 187.0
+offset_right = 246.0
+offset_bottom = 207.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack1InfoLabel2" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 211.0
+offset_right = 246.0
+offset_bottom = 231.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack1InfoLabel3" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 235.0
+offset_right = 246.0
+offset_bottom = 255.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack2InfoLabel1" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 254.0
+offset_top = 187.0
+offset_right = 468.0
+offset_bottom = 207.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack2InfoLabel2" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 254.0
+offset_top = 211.0
+offset_right = 468.0
+offset_bottom = 231.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack2InfoLabel3" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 254.0
+offset_top = 235.0
+offset_right = 468.0
+offset_bottom = 255.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack3InfoLabel1" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 476.0
+offset_top = 187.0
+offset_right = 690.0
+offset_bottom = 207.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack3InfoLabel2" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 476.0
+offset_top = 211.0
+offset_right = 690.0
+offset_bottom = 231.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack3InfoLabel3" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(214, 20)
+layout_mode = 0
+offset_left = 476.0
+offset_top = 235.0
+offset_right = 690.0
+offset_bottom = 255.0
+theme = SubResource("Theme_ury1g")
+
+[node name="Pack1InfoText1" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(198, 12)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 191.0
+offset_right = 262.0
+offset_bottom = 213.0
+texture = ExtResource("9_ldshd")
+stretch_mode = 2
+
+[node name="Pack1InfoText2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 215.0
+offset_right = 208.0
+offset_bottom = 237.0
+texture = ExtResource("10_5ijth")
+stretch_mode = 2
+
+[node name="Pack1InfoText3" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack2InfoText1" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack2InfoText2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack2InfoText3" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack3InfoText1" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack3InfoText2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack3InfoText3" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+
+[node name="Pack1BuyButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 272.0
+offset_right = 205.0
+offset_bottom = 312.0
+texture_normal = ExtResource("11_6846r")
+
+[node name="Pack2BuyButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 272.0
+offset_right = 427.0
+offset_bottom = 312.0
+texture_normal = ExtResource("12_ptklm")
+
+[node name="Pack3BuyButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 272.0
+offset_right = 649.0
+offset_bottom = 312.0
+texture_normal = ExtResource("13_0e283")

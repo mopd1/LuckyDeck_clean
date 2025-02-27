@@ -121,6 +121,12 @@ func setup_packs():
 		packs_grid.add_child(pack_panel)
 		pack_panel.setup(pack_type)
 		pack_panel.connect("pack_bought", Callable(self, "buy_pack"))
+		pack_panel.connect("info_button_pressed", Callable(self, "show_pack_info"))
+
+func show_pack_info(pack_type: String):
+	var pack_popup = preload("res://scenes/PackPanelPopup.tscn").instantiate()
+	add_child(pack_popup)
+	pack_popup.connect("pack_selected", Callable(self, "buy_pack"))
 
 func buy_package(index: int) -> void:
 	var package = packages[index]
