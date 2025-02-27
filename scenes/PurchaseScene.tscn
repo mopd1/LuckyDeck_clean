@@ -1,13 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://0e3imrdd5i8k"]
+[gd_scene load_steps=15 format=3 uid="uid://0e3imrdd5i8k"]
 
 [ext_resource type="Script" path="res://scripts/PurchaseScene.gd" id="1_cmrme"]
 [ext_resource type="Theme" uid="uid://c5y30tb5md0qt" path="res://scenes/PlayerPanel.tres" id="1_vuefs"]
 [ext_resource type="Theme" uid="uid://ncsyvbfrm621" path="res://SecondaryButtonTheme.tres" id="3_1csph"]
 [ext_resource type="FontFile" uid="uid://dk7xxcpv0l3gl" path="res://assets/fonts/Ultra-Regular.ttf" id="3_4uxih"]
 [ext_resource type="Texture2D" uid="uid://i7jeh26tlv7q" path="res://assets/ui/player-avatar-levelbar_reference-full 1.png" id="5_xuo0m"]
+[ext_resource type="FontFile" uid="uid://dda1o18i4ik7k" path="res://assets/fonts/Flexi_IBM_VGA_True_437.ttf" id="6_hfmjj"]
+[ext_resource type="Texture2D" uid="uid://dawng1obvj7r1" path="res://assets/ui/PurchaseScene/ChipBorder.png" id="6_v5ekc"]
+[ext_resource type="Texture2D" uid="uid://bborttyr6nd4a" path="res://assets/ui/PagerButton.png" id="8_wbaqg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aj3up"]
-bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -17,7 +20,7 @@ corner_radius_bottom_left = 8
 Label/styles/normal = SubResource("StyleBoxFlat_aj3up")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq2lv"]
-bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
+bg_color = Color(0.996078, 0.992157, 0.933333, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -35,12 +38,6 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_vg8bf"]
 Button/styles/normal = SubResource("StyleBoxFlat_m6jqx")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q27f"]
-bg_color = Color(0.0235294, 0.631373, 0.482353, 1)
-
-[sub_resource type="Theme" id="Theme_hrcic"]
-Label/styles/normal = SubResource("StyleBoxFlat_3q27f")
 
 [node name="PurchaseScene" type="Control"]
 layout_mode = 3
@@ -70,9 +67,6 @@ offset_right = 180.0
 offset_bottom = 140.0
 theme_override_fonts/font = ExtResource("3_4uxih")
 theme_override_font_sizes/font_size = 16
-text = "Ricky
-\"Good Times\"
-Fiesta"
 
 [node name="TopBar" type="Control" parent="."]
 anchors_preset = 0
@@ -98,33 +92,53 @@ offset_top = 152.0
 offset_right = 44.0
 offset_bottom = 152.0
 
+[node name="ChipBorder" type="TextureRect" parent="TopBar/BalanceDisplay"]
+layout_mode = 0
+offset_right = 136.0
+offset_bottom = 40.0
+texture = ExtResource("6_v5ekc")
+
+[node name="GemBorder" type="TextureRect" parent="TopBar/BalanceDisplay"]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 136.0
+offset_bottom = 84.0
+texture = ExtResource("6_v5ekc")
+
 [node name="ChipBalance" type="Label" parent="TopBar/BalanceDisplay"]
-custom_minimum_size = Vector2(136, 32)
+custom_minimum_size = Vector2(100, 18)
 layout_mode = 2
-offset_right = 1.0
-offset_bottom = 13.0
+offset_left = 26.0
+offset_top = 10.0
+offset_right = 126.0
+offset_bottom = 29.0
 theme = SubResource("Theme_rkpd1")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_fonts/font = ExtResource("6_hfmjj")
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GemBalance" type="Label" parent="TopBar/BalanceDisplay"]
-custom_minimum_size = Vector2(136, 32)
+custom_minimum_size = Vector2(100, 18)
 layout_mode = 2
-offset_top = 40.0
-offset_right = 1.0
-offset_bottom = 53.0
+offset_left = 26.0
+offset_top = 55.0
+offset_right = 126.0
+offset_bottom = 74.0
 theme = SubResource("Theme_w0u1g")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0, 0.270588, 0.258824, 1)
+theme_override_fonts/font = ExtResource("6_hfmjj")
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LevelImage" type="TextureRect" parent="TopBar/BalanceDisplay"]
 custom_minimum_size = Vector2(136, 32)
 layout_mode = 0
-offset_top = 80.0
+offset_top = 88.0
 offset_right = 136.0
-offset_bottom = 120.0
+offset_bottom = 128.0
 texture = ExtResource("5_xuo0m")
 expand_mode = 1
 
@@ -132,9 +146,9 @@ expand_mode = 1
 custom_minimum_size = Vector2(136, 80)
 anchors_preset = 0
 offset_left = 44.0
-offset_top = 280.0
+offset_top = 286.0
 offset_right = 180.0
-offset_bottom = 360.0
+offset_bottom = 366.0
 
 [node name="ClaimButton" type="Button" parent="FreeChipsSection"]
 custom_minimum_size = Vector2(136, 32)
@@ -144,18 +158,6 @@ offset_bottom = 32.0
 theme = SubResource("Theme_vg8bf")
 theme_override_font_sizes/font_size = 12
 text = "Free Chips"
-autowrap_mode = 3
-
-[node name="CooldownTimer" type="Label" parent="FreeChipsSection"]
-custom_minimum_size = Vector2(136, 32)
-layout_mode = 2
-offset_top = 40.0
-offset_right = 136.0
-offset_bottom = 72.0
-theme = SubResource("Theme_hrcic")
-theme_override_font_sizes/font_size = 12
-horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="PacksGrid" type="GridContainer" parent="."]
@@ -189,3 +191,11 @@ offset_top = 16.0
 offset_right = 144.0
 offset_bottom = 48.0
 theme_override_colors/font_color = Color(0.0235294, 0.631373, 0.482353, 1)
+
+[node name="Pager" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 682.0
+offset_top = 16.0
+offset_right = 782.0
+offset_bottom = 56.0
+texture = ExtResource("8_wbaqg")

@@ -17,6 +17,7 @@ var packages = [
 @onready var packages_grid = $PackagesScroll/PackagesGrid
 @onready var packs_grid = $PacksGrid
 @onready var message_label = $MessageLabel
+@onready var player_name_label = $PlayerName
 
 var current_message_timer: SceneTreeTimer = null
 var current_fade_tween: Tween = null
@@ -39,6 +40,9 @@ func _ready():
 	$TopBar/ReturnButton.pressed.connect(return_to_main_hub)
 	claim_button.pressed.connect(claim_free_chips)
 	
+	if not PlayerData.is_connected("player_name_updated", _on_player_name_updated):
+		PlayerData.connect("player_name_updated", _on_player_name_updated)
+	
 	# Initial setup
 	setup_packages()
 	setup_packs()
@@ -51,6 +55,8 @@ func _ready():
 	
 	# Fetch initial data with rate limiting
 	fetch_user_data()
+	
+	update_player_name()
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
@@ -61,6 +67,8 @@ func _cleanup_signals():
 		APIManager.user_data_received.disconnect(_on_user_data_received)
 	if APIManager.package_purchase_completed.is_connected(_on_package_purchase_completed):
 		APIManager.package_purchase_completed.disconnect(_on_package_purchase_completed)
+	if PlayerData.is_connected("player_name_updated", _on_player_name_updated):
+		PlayerData.disconnect("player_name_updated", _on_player_name_updated)
 
 func fetch_user_data():
 	var current_time = Time.get_unix_time_from_system()
@@ -97,12 +105,16 @@ func _on_user_data_received(data):
 	elif data.has("new_gems"):
 		PlayerData.player_data["gems"] = data["new_gems"]
 	
+	if data.has("display_name") and data["display_name"] != null:
+		PlayerData.player_data["name"] = data["display_name"]
+		update_player_name()
+	
 	balance_display.show()
 	update_balance_display()
 
 func update_balance_display():
-	chip_balance_label.text = "Chips: " + Utilities.format_number(PlayerData.player_data["total_balance"])
-	gem_balance_label.text = "Flash: " + Utilities.format_number(PlayerData.player_data["gems"])
+	chip_balance_label.text = Utilities.format_number(PlayerData.player_data["total_balance"])
+	gem_balance_label.text = Utilities.format_number(PlayerData.player_data["gems"])
 
 func update_gem_balance_display():
 	gem_balance_label.text = "Flash: " + Utilities.format_number(PlayerData.player_data["gems"])
@@ -275,18 +287,22 @@ func _fade_out_message() -> void:
 func update_claim_button():
 	if PlayerData.can_claim_free_chips():
 		claim_button.disabled = false
-		cooldown_timer.text = "Free chips available!"
+		claim_button.text = "Get Free Chips"
 		cooldown_timer_active = false
 	else:
 		claim_button.disabled = true
 		cooldown_timer_active = true
+		# Update button text with cooldown timer info
+		update_cooldown_timer()
 
 func update_cooldown_timer():
 	var time_remaining = PlayerData.get_time_until_next_free_chips()
 	var hours = int(time_remaining) / 3600
 	var minutes = (int(time_remaining) % 3600) / 60
 	var seconds = int(time_remaining) % 60
-	cooldown_timer.text = "Next claim in: %02d:%02d:%02d" % [hours, minutes, seconds]
+	
+	# Update the button text instead of the cooldown_timer label
+	claim_button.text = "Free Chips in: %02d:%02d:%02d" % [hours, minutes, seconds]
 
 func claim_free_chips():
 	if PlayerData.claim_free_chips():
@@ -294,6 +310,18 @@ func claim_free_chips():
 		update_claim_button()
 		cooldown_timer_active = true
 		update_cooldown_timer()
+
+func update_player_name() -> void:
+	if player_name_label:
+		var display_name = PlayerData.player_data["name"]
+		if display_name.is_empty():
+			display_name = PlayerData.player_data.get("username", "Player")
+		
+		player_name_label.text = display_name
+
+func _on_player_name_updated(new_name: String) -> void:
+	if player_name_label:
+		player_name_label.text = new_name
 
 func return_to_main_hub():
 	_cleanup_signals()
